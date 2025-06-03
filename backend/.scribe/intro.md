@@ -3,7 +3,7 @@
 Documentation de l’API REST pour l’application Breitling League (MVP)
 
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>http://127.0.0.1:8000</code>
 </aside>
 
     Cette documentation vise à fournir toutes les informations nécessaires pour travailler avec notre API Breitling League.

@@ -30,9 +30,33 @@ class Cors
             $response = $next($request);
         }
         
-        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:5173'); // URL du frontend Vue.js
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept');
+        // Définir les origines autorisées
+        $allowedOrigins = [
+            'http://localhost:5173',        // Frontend Vue.js
+            'http://127.0.0.1:5173',        // Frontend Vue.js (variante)
+            'http://127.0.0.1:8000',        // Documentation Scribe
+            'http://localhost:8000',        // Documentation Scribe (variante)
+            'null'                          // Pour les requêtes file://
+        ];
+        
+        $origin = $request->headers->get('Origin');
+        
+        // En développement, on peut être plus permissif
+        if (app()->environment('local')) {
+            if ($origin) {
+                $response->headers->set('Access-Control-Allow-Origin', $origin);
+            } else {
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+            }
+        } else {
+            // En production, on respecte la liste des origines autorisées
+            if (in_array($origin, $allowedOrigins)) {
+                $response->headers->set('Access-Control-Allow-Origin', $origin);
+            }
+        }
+        
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('Access-Control-Max-Age', '86400'); // 24 heures
         

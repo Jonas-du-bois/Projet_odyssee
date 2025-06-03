@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost";
+        var tryItOutBaseUrl = "http://127.0.0.1:8000";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -312,7 +312,7 @@
         <h1 id="introduction">Introduction</h1>
 <p>Documentation de l’API REST pour l’application Breitling League (MVP)</p>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>http://127.0.0.1:8000</code>
 </aside>
 <pre><code>Cette documentation vise à fournir toutes les informations nécessaires pour travailler avec notre API Breitling League.
 
@@ -328,7 +328,7 @@ Vous pouvez changer le langage utilisé avec les onglets en haut à droite (ou d
 La plupart des endpoints nécessitent une authentification. Assurez-vous d'inclure votre token Bearer dans vos requêtes.</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer Bearer {votre-token}"</code></strong>.</p>
+<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {votre-token}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <h2 id="authentification">Authentification</h2>
 <p>Cette API utilise l'authentification <strong>Bearer Token</strong> via Laravel Sanctum.</p>
@@ -366,19 +366,19 @@ La plupart des endpoints nécessitent une authentification. Assurez-vous d'inclu
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/chapters" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/chapters" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/chapters"
+    "http://127.0.0.1:8000/api/chapters"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -467,10 +467,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-chapters"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -510,19 +510,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/chapters/1" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/chapters/1" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/chapters/1"
+    "http://127.0.0.1:8000/api/chapters/1"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -619,10 +619,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-chapters--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -678,19 +678,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/discoveries" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/discoveries" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/discoveries"
+    "http://127.0.0.1:8000/api/discoveries"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -777,10 +777,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-discoveries"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -820,19 +820,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/discoveries/1" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/discoveries/1" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/discoveries/1"
+    "http://127.0.0.1:8000/api/discoveries/1"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -928,10 +928,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-discoveries--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -983,8 +983,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/discoveries" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/discoveries" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -998,11 +998,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/discoveries"
+    "http://127.0.0.1:8000/api/discoveries"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1113,10 +1113,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-discoveries"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -1211,8 +1211,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/discoveries/1" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/discoveries/1" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1226,11 +1226,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/discoveries/1"
+    "http://127.0.0.1:8000/api/discoveries/1"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1335,10 +1335,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-discoveries--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -1445,19 +1445,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/discoveries/1" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/discoveries/1" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/discoveries/1"
+    "http://127.0.0.1:8000/api/discoveries/1"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1545,10 +1545,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="DELETEapi-discoveries--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -1604,19 +1604,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/register" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/register" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/register"
+    "http://127.0.0.1:8000/api/register"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1683,10 +1683,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-register"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -1726,8 +1726,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/login" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/login" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1739,11 +1739,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/login"
+    "http://127.0.0.1:8000/api/login"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1816,10 +1816,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-login"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -1882,19 +1882,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request OPTIONS \
-    "http://localhost/api/|{+-0p" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/|{+-0p" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/|{+-0p"
+    "http://127.0.0.1:8000/api/|{+-0p"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1961,10 +1961,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="OPTIONSapi--any-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2016,19 +2016,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/me" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/me" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/me"
+    "http://127.0.0.1:8000/api/me"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2051,8 +2051,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -2123,10 +2123,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-me"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2166,19 +2166,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/logout" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/logout" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/logout"
+    "http://127.0.0.1:8000/api/logout"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2245,10 +2245,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-logout"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2288,19 +2288,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/logout-all" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/logout-all" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/logout-all"
+    "http://127.0.0.1:8000/api/logout-all"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2367,10 +2367,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-logout-all"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2414,19 +2414,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/events" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/events" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/events"
+    "http://127.0.0.1:8000/api/events"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2516,10 +2516,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-events"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2559,8 +2559,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/events" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/events" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2577,11 +2577,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/events"
+    "http://127.0.0.1:8000/api/events"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2681,10 +2681,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-events"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2812,19 +2812,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/events/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/events/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/events/architecto"
+    "http://127.0.0.1:8000/api/events/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2891,10 +2891,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-events--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -2946,19 +2946,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/events/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/events/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/events/architecto"
+    "http://127.0.0.1:8000/api/events/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3025,10 +3025,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="DELETEapi-events--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3084,19 +3084,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/tickets" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/tickets" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/tickets"
+    "http://127.0.0.1:8000/api/tickets"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3187,10 +3187,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-tickets"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3230,19 +3230,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/tickets/bonus" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/tickets/bonus" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/tickets/bonus"
+    "http://127.0.0.1:8000/api/tickets/bonus"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3334,10 +3334,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-tickets-bonus"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3377,19 +3377,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/tickets/stats" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/tickets/stats" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/tickets/stats"
+    "http://127.0.0.1:8000/api/tickets/stats"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3412,8 +3412,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -3534,10 +3534,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-tickets-stats"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3581,19 +3581,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/notifications" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/notifications" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/notifications"
+    "http://127.0.0.1:8000/api/notifications"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3681,10 +3681,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-notifications"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3724,19 +3724,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/api/notifications/1/read" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/notifications/1/read" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/notifications/1/read"
+    "http://127.0.0.1:8000/api/notifications/1/read"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3823,10 +3823,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PATCHapi-notifications--id--read"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -3878,19 +3878,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/notifications/unread-count" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/notifications/unread-count" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/notifications/unread-count"
+    "http://127.0.0.1:8000/api/notifications/unread-count"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3913,8 +3913,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -3980,10 +3980,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-notifications-unread-count"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4027,19 +4027,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/novelties" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/novelties" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/novelties"
+    "http://127.0.0.1:8000/api/novelties"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4129,10 +4129,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-novelties"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4172,8 +4172,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/novelties" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/novelties" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -4190,11 +4190,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/novelties"
+    "http://127.0.0.1:8000/api/novelties"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4294,10 +4294,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-novelties"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4415,19 +4415,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/novelties/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/novelties/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/novelties/architecto"
+    "http://127.0.0.1:8000/api/novelties/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4494,10 +4494,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-novelties--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4549,19 +4549,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/novelties/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/novelties/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/novelties/architecto"
+    "http://127.0.0.1:8000/api/novelties/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4628,10 +4628,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="DELETEapi-novelties--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4687,19 +4687,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/progress" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/progress" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/progress"
+    "http://127.0.0.1:8000/api/progress"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4795,10 +4795,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-progress"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4838,19 +4838,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/progress/rank" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/progress/rank" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/progress/rank"
+    "http://127.0.0.1:8000/api/progress/rank"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4873,8 +4873,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -4939,10 +4939,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-progress-rank"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4982,19 +4982,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/progress/history" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/progress/history" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/progress/history"
+    "http://127.0.0.1:8000/api/progress/history"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5017,8 +5017,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -5082,10 +5082,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-progress-history"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5125,19 +5125,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/progress/wrap" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/progress/wrap" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/progress/wrap"
+    "http://127.0.0.1:8000/api/progress/wrap"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5160,8 +5160,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -5226,10 +5226,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-progress-wrap"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5273,19 +5273,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/quiz/start" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/quiz/start" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/quiz/start"
+    "http://127.0.0.1:8000/api/quiz/start"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5352,10 +5352,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-quiz-start"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5395,19 +5395,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/quiz/submit" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/quiz/submit" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/quiz/submit"
+    "http://127.0.0.1:8000/api/quiz/submit"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5474,10 +5474,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-quiz-submit"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5517,19 +5517,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/quiz/architecto/result" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/quiz/architecto/result" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/quiz/architecto/result"
+    "http://127.0.0.1:8000/api/quiz/architecto/result"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5552,8 +5552,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -5618,10 +5618,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-quiz--id--result"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5677,19 +5677,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/reminders" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/reminders" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/reminders"
+    "http://127.0.0.1:8000/api/reminders"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5779,10 +5779,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-reminders"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -5822,8 +5822,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/reminders" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/reminders" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -5840,11 +5840,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/reminders"
+    "http://127.0.0.1:8000/api/reminders"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5961,10 +5961,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-reminders"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6092,19 +6092,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/reminders/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/reminders/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/reminders/architecto"
+    "http://127.0.0.1:8000/api/reminders/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6171,10 +6171,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-reminders--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6226,19 +6226,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/reminders/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/reminders/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/reminders/architecto"
+    "http://127.0.0.1:8000/api/reminders/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6305,10 +6305,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="DELETEapi-reminders--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6364,19 +6364,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/profile" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/profile" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/profile"
+    "http://127.0.0.1:8000/api/profile"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6461,10 +6461,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-profile"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6504,8 +6504,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/profile" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/profile" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -6519,11 +6519,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/profile"
+    "http://127.0.0.1:8000/api/profile"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6634,10 +6634,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-profile"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6726,19 +6726,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/weekly" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/weekly" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly"
+    "http://127.0.0.1:8000/api/weekly"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6827,10 +6827,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-weekly"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6870,8 +6870,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/weekly/1/claim" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/weekly/1/claim" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -6883,11 +6883,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly/1/claim"
+    "http://127.0.0.1:8000/api/weekly/1/claim"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6984,10 +6984,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-weekly--id--claim"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -7062,19 +7062,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/weekly/series" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    --get "http://127.0.0.1:8000/api/weekly/series" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly/series"
+    "http://127.0.0.1:8000/api/weekly/series"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7097,8 +7097,8 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
 access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
@@ -7107,8 +7107,8 @@ access-control-max-age: 86400
     &quot;success&quot;: true,
     &quot;data&quot;: {
         &quot;user_id&quot;: 4,
-        &quot;updated_at&quot;: &quot;2025-06-03T20:56:58.000000Z&quot;,
-        &quot;created_at&quot;: &quot;2025-06-03T20:56:58.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2025-06-03T21:39:39.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2025-06-03T21:39:39.000000Z&quot;,
         &quot;id&quot;: 1
     }
 }</code>
@@ -7167,10 +7167,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="GETapi-weekly-series"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -7210,19 +7210,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/weekly" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/weekly" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly"
+    "http://127.0.0.1:8000/api/weekly"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7289,10 +7289,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="POSTapi-weekly"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -7332,19 +7332,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/weekly/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/weekly/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly/architecto"
+    "http://127.0.0.1:8000/api/weekly/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7411,10 +7411,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="PUTapi-weekly--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -7466,19 +7466,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/weekly/architecto" \
-    --header "Authorization: Bearer Bearer {votre-token}" \
+    "http://127.0.0.1:8000/api/weekly/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/weekly/architecto"
+    "http://127.0.0.1:8000/api/weekly/architecto"
 );
 
 const headers = {
-    "Authorization": "Bearer Bearer {votre-token}",
+    "Authorization": "Bearer {votre-token}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7545,10 +7545,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Authorization" class="auth-value"               data-endpoint="DELETEapi-weekly--id-"
-               value="Bearer Bearer {votre-token}"
+               value="Bearer {votre-token}"
                data-component="header">
     <br>
-<p>Example: <code>Bearer Bearer {votre-token}</code></p>
+<p>Example: <code>Bearer {votre-token}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;

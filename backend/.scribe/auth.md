@@ -1,6 +1,6 @@
 # Authenticating requests
 
-To authenticate requests, include an **`Authorization`** header with the value **`"Bearer Bearer {votre-token}"`**.
+To authenticate requests, include an **`Authorization`** header with the value **`"Bearer {votre-token}"`**.
 
 All authenticated endpoints are marked with a `requires authentication` badge in the documentation below.
 
