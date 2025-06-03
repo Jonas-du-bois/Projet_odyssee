@@ -1,0 +1,293 @@
+name: Events
+description: |-
+
+  API pour gérer les événements spéciaux de la plateforme
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/events
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux de la plateforme
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Lister tous les événements'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": [
+              {
+                "id": 1,
+                "title": "Concours d'été Breitling",
+                "description": "Participez à notre grand concours d'été avec des prix exceptionnels !",
+                "start_date": "2024-06-01",
+                "end_date": "2024-08-31",
+                "is_active": true,
+                "image": "https://example.com/event-image.jpg",
+                "theme_color": "#ff6b35",
+                "created_at": "2024-01-01T00:00:00.000000Z",
+                "updated_at": "2024-01-01T00:00:00.000000Z"
+              }
+            ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/events
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux de la plateforme
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Créer un nouvel événement'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: "Le titre de l'événement."
+        required: true
+        example: "Concours d'été Breitling"
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      description:
+        name: description
+        description: "La description de l'événement."
+        required: true
+        example: "Participez à notre grand concours d'été avec des prix exceptionnels !"
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      start_date:
+        name: start_date
+        description: "Date de début de l'événement."
+        required: true
+        example: '2024-06-01'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      end_date:
+        name: end_date
+        description: "Date de fin de l'événement."
+        required: true
+        example: '2024-08-31'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      is_active:
+        name: is_active
+        description: "Statut d'activation."
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      image:
+        name: image
+        description: "URL de l'image de l'événement."
+        required: false
+        example: 'https://example.com/event-image.jpg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      theme_color:
+        name: theme_color
+        description: "Couleur thématique de l'événement."
+        required: false
+        example: '#ff6b35'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      title: "Concours d'été Breitling"
+      description: "Participez à notre grand concours d'été avec des prix exceptionnels !"
+      start_date: '2024-06-01'
+      end_date: '2024-08-31'
+      is_active: true
+      image: 'https://example.com/event-image.jpg'
+      theme_color: '#ff6b35'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "success": true,
+            "message": "Événement créé avec succès",
+            "data": {
+              "id": 1,
+              "title": "Concours d'été Breitling",
+              "description": "Participez à notre grand concours d'été avec des prix exceptionnels !",
+              "start_date": "2024-06-01",
+              "end_date": "2024-08-31",
+              "is_active": true,
+              "image": "https://example.com/event-image.jpg",
+              "theme_color": "#ff6b35",
+              "created_at": "2024-01-01T00:00:00.000000Z",
+              "updated_at": "2024-01-01T00:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/events/{id}'
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux de la plateforme
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Mettre à jour un événement existant'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the event.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/events/{id}'
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux de la plateforme
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Supprimer un événement'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the event.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
