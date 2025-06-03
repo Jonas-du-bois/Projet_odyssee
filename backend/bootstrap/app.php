@@ -12,14 +12,25 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Désactiver la vérification CSRF pour les routes API
+        /**
+         * Désactiver la vérification CSRF pour les routes API
+         * Ceci est nécessaire car nous utilisons des tokens d'API et non des cookies de session
+         */
         $middleware->validateCsrfTokens(except: ['api/*']);
         
+        /**
+         * Configuration des middlewares globaux pour l'API
+         * - EnsureFrontendRequestsAreStateful: Support de l'authentification SPA
+         * - Cors: Gestion des en-têtes Cross-Origin Resource Sharing
+         */
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \App\Http\Middleware\Cors::class,
         ]);
         
+        /**
+         * Alias de middleware pour faciliter leur utilisation dans les routes
+         */
         $middleware->alias([
             'cors' => \App\Http\Middleware\Cors::class,
         ]);

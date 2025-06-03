@@ -6,12 +6,20 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Middleware pour gérer les requêtes CORS (Cross-Origin Resource Sharing)
+ * 
+ * Ce middleware permet de configurer les en-têtes CORS nécessaires pour permettre
+ * au frontend de communiquer avec l'API backend depuis un domaine différent.
+ */
 class Cors
 {
     /**
-     * Handle an incoming request.
+     * Traite une requête HTTP entrante et configure les en-têtes CORS
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request  La requête HTTP
+     * @param  \Closure  $next  Callback pour passer à l'étape suivante
+     * @return \Symfony\Component\HttpFoundation\Response  La réponse HTTP
      */
     public function handle(Request $request, Closure $next): Response
     {
