@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nom',
         'email',
         'password',
+        'rang_id',
+        'date_inscription',
     ];
 
     /**
@@ -43,6 +46,50 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_inscription' => 'date',
         ];
+    }
+
+    /**
+     * Relations
+     */
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class, 'rang_id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
+    }
+
+    public function quizInstances()
+    {
+        return $this->hasMany(QuizInstance::class);
+    }
+
+    public function userAnswers()
+    {
+        return $this->hasMany(UserAnswer::class);
+    }
+
+    public function lotteryTickets()
+    {
+        return $this->hasMany(LotteryTicket::class);
+    }
+
+    public function weeklySeries()
+    {
+        return $this->hasMany(WeeklySeries::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }
