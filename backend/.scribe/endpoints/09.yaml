@@ -1,25 +1,23 @@
-name: Reminders
+name: Novelties
 description: |-
 
-  API pour gérer les reminders de quiz de révision Breitling League
-  Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-  Ils sont liés à un chapitre et doivent être faits avant une date limite.
+  API pour gérer les nouveautés de chapitres Breitling League
+  Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
 endpoints:
   -
     httpMethods:
       - GET
-    uri: api/reminders
+    uri: api/novelties
     metadata:
-      groupName: Reminders
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les reminders de quiz de révision Breitling League
-        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-        Ils sont liés à un chapitre et doivent être faits avant une date limite.
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Lister tous les reminders actifs'
-      description: 'Récupère les reminders non expirés avec informations sur les chapitres associés et statut'
+      title: 'Lister toutes les nouveautés accessibles'
+      description: 'Récupère les nouveautés disponibles avec informations sur les bonus et chapitres associés'
       authenticated: true
       custom: []
     headers:
@@ -43,18 +41,17 @@ endpoints:
               {
                 "id": 1,
                 "chapter_id": 1,
-                "nb_questions": 10,
-                "date_limite": "2025-06-10",
-                "is_active": true,
-                "is_expired": false,
-                "remaining_days": 6,
-                "is_ending_soon": false,
+                "date_publication": "2025-06-01",
+                "bonus_initial": true,
+                "is_accessible": true,
+                "is_bonus_eligible": true,
+                "remaining_bonus_days": 4,
                 "chapter": {
                   "id": 1,
-                  "nom": "Introduction à l'horlogerie",
-                  "description": "Découverte des bases de l'horlogerie"
+                  "titre": "Introduction aux montres Breitling",
+                  "description": "Découvrez l'histoire et les valeurs de Breitling"
                 },
-                "questions_available": 15
+                "units_count": 5
               }
             ]
           }
@@ -65,7 +62,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -73,17 +70,16 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/reminders/{id}'
+    uri: 'api/novelties/{id}'
     metadata:
-      groupName: Reminders
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les reminders de quiz de révision Breitling League
-        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-        Ils sont liés à un chapitre et doivent être faits avant une date limite.
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Afficher un reminder spécifique'
+      title: 'Afficher une nouveauté spécifique avec le contenu du chapitre'
       description: ''
       authenticated: true
       custom: []
@@ -94,16 +90,16 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the reminder.'
+        description: 'ID de la nouveauté.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -118,22 +114,23 @@ endpoints:
             "data": {
               "id": 1,
               "chapter_id": 1,
-              "nb_questions": 10,
-              "date_limite": "2025-06-10",
-              "is_active": true,
-              "is_expired": false,
-              "remaining_days": 6,
+              "date_publication": "2025-06-01",
+              "bonus_initial": true,
+              "is_accessible": true,
+              "is_bonus_eligible": true,
+              "remaining_bonus_days": 4,
               "chapter": {
                 "id": 1,
-                "nom": "Introduction à l'horlogerie",
-                "description": "Découverte des bases de l'horlogerie"
+                "titre": "Introduction aux montres Breitling",
+                "description": "Découvrez l'histoire et les valeurs de Breitling"
               },
-              "questions": [
+              "units": [
                 {
                   "id": 1,
-                  "unit_id": 1,
-                  "texte": "Quelle est la fonction principale d'un ressort de barillet ?",
-                  "type": "multiple_choice"
+                  "chapter_id": 1,
+                  "titre": "Histoire de Breitling",
+                  "description": "Les origines de la manufacture",
+                  "theorie_html": "<h2>Histoire de Breitling</h2><p>Contenu théorique...</p>"
                 }
               ]
             }
@@ -141,298 +138,11 @@ endpoints:
         headers: []
         description: ''
         custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Reminder non trouvé"
-          }
-        headers: []
-        description: ''
-        custom: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/reminders
-    metadata:
-      groupName: Reminders
-      groupDescription: |-
-
-        API pour gérer les reminders de quiz de révision Breitling League
-        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-        Ils sont liés à un chapitre et doivent être faits avant une date limite.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Créer un nouveau reminder'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      chapter_id:
-        name: chapter_id
-        description: 'ID du chapitre.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      nb_questions:
-        name: nb_questions
-        description: 'Nombre de questions pour le quiz de révision.'
-        required: true
-        example: 10
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      date_limite:
-        name: date_limite
-        description: 'Date limite au format Y-m-d.'
-        required: true
-        example: '2025-06-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      chapter_id: 1
-      nb_questions: 10
-      date_limite: '2025-06-10'
-    fileParameters: []
-    responses:
-      -
-        status: 201
-        content: |-
-          {
-            "success": true,
-            "message": "Reminder créé avec succès",
-            "data": {
-              "id": 1,
-              "chapter_id": 1,
-              "nb_questions": 10,
-              "date_limite": "2025-06-10"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 422
-        content: |-
-          {
-            "success": false,
-            "message": "Erreurs de validation",
-            "errors": {
-              "chapter_id": ["Le chapitre sélectionné n'existe pas"]
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: 'api/reminders/{id}'
-    metadata:
-      groupName: Reminders
-      groupDescription: |-
-
-        API pour gérer les reminders de quiz de révision Breitling League
-        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-        Ils sont liés à un chapitre et doivent être faits avant une date limite.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Mettre à jour un reminder'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the reminder.'
-        required: true
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: architecto
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      chapter_id:
-        name: chapter_id
-        description: 'ID du chapitre.'
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      nb_questions:
-        name: nb_questions
-        description: 'Nombre de questions pour le quiz de révision.'
-        required: false
-        example: 15
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      date_limite:
-        name: date_limite
-        description: 'Date limite au format Y-m-d.'
-        required: false
-        example: '2025-06-15'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      chapter_id: 1
-      nb_questions: 15
-      date_limite: '2025-06-15'
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "message": "Reminder mis à jour avec succès",
-            "data": {
-              "id": 1,
-              "chapter_id": 1,
-              "nb_questions": 15,
-              "date_limite": "2025-06-15"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Reminder non trouvé"
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/reminders/{id}'
-    metadata:
-      groupName: Reminders
-      groupDescription: |-
-
-        API pour gérer les reminders de quiz de révision Breitling League
-        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
-        Ils sont liés à un chapitre et doivent être faits avant une date limite.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Supprimer un reminder'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the reminder.'
-        required: true
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: architecto
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "message": "Reminder supprimé avec succès"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Reminder non trouvé"
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null

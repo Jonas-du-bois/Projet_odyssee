@@ -11,7 +11,7 @@ Cette API utilise l'authentification **Bearer Token** via Laravel Sanctum.
 ### Token de démonstration
 Pour tester rapidement l'API, vous pouvez utiliser ce token de démonstration :
 ```
-Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d
+Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14
 ```
 
 ### Comment obtenir votre propre token :

@@ -58,7 +58,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -119,7 +119,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -152,8 +152,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 200
+        content: '{"success":true,"data":{"total_tickets":0,"regular_tickets":0,"bonus_tickets":0,"monthly_stats":[{"month":"Jan","count":0},{"month":"Feb","count":0},{"month":"Mar","count":0},{"month":"Apr","count":0},{"month":"May","count":0},{"month":"Jun","count":0},{"month":"Jul","count":0},{"month":"Aug","count":0},{"month":"Sep","count":0},{"month":"Oct","count":0},{"month":"Nov","count":0},{"month":"Dec","count":0}],"current_streak":0,"max_streak":0,"last_ticket_date":null}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -168,7 +168,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null

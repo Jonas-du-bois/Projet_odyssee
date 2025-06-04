@@ -14,7 +14,19 @@ endpoints:
         API pour gérer le profil utilisateur
       subgroup: ''
       subgroupDescription: ''
-      title: "Afficher le profil de l'utilisateur connecté"
+      title: |-
+        Afficher le profil de l'utilisateur connecté
+            * @response 200 {
+          "success": true,
+          "data": {
+            "id": 1,
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "email_verified_at": "2024-01-01T00:00:00.000000Z",
+            "created_at": "2024-01-01T00:00:00.000000Z",
+            "updated_at": "2024-01-01T00:00:00.000000Z"
+          }
+        }
       description: ''
       authenticated: true
       custom: []
@@ -32,27 +44,22 @@ endpoints:
     responses:
       -
         status: 200
-        content: |-
-          {
-            "success": true,
-            "data": {
-              "id": 1,
-              "name": "John Doe",
-              "email": "john.doe@example.com",
-              "is_admin": false,
-              "email_verified_at": "2024-01-01T00:00:00.000000Z",
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T00:00:00.000000Z"
-            }
-          }
-        headers: []
-        description: ''
+        content: '{"success":true,"data":{"id":1,"name":"api user","email":"api@demo.ch","rank_id":null,"registration_date":"2025-06-04T00:00:00.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
+          access-control-allow-credentials: 'true'
+          access-control-max-age: '86400'
+        description: null
         custom: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -134,11 +141,9 @@ endpoints:
           {
             "success": true,
             "message": "Profil mis à jour avec succès",
-            "data": {
-              "id": 1,
+            "data": {     *     "id": 1,
               "name": "John Doe",
               "email": "john.doe@example.com",
-              "is_admin": false,
               "email_verified_at": "2024-01-01T00:00:00.000000Z",
               "created_at": "2024-01-01T00:00:00.000000Z",
               "updated_at": "2024-01-15T14:30:00.000000Z"
@@ -164,7 +169,71 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/users/{id}/profile'
+    metadata:
+      groupName: 'User Management'
+      groupDescription: |-
+
+        API pour gérer le profil utilisateur
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Afficher le profil public d'un autre utilisateur"
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: "L'ID de l'utilisateur."
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 1,
+              "name": "John Doe",
+              "rank": {"name": "Silver", "level": 2},
+              "total_points": 1500,
+              "registration_date": "2024-01-15",
+              "quiz_count": 25
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null

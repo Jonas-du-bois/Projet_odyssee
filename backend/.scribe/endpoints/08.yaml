@@ -1,103 +1,21 @@
-name: Novelties
+name: Discoveries
 description: |-
 
-  API pour gérer les nouveautés de chapitres Breitling League
-  Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
+  API pour gérer les explorations de chapitres (théorie + quiz)
 endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/novelties/{id}'
+    uri: api/discoveries
     metadata:
-      groupName: Novelties
+      groupName: Discoveries
       groupDescription: |-
 
-        API pour gérer les nouveautés de chapitres Breitling League
-        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
+        API pour gérer les explorations de chapitres (théorie + quiz)
       subgroup: ''
       subgroupDescription: ''
-      title: 'Afficher une nouveauté spécifique avec le contenu du chapitre'
+      title: 'Lister les explorations de chapitres disponibles'
       description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'ID de la nouveauté.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": {
-              "id": 1,
-              "chapter_id": 1,
-              "date_publication": "2025-06-01",
-              "bonus_initial": true,
-              "is_accessible": true,
-              "is_bonus_eligible": true,
-              "remaining_bonus_days": 4,
-              "chapter": {
-                "id": 1,
-                "titre": "Introduction aux montres Breitling",
-                "description": "Découvrez l'histoire et les valeurs de Breitling"
-              },
-              "units": [
-                {
-                  "id": 1,
-                  "chapter_id": 1,
-                  "titre": "Histoire de Breitling",
-                  "description": "Les origines de la manufacture",
-                  "theorie_html": "<h2>Histoire de Breitling</h2><p>Contenu théorique...</p>"
-                }
-              ]
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/novelties
-    metadata:
-      groupName: Novelties
-      groupDescription: |-
-
-        API pour gérer les nouveautés de chapitres Breitling League
-        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Lister toutes les nouveautés accessibles'
-      description: 'Récupère les nouveautés disponibles avec informations sur les bonus et chapitres associés'
       authenticated: true
       custom: []
     headers:
@@ -121,17 +39,14 @@ endpoints:
               {
                 "id": 1,
                 "chapter_id": 1,
-                "date_publication": "2025-06-01",
-                "bonus_initial": true,
-                "is_accessible": true,
-                "is_bonus_eligible": true,
-                "remaining_bonus_days": 4,
+                "date_disponible": "2025-06-01",
                 "chapter": {
                   "id": 1,
-                  "titre": "Introduction aux montres Breitling",
-                  "description": "Découvrez l'histoire et les valeurs de Breitling"
+                  "titre": "Introduction",
+                  "description": "Chapitre d'introduction"
                 },
-                "units_count": 5
+                "units_count": 5,
+                "is_available": true
               }
             ]
           }
@@ -142,110 +57,23 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
     custom: []
   -
     httpMethods:
-      - POST
-    uri: api/novelties
+      - GET
+    uri: 'api/discoveries/{id}'
     metadata:
-      groupName: Novelties
+      groupName: Discoveries
       groupDescription: |-
 
-        API pour gérer les nouveautés de chapitres Breitling League
-        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
+        API pour gérer les explorations de chapitres (théorie + quiz)
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer une nouvelle nouveauté (Admin)'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      chapter_id:
-        name: chapter_id
-        description: 'ID du chapitre associé.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      date_publication:
-        name: date_publication
-        description: 'Date de publication.'
-        required: true
-        example: '2025-06-05'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      bonus_initial:
-        name: bonus_initial
-        description: 'Bonus accordé dans les 7 jours.'
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      chapter_id: 1
-      date_publication: '2025-06-05'
-      bonus_initial: true
-    fileParameters: []
-    responses:
-      -
-        status: 201
-        content: |-
-          {
-            "success": true,
-            "message": "Nouveauté créée avec succès",
-            "data": {
-              "id": 2,
-              "chapter_id": 1,
-              "date_publication": "2025-06-05",
-              "bonus_initial": true
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: 'api/novelties/{id}'
-    metadata:
-      groupName: Novelties
-      groupDescription: |-
-
-        API pour gérer les nouveautés de chapitres Breitling League
-        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Mettre à jour une nouveauté existante (Admin)'
+      title: 'Afficher une exploration de chapitre spécifique avec ses unités'
       description: ''
       authenticated: true
       custom: []
@@ -256,104 +84,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'ID de la nouveauté.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      chapter_id:
-        name: chapter_id
-        description: 'ID du chapitre associé.'
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      date_publication:
-        name: date_publication
-        description: 'Date de publication.'
-        required: false
-        example: '2025-06-05'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      bonus_initial:
-        name: bonus_initial
-        description: 'Bonus accordé dans les 7 jours.'
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      chapter_id: 1
-      date_publication: '2025-06-05'
-      bonus_initial: true
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "message": "Nouveauté mise à jour avec succès",
-            "data": {
-              "id": 1,
-              "chapter_id": 1,
-              "date_publication": "2025-06-05",
-              "bonus_initial": true
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/novelties/{id}'
-    metadata:
-      groupName: Novelties
-      groupDescription: |-
-
-        API pour gérer les nouveautés de chapitres Breitling League
-        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Supprimer une nouveauté (Admin)'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'ID de la nouveauté.'
+        description: "L'ID de l'exploration."
         required: true
         example: 1
         type: integer
@@ -374,7 +105,35 @@ endpoints:
         content: |-
           {
             "success": true,
-            "message": "Nouveauté supprimée avec succès"
+            "data": {
+              "id": 1,
+              "chapter_id": 1,
+              "date_disponible": "2025-06-01",
+              "chapter": {
+                "id": 1,
+                "titre": "Introduction",
+                "description": "Chapitre d'introduction"
+              },
+              "units": [
+                {
+                  "id": 1,
+                  "titre": "Unité 1",
+                  "description": "Description de l'unité",
+                  "theorie_html": "<p>Contenu HTML de la théorie</p>"
+                }
+              ],
+              "is_available": true
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Exploration non trouvée"
           }
         headers: []
         description: ''
@@ -383,7 +142,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null

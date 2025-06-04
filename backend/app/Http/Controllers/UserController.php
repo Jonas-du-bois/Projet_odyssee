@@ -18,14 +18,12 @@ class UserController extends Controller
 {
     /**
      * Afficher le profil de l'utilisateur connecté
-     *
-     * @response 200 {
+     *     * @response 200 {
      *   "success": true,
      *   "data": {
      *     "id": 1,
      *     "name": "John Doe",
      *     "email": "john.doe@example.com",
-     *     "is_admin": false,
      *     "email_verified_at": "2024-01-01T00:00:00.000000Z",
      *     "created_at": "2024-01-01T00:00:00.000000Z",
      *     "updated_at": "2024-01-01T00:00:00.000000Z"
@@ -64,11 +62,9 @@ class UserController extends Controller
      * @response 200 {
      *   "success": true,
      *   "message": "Profil mis à jour avec succès",
-     *   "data": {
-     *     "id": 1,
+     *   "data": {     *     "id": 1,
      *     "name": "John Doe",
      *     "email": "john.doe@example.com",
-     *     "is_admin": false,
      *     "email_verified_at": "2024-01-01T00:00:00.000000Z",
      *     "created_at": "2024-01-01T00:00:00.000000Z",
      *     "updated_at": "2024-01-15T14:30:00.000000Z"
@@ -156,11 +152,65 @@ class UserController extends Controller
                 'success' => true,
                 'message' => 'Profil mis à jour avec succès',
                 'data' => $user
+            ]);        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la mise à jour du profil',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Afficher le profil public d'un autre utilisateur
+     *
+     * @urlParam id int required L'ID de l'utilisateur. Example: 1
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 1,
+     *     "name": "John Doe",
+     *     "rank": {"name": "Silver", "level": 2},
+     *     "total_points": 1500,
+     *     "registration_date": "2024-01-15",
+     *     "quiz_count": 25
+     *   }
+     * }
+     */
+    public function showPublicProfile($id): JsonResponse
+    {
+        try {
+            $user = User::with(['rank', 'scores'])->find($id);
+            
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Utilisateur non trouvé'
+                ], 404);
+            }
+
+            $totalScore = $user->scores()->sum('points_total');
+            $quizCount = $user->quizInstances()->count();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'rank' => $user->rank ? [
+                        'name' => $user->rank->name,
+                        'level' => $user->rank->level
+                    ] : null,
+                    'total_points' => $totalScore,
+                    'registration_date' => $user->registration_date,
+                    'quiz_count' => $quizCount
+                ]
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la mise à jour du profil',
+                'message' => 'Erreur lors de la récupération du profil',
                 'error' => $e->getMessage()
             ], 500);
         }

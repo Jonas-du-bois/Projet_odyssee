@@ -307,4 +307,58 @@ class ProgressController extends Controller
         
         return null;
     }
+
+    /**
+     * Afficher le classement général de tous les joueurs
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": [
+     *     {
+     *       "user": {
+     *         "id": 1,
+     *         "name": "John Doe",
+     *         "rank": {"name": "Bronze", "level": 1}
+     *       },
+     *       "total_points": 1250,
+     *       "position": 1
+     *     }
+     *   ]
+     * }
+     */
+    public function getLeaderboard(): JsonResponse
+    {
+        try {
+            $leaderboard = Score::with(['user.rank'])
+                ->orderBy('points_total', 'desc')
+                ->limit(50) // Top 50
+                ->get()
+                ->map(function ($score, $index) {
+                    return [
+                        'position' => $index + 1,
+                        'user' => [
+                            'id' => $score->user->id,
+                            'name' => $score->user->name,
+                            'rank' => $score->user->rank ? [
+                                'name' => $score->user->rank->name,
+                                'level' => $score->user->rank->level
+                            ] : null
+                        ],
+                        'total_points' => $score->points_total,
+                        'bonus_points' => $score->points_bonus
+                    ];
+                });
+
+            return response()->json([
+                'success' => true,
+                'data' => $leaderboard
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération du classement',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

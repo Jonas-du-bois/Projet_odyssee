@@ -55,7 +55,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -122,7 +122,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -155,8 +155,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 200
+        content: '{"success":true,"data":{"count":0}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -171,7 +171,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null

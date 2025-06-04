@@ -63,7 +63,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -96,8 +96,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Erreur lors de la r\u00e9cup\u00e9ration du rang","error":"SQLSTATE[HY000]: General error: 1 no such column: points (Connection: sqlite, SQL: select \"user_id\" from \"scores\" group by \"user_id\" order by SUM(points) DESC)"}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -112,7 +112,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -145,8 +145,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 200
+        content: '{"success":true,"data":[]}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -161,7 +161,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
@@ -194,8 +194,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 500
+        content: '{"success":false,"message":"Erreur lors de la r\u00e9cup\u00e9ration des donn\u00e9es de bilan","error":"SQLSTATE[HY000]: General error: 1 no such column: user_quiz_scores.percentage (Connection: sqlite, SQL: select \"chapters\".\"id\", \"chapters\".\"title\", MAX(user_quiz_scores.percentage) as best_score, COUNT(DISTINCT quiz_instances.id) as attempts from \"chapters\" left join \"quiz_instances\" on \"chapters\".\"id\" = \"quiz_instances\".\"chapter_id\" left join \"user_quiz_scores\" on \"quiz_instances\".\"id\" = \"user_quiz_scores\".\"quiz_instance_id\" and \"user_quiz_scores\".\"user_id\" = 1 group by \"chapters\".\"id\", \"chapters\".\"title\")"}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -210,7 +210,63 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/leaderboard
+    metadata:
+      groupName: 'Progress Tracking'
+      groupDescription: |-
+
+        API pour suivre la progression et les statistiques des utilisateurs
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Afficher le classement général de tous les joueurs'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": [
+              {
+                "user": {
+                  "id": 1,
+                  "name": "John Doe",
+                  "rank": {"name": "Bronze", "level": 1}
+                },
+                "total_points": 1250,
+                "position": 1
+              }
+            ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
     controller: null
     method: null
     route: null
