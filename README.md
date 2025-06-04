@@ -58,7 +58,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 - **Composer** (gestionnaire de dépendances PHP)
 - **Node.js 22** (npm inclus)
 - **Laravel 10**
-- **Base de données** compatible (MySQL, MariaDB, PostgreSQL, ou SQLite)
+- **Base de données** compatible (SQLite)
 - **Git** pour le contrôle de version
 
 ---
@@ -137,12 +137,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 1. **Accès à l'application** : Ouvrir `http://localhost:5173` dans votre navigateur
 2. **API Backend** : Accessible sur `http://localhost:8000/api`
-3. **Documentation API** : Disponible sur `http://localhost:8000/api/documentation` (si configurée)
-
-### Comptes de test
-Après avoir exécuté les seeders, vous pouvez utiliser :
-- **Admin** : admin@breitling-league.com / password
-- **Utilisateur** : user@breitling-league.com / password
+3. **Documentation API** : Disponible sur `http://localhost:8000/docs`
 
 ---
 
