@@ -65,9 +65,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('level');
             $table->integer('minimum_points');
-        });
-
-        // Table User
+            $table->timestamps();
+        });        // Table User
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -75,15 +74,15 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('rank_id')->nullable();
             $table->date('registration_date');
+            $table->timestamps();
 
             $table->foreign('rank_id')->references('id')->on('ranks');
-        });
-
-        // Table Chapter
+        });        // Table Chapter
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->timestamps();
         });        // Table Unit
         Schema::create('units', function (Blueprint $table) {
             $table->id();
@@ -91,6 +90,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('theory_html')->nullable();
+            $table->timestamps();
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
         });        // Table Question
@@ -100,35 +100,33 @@ return new class extends Migration
             $table->text('statement');
             $table->integer('timer_seconds')->nullable();
             $table->string('type');
+            $table->timestamps();
             
             $table->foreign('unit_id')->references('id')->on('units');
-        });
-
-        // Table Choice
+        });        // Table Choice
         Schema::create('choices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('question_id');
             $table->string('text');
             $table->boolean('is_correct');
+            $table->timestamps();
 
             $table->foreign('question_id')->references('id')->on('questions');
-        });
-
-        // Table Discovery
+        });        // Table Discovery
         Schema::create('discoveries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
             $table->date('available_date');
+            $table->timestamps();
 
             $table->foreign('chapter_id')->references('id')->on('chapters');
-        });
-
-        // Table Novelty
+        });        // Table Novelty
         Schema::create('novelties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
             $table->date('publication_date');
             $table->boolean('initial_bonus');
+            $table->timestamps();
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
         });        // Table Event
@@ -137,13 +135,13 @@ return new class extends Migration
             $table->string('theme');
             $table->date('start_date');
             $table->date('end_date');
-        });
-
-        // Table EventUnit
+            $table->timestamps();
+        });        // Table EventUnit
         Schema::create('event_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('unit_id');
+            $table->timestamps();
             
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('unit_id')->references('id')->on('units');
@@ -153,6 +151,7 @@ return new class extends Migration
             $table->unsignedBigInteger('chapter_id');
             $table->integer('number_questions');
             $table->date('deadline_date');
+            $table->timestamps();
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
         });        // Table Weekly
@@ -161,6 +160,7 @@ return new class extends Migration
             $table->unsignedBigInteger('chapter_id');
             $table->date('week_start');
             $table->integer('number_questions');
+            $table->timestamps();
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
         });        // Table LastChance
@@ -169,6 +169,7 @@ return new class extends Migration
             $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
+            $table->timestamps();
         });        // Table QuizType
         Schema::create('quiz_types', function (Blueprint $table) {
             $table->id();
@@ -177,6 +178,7 @@ return new class extends Migration
             $table->boolean('speed_bonus');
             $table->boolean('gives_ticket');
             $table->integer('bonus_multiplier');
+            $table->timestamps();
         });        // Table QuizInstance
         Schema::create('quiz_instances', function (Blueprint $table) {
             $table->id();
@@ -185,6 +187,7 @@ return new class extends Migration
             $table->string('module_type');
             $table->integer('module_id');
             $table->datetime('launch_date');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('quiz_type_id')->references('id')->on('quiz_types');
@@ -196,6 +199,7 @@ return new class extends Migration
             $table->integer('total_time');
             $table->boolean('ticket_obtained');
             $table->boolean('bonus_obtained');
+            $table->timestamps();
             
             $table->foreign('quiz_instance_id')->references('id')->on('quiz_instances');
         });        // Table UserAnswer
@@ -208,6 +212,7 @@ return new class extends Migration
             $table->integer('response_time');
             $table->integer('points_obtained');
             $table->datetime('date');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('question_id')->references('id')->on('questions');
@@ -219,6 +224,7 @@ return new class extends Migration
             $table->integer('total_points');
             $table->integer('bonus_points');
             $table->unsignedBigInteger('rank_id');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('rank_id')->references('id')->on('ranks');
@@ -230,6 +236,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->float('percentage');
             $table->boolean('completed');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('chapter_id')->references('id')->on('chapters');
@@ -241,6 +248,7 @@ return new class extends Migration
             $table->unsignedBigInteger('weekly_id');
             $table->date('obtained_date');
             $table->boolean('bonus');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('weekly_id')->references('id')->on('weeklies');
@@ -251,6 +259,7 @@ return new class extends Migration
             $table->integer('count');
             $table->integer('bonus_tickets');
             $table->date('last_participation');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
         });        // Table Notification
@@ -261,6 +270,7 @@ return new class extends Migration
             $table->text('message');
             $table->boolean('read');
             $table->datetime('date');
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
         });
