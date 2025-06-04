@@ -9,7 +9,9 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.1",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "ext-pdo": "*",
+        "ext-pgsql": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -56,6 +58,12 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "chmod -R 755 storage",
+            "php artisan cache:clear",
+            "php artisan config:cache"
         ]
     },
     "extra": {
