@@ -10,9 +10,9 @@ class Unit extends Model
     
     protected $fillable = [
         'chapter_id',
-        'titre',
+        'title',
         'description',
-        'theorie_html',
+        'theory_html',
     ];
 
     protected $casts = [

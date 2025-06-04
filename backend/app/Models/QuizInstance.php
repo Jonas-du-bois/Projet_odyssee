@@ -11,14 +11,14 @@ class QuizInstance extends Model
         'quiz_type_id',
         'module_type',
         'module_id',
-        'date_lancement',
+        'launch_date',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'quiz_type_id' => 'integer',
         'module_id' => 'integer',
-        'date_lancement' => 'datetime',
+        'launch_date' => 'datetime',
     ];
 
     /**

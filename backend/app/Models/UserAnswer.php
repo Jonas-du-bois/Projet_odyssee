@@ -9,20 +9,20 @@ class UserAnswer extends Model
     protected $fillable = [
         'user_id',
         'question_id',
-        'choix_id',
-        'est_correct',
-        'temps_reponse',
-        'points_obtenus',
+        'choice_id',
+        'is_correct',
+        'response_time',
+        'points_obtained',
         'date',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'question_id' => 'integer',
-        'choix_id' => 'integer',
-        'est_correct' => 'boolean',
-        'temps_reponse' => 'integer',
-        'points_obtenus' => 'integer',
+        'choice_id' => 'integer',
+        'is_correct' => 'boolean',
+        'response_time' => 'integer',
+        'points_obtained' => 'integer',
         'date' => 'datetime',
     ];
 

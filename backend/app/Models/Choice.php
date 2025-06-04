@@ -8,13 +8,13 @@ class Choice extends Model
 {
     protected $fillable = [
         'question_id',
-        'texte',
-        'est_correct',
+        'text',
+        'is_correct',
     ];
 
     protected $casts = [
         'question_id' => 'integer',
-        'est_correct' => 'boolean',
+        'is_correct' => 'boolean',
     ];
 
     /**

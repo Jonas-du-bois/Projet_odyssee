@@ -11,13 +11,13 @@ class Event extends Model
     
     protected $fillable = [
         'theme',
-        'date_debut',
-        'date_fin',
+        'start_date',
+        'end_date',
     ];
 
     protected $casts = [
-        'date_debut' => 'date',
-        'date_fin' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     /**
@@ -37,7 +37,7 @@ class Event extends Model
      */
     
     /**
-     * Vérifie si l'événement est actif (entre date_debut et date_fin)
+     * Vérifie si l'événement est actif (entre start_date et end_date)
      * 
      * @param string|null $date Date à vérifier (format Y-m-d), par défaut aujourd'hui
      * @return bool
@@ -45,14 +45,14 @@ class Event extends Model
     public function isActive($date = null): bool
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        $dateDebut = Carbon::parse($this->date_debut)->startOfDay();
-        $dateFin = Carbon::parse($this->date_fin)->endOfDay();
+        $dateDebut = Carbon::parse($this->start_date)->startOfDay();
+        $dateFin = Carbon::parse($this->end_date)->endOfDay();
         
         return $checkDate->between($dateDebut, $dateFin);
     }
 
     /**
-     * Vérifie si l'événement est à venir (date_debut dans le futur)
+     * Vérifie si l'événement est à venir (start_date dans le futur)
      * 
      * @param string|null $date Date de référence, par défaut aujourd'hui
      * @return bool
@@ -60,11 +60,11 @@ class Event extends Model
     public function isUpcoming($date = null): bool
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return Carbon::parse($this->date_debut)->startOfDay()->gt($checkDate->endOfDay());
+        return Carbon::parse($this->start_date)->startOfDay()->gt($checkDate->endOfDay());
     }
 
     /**
-     * Vérifie si l'événement est terminé (date_fin dans le passé)
+     * Vérifie si l'événement est terminé (end_date dans le passé)
      * 
      * @param string|null $date Date de référence, par défaut aujourd'hui
      * @return bool
@@ -72,7 +72,7 @@ class Event extends Model
     public function isFinished($date = null): bool
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return Carbon::parse($this->date_fin)->endOfDay()->lt($checkDate->startOfDay());
+        return Carbon::parse($this->end_date)->endOfDay()->lt($checkDate->startOfDay());
     }
 
     /**
@@ -84,7 +84,7 @@ class Event extends Model
     public function getRemainingDays($date = null): int
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        $dateFin = Carbon::parse($this->date_fin);
+        $dateFin = Carbon::parse($this->end_date);
         
         if ($dateFin->lt($checkDate->startOfDay())) {
             return 0; // Terminé
@@ -106,26 +106,26 @@ class Event extends Model
             ->map(function ($unit) {
                 return [
                     'id' => $unit->id,
-                    'titre' => $unit->titre,
+                    'title' => $unit->title,
                     'description' => $unit->description,
-                    'theorie_html' => $unit->theorie_html,
+                    'theory_html' => $unit->theory_html,
                     'chapter' => $unit->chapter ? [
                         'id' => $unit->chapter->id,
-                        'titre' => $unit->chapter->titre,
+                        'title' => $unit->chapter->title,
                         'description' => $unit->chapter->description
                     ] : null,
                     'questions_count' => $unit->questions->count(),
                     'questions' => $unit->questions->map(function ($question) {
                         return [
                             'id' => $question->id,
-                            'enonce' => $question->enonce,
+                            'statement' => $question->statement,
                             'type' => $question->type,
-                            'timer_secondes' => $question->timer_secondes,
+                            'timer_seconds' => $question->timer_seconds,
                             'choices' => $question->choices->map(function ($choice) {
                                 return [
                                     'id' => $choice->id,
-                                    'texte' => $choice->texte,
-                                    'est_correct' => $choice->est_correct
+                                    'text' => $choice->text,
+                                    'is_correct' => $choice->is_correct
                                 ];
                             })
                         ];

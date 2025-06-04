@@ -59,51 +59,46 @@ return new class extends Migration
      * Créer toutes les tables selon la nouvelle structure
      */
     private function createAllTables(): void
-    {
-        // Table Rank
+    {        // Table Rank
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->integer('niveau');
-            $table->integer('points_minimum');
+            $table->string('name');
+            $table->integer('level');
+            $table->integer('minimum_points');
         });
 
         // Table User
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('name');
             $table->string('email');
-            $table->string('mot_de_passe');
-            $table->unsignedBigInteger('rang_id')->nullable();
-            $table->date('date_inscription');
-            
-            $table->foreign('rang_id')->references('id')->on('ranks');
+            $table->string('password');
+            $table->unsignedBigInteger('rank_id')->nullable();
+            $table->date('registration_date');
+
+            $table->foreign('rank_id')->references('id')->on('ranks');
         });
 
         // Table Chapter
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('titre');
+            $table->string('title');
             $table->text('description')->nullable();
-        });
-
-        // Table Unit
+        });        // Table Unit
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
-            $table->string('titre');
+            $table->string('title');
             $table->text('description')->nullable();
-            $table->text('theorie_html')->nullable();
+            $table->text('theory_html')->nullable();
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
-        });
-
-        // Table Question
+        });        // Table Question
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('unit_id');
-            $table->text('enonce');
-            $table->integer('timer_secondes')->nullable();
+            $table->text('statement');
+            $table->integer('timer_seconds')->nullable();
             $table->string('type');
             
             $table->foreign('unit_id')->references('id')->on('units');
@@ -113,9 +108,9 @@ return new class extends Migration
         Schema::create('choices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('question_id');
-            $table->string('texte');
-            $table->boolean('est_correct');
-            
+            $table->string('text');
+            $table->boolean('is_correct');
+
             $table->foreign('question_id')->references('id')->on('questions');
         });
 
@@ -123,8 +118,8 @@ return new class extends Migration
         Schema::create('discoveries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
-            $table->date('date_disponible');
-            
+            $table->date('available_date');
+
             $table->foreign('chapter_id')->references('id')->on('chapters');
         });
 
@@ -132,18 +127,16 @@ return new class extends Migration
         Schema::create('novelties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
-            $table->date('date_publication');
-            $table->boolean('bonus_initial');
+            $table->date('publication_date');
+            $table->boolean('initial_bonus');
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
-        });
-
-        // Table Event
+        });        // Table Event
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('theme');
-            $table->date('date_debut');
-            $table->date('date_fin');
+            $table->date('start_date');
+            $table->date('end_date');
         });
 
         // Table EventUnit
@@ -154,143 +147,119 @@ return new class extends Migration
             
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('unit_id')->references('id')->on('units');
-        });
-
-        // Table Reminder
+        });        // Table Reminder
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
-            $table->integer('nb_questions');
-            $table->date('date_limite');
+            $table->integer('number_questions');
+            $table->date('deadline_date');
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
-        });
-
-        // Table Weekly
+        });        // Table Weekly
         Schema::create('weeklies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chapter_id');
-            $table->date('semaine');
-            $table->integer('nb_questions');
+            $table->date('week_start');
+            $table->integer('number_questions');
             
             $table->foreign('chapter_id')->references('id')->on('chapters');
-        });
-
-        // Table LastChance
+        });        // Table LastChance
         Schema::create('last_chances', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->date('date_debut');
-            $table->date('date_fin');
-        });
-
-        // Table QuizType
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
+        });        // Table QuizType
         Schema::create('quiz_types', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('name');
             $table->integer('base_points');
-            $table->boolean('bonus_rapidite');
-            $table->boolean('donne_ticket');
-            $table->integer('multiplicateur_bonus');
-        });
-
-        // Table QuizInstance
+            $table->boolean('speed_bonus');
+            $table->boolean('gives_ticket');
+            $table->integer('bonus_multiplier');
+        });        // Table QuizInstance
         Schema::create('quiz_instances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quiz_type_id');
             $table->string('module_type');
             $table->integer('module_id');
-            $table->datetime('date_lancement');
+            $table->datetime('launch_date');
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('quiz_type_id')->references('id')->on('quiz_types');
-        });
-
-        // Table UserQuizScore
+        });        // Table UserQuizScore
         Schema::create('user_quiz_scores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('quiz_instance_id');
             $table->integer('total_points');
-            $table->integer('temps_total');
-            $table->boolean('ticket_obtenu');
-            $table->boolean('bonus_obtenu');
+            $table->integer('total_time');
+            $table->boolean('ticket_obtained');
+            $table->boolean('bonus_obtained');
             
             $table->foreign('quiz_instance_id')->references('id')->on('quiz_instances');
-        });
-
-        // Table UserAnswer
+        });        // Table UserAnswer
         Schema::create('user_answers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('question_id');
-            $table->unsignedBigInteger('choix_id')->nullable();
-            $table->boolean('est_correct');
-            $table->integer('temps_reponse');
-            $table->integer('points_obtenus');
+            $table->unsignedBigInteger('choice_id')->nullable();
+            $table->boolean('is_correct');
+            $table->integer('response_time');
+            $table->integer('points_obtained');
             $table->datetime('date');
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('question_id')->references('id')->on('questions');
-            $table->foreign('choix_id')->references('id')->on('choices');
-        });
-
-        // Table Score
+            $table->foreign('choice_id')->references('id')->on('choices');
+        });        // Table Score
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('points_total');
-            $table->integer('points_bonus');
-            $table->unsignedBigInteger('rang_id');
+            $table->integer('total_points');
+            $table->integer('bonus_points');
+            $table->unsignedBigInteger('rank_id');
             
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('rang_id')->references('id')->on('ranks');
-        });
-
-        // Table Progress
+            $table->foreign('rank_id')->references('id')->on('ranks');
+        });        // Table Progress
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('chapter_id');
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->float('pourcentage');
-            $table->boolean('termine');
+            $table->float('percentage');
+            $table->boolean('completed');
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('chapter_id')->references('id')->on('chapters');
             $table->foreign('unit_id')->references('id')->on('units');
-        });
-
-        // Table LotteryTicket
+        });        // Table LotteryTicket
         Schema::create('lottery_tickets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('weekly_id');
-            $table->date('date_obtenue');
+            $table->date('obtained_date');
             $table->boolean('bonus');
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('weekly_id')->references('id')->on('weeklies');
-        });
-
-        // Table WeeklySeries
+        });        // Table WeeklySeries
         Schema::create('weekly_series', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('count');
             $table->integer('bonus_tickets');
-            $table->date('derniere_participation');
+            $table->date('last_participation');
             
             $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        // Table Notification
+        });        // Table Notification
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('type');
             $table->text('message');
-            $table->boolean('lu');
+            $table->boolean('read');
             $table->datetime('date');
             
             $table->foreign('user_id')->references('id')->on('users');

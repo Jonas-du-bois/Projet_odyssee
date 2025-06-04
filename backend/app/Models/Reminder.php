@@ -11,14 +11,14 @@ class Reminder extends Model
     
     protected $fillable = [
         'chapter_id',
-        'nb_questions',
-        'date_limite',
+        'number_questions',
+        'deadline_date',
     ];
 
     protected $casts = [
         'chapter_id' => 'integer',
-        'nb_questions' => 'integer',
-        'date_limite' => 'date',
+        'number_questions' => 'integer',
+        'deadline_date' => 'date',
     ];
 
     /**
@@ -42,7 +42,7 @@ class Reminder extends Model
     public function isActive($date = null): bool
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return Carbon::parse($this->date_limite)->gte($checkDate->startOfDay());
+        return Carbon::parse($this->deadline_date)->gte($checkDate->startOfDay());
     }
 
     /**
@@ -65,7 +65,7 @@ class Reminder extends Model
     public function getRemainingDays($date = null): int
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        $limitDate = Carbon::parse($this->date_limite);
+        $limitDate = Carbon::parse($this->deadline_date);
         
         if ($limitDate->lt($checkDate->startOfDay())) {
             return 0; // Expiré
@@ -90,7 +90,7 @@ class Reminder extends Model
             ->get()
             ->pluck('questions')
             ->flatten()
-            ->take($this->nb_questions);
+            ->take($this->number_questions);
     }
 
     /**
@@ -107,7 +107,7 @@ class Reminder extends Model
     public function scopeActive($query, $date = null)
     {
         $checkDate = $date ? Carbon::parse($date)->startOfDay() : Carbon::now()->startOfDay();
-        return $query->where('date_limite', '>=', $checkDate->format('Y-m-d'));
+        return $query->where('deadline_date', '>=', $checkDate->format('Y-m-d'));
     }
 
     /**
@@ -120,7 +120,7 @@ class Reminder extends Model
     public function scopeExpired($query, $date = null)
     {
         $checkDate = $date ? Carbon::parse($date)->startOfDay() : Carbon::now()->startOfDay();
-        return $query->where('date_limite', '<', $checkDate->format('Y-m-d'));
+        return $query->where('deadline_date', '<', $checkDate->format('Y-m-d'));
     }
 
     /**
@@ -135,7 +135,7 @@ class Reminder extends Model
         $today = Carbon::now()->startOfDay();
         $limitDate = $today->copy()->addDays($days);
         
-        return $query->where('date_limite', '>=', $today->format('Y-m-d'))
-                    ->where('date_limite', '<=', $limitDate->format('Y-m-d'));
+        return $query->where('deadline_date', '>=', $today->format('Y-m-d'))
+                    ->where('deadline_date', '<=', $limitDate->format('Y-m-d'));
     }
 }

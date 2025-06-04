@@ -10,13 +10,13 @@ class Notification extends Model
         'user_id',
         'type',
         'message',
-        'lu',
+        'read',
         'date',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
-        'lu' => 'boolean',
+        'read' => 'boolean',
         'date' => 'datetime',
     ];
 
@@ -33,11 +33,11 @@ class Notification extends Model
      */
     public function scopeUnread($query)
     {
-        return $query->where('lu', false);
+        return $query->where('read', false);
     }
 
     public function scopeRead($query)
     {
-        return $query->where('lu', true);
+        return $query->where('read', true);
     }
 }

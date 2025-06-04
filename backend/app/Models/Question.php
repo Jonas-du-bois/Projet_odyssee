@@ -8,14 +8,14 @@ class Question extends Model
 {
     protected $fillable = [
         'unit_id',
-        'enonce',
-        'timer_secondes',
+        'statement',
+        'timer_seconds',
         'type',
     ];
 
     protected $casts = [
         'unit_id' => 'integer',
-        'timer_secondes' => 'integer',
+        'timer_seconds' => 'integer',
     ];
 
     /**

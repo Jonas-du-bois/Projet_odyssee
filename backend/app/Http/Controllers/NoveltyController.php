@@ -61,11 +61,10 @@ class NoveltyController extends Controller
                         'date_publication' => Carbon::parse($novelty->date_publication)->format('Y-m-d'),
                         'bonus_initial' => $novelty->bonus_initial,
                         'is_accessible' => $novelty->isAccessible(),
-                        'is_bonus_eligible' => $novelty->isEligibleForBonus(),
-                        'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
+                        'is_bonus_eligible' => $novelty->isEligibleForBonus(),                        'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
                         'chapter' => $novelty->chapter ? [
                             'id' => $novelty->chapter->id,
-                            'titre' => $novelty->chapter->titre,
+                            'title' => $novelty->chapter->title,
                             'description' => $novelty->chapter->description
                         ] : null,
                         'units_count' => $unitsCount
@@ -143,11 +142,10 @@ class NoveltyController extends Controller
                 'date_publication' => Carbon::parse($novelty->date_publication)->format('Y-m-d'),
                 'bonus_initial' => $novelty->bonus_initial,
                 'is_accessible' => $novelty->isAccessible(),
-                'is_bonus_eligible' => $novelty->isEligibleForBonus(),
-                'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
+                'is_bonus_eligible' => $novelty->isEligibleForBonus(),                'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
                 'chapter' => $novelty->chapter ? [
                     'id' => $novelty->chapter->id,
-                    'titre' => $novelty->chapter->titre,
+                    'title' => $novelty->chapter->title,
                     'description' => $novelty->chapter->description
                 ] : null,
                 'units' => $units

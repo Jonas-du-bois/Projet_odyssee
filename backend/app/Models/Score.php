@@ -8,16 +8,16 @@ class Score extends Model
 {
     protected $fillable = [
         'user_id',
-        'points_total',
-        'points_bonus',
-        'rang_id',
+        'total_points',
+        'bonus_points',
+        'rank_id',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
-        'points_total' => 'integer',
-        'points_bonus' => 'integer',
-        'rang_id' => 'integer',
+        'total_points' => 'integer',
+        'bonus_points' => 'integer',
+        'rank_id' => 'integer',
     ];
 
     /**
@@ -30,6 +30,6 @@ class Score extends Model
 
     public function rank()
     {
-        return $this->belongsTo(Rank::class, 'rang_id');
+        return $this->belongsTo(Rank::class, 'rank_id');
     }
 }

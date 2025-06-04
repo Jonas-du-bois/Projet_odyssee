@@ -84,9 +84,8 @@ class NotificationController extends Controller
                     'message' => 'Notification non trouvée'
                 ], 404);
             }
-            
-            $notification->update([
-                'read_at' => now()
+              $notification->update([
+                'read' => true
             ]);
             
             return response()->json([

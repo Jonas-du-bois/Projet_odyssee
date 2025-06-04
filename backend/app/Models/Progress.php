@@ -10,16 +10,16 @@ class Progress extends Model
         'user_id',
         'chapter_id',
         'unit_id',
-        'pourcentage',
-        'terminé',
+        'percentage',
+        'completed',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'chapter_id' => 'integer',
         'unit_id' => 'integer',
-        'pourcentage' => 'float',
-        'terminé' => 'boolean',
+        'percentage' => 'float',
+        'completed' => 'boolean',
     ];
 
     /**

@@ -72,7 +72,7 @@ class Novelty extends Model
     public function getChapterUnitsWithTheory()
     {
         return $this->chapter->units()
-            ->select(['id', 'chapter_id', 'titre', 'description', 'theorie_html'])
+            ->select(['id', 'chapter_id', 'title', 'description', 'theory_html'])
             ->get();
     }
 

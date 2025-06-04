@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class QuizType extends Model
 {
     protected $fillable = [
-        'nom',
+        'name',
         'base_points',
-        'bonus_rapidite',
-        'donne_ticket',
-        'multiplicateur_bonus',
+        'speed_bonus',
+        'gives_ticket',
+        'bonus_multiplier',
     ];
 
     protected $casts = [
         'base_points' => 'integer',
-        'bonus_rapidite' => 'boolean',
-        'donne_ticket' => 'boolean',
-        'multiplicateur_bonus' => 'integer',
+        'speed_bonus' => 'boolean',
+        'gives_ticket' => 'boolean',
+        'bonus_multiplier' => 'integer',
     ];
 
     /**

@@ -21,11 +21,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'nom',
+        'name',
         'email',
-        'mot_de_passe',
-        'rang_id',
-        'date_inscription',
+        'password',
+        'rank_id',
+        'registration_date',
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'mot_de_passe',
+        'password',
         'remember_token',
     ];
 
@@ -46,8 +46,8 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'mot_de_passe' => 'hashed',
-            'date_inscription' => 'date',
+            'password' => 'hashed',
+            'registration_date' => 'date',
         ];
     }
 
@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function rank()
     {
-        return $this->belongsTo(Rank::class, 'rang_id');
+        return $this->belongsTo(Rank::class, 'rank_id');
     }
 
     /**
@@ -64,7 +64,7 @@ class User extends Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->mot_de_passe;
+        return $this->password;
     }
 
     public function scores()

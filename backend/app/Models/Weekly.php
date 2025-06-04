@@ -10,14 +10,14 @@ class Weekly extends Model
     
     protected $fillable = [
         'chapter_id',
-        'semaine',
-        'nb_questions',
+        'week',
+        'number_questions',
     ];
 
     protected $casts = [
         'chapter_id' => 'integer',
-        'semaine' => 'date',
-        'nb_questions' => 'integer',
+        'week' => 'date',
+        'number_questions' => 'integer',
     ];
 
     /**

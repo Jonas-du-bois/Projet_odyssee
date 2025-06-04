@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Rank extends Model
 {
     protected $fillable = [
-        'nom',
-        'niveau',
-        'points_minimum',
+        'name',
+        'level',
+        'minimum_points',
     ];
 
     protected $casts = [
-        'niveau' => 'integer',
-        'points_minimum' => 'integer',
+        'level' => 'integer',
+        'minimum_points' => 'integer',
     ];
 
     /**
@@ -22,11 +22,11 @@ class Rank extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class, 'rang_id');
+        return $this->hasMany(User::class, 'rank_id');
     }
 
     public function scores()
     {
-        return $this->hasMany(Score::class, 'rang_id');
+        return $this->hasMany(Score::class, 'rank_id');
     }
 }

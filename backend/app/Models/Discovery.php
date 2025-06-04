@@ -10,12 +10,12 @@ class Discovery extends Model
     
     protected $fillable = [
         'chapter_id',
-        'date_disponible',
+        'available_date',
     ];
 
     protected $casts = [
         'chapter_id' => 'integer',
-        'date_disponible' => 'date',
+        'available_date' => 'date',
     ];
 
     /**
@@ -39,7 +39,7 @@ class Discovery extends Model
     public function isAvailable($date = null): bool
     {
         $checkDate = $date ? $date : now()->format('Y-m-d');
-        return $this->date_disponible <= $checkDate;
+        return $this->available_date <= $checkDate;
     }
 
     /**
@@ -50,7 +50,7 @@ class Discovery extends Model
     public function getChapterUnitsWithTheory()
     {
         return $this->chapter->units()
-            ->select(['id', 'chapter_id', 'titre', 'description', 'theorie_html'])
+            ->select(['id', 'chapter_id', 'title', 'description', 'theory_html'])
             ->get();
     }
 
@@ -64,7 +64,7 @@ class Discovery extends Model
     public function scopeAvailable($query, $date = null)
     {
         $checkDate = $date ? $date : now()->format('Y-m-d');
-        return $query->where('date_disponible', '<=', $checkDate);
+        return $query->where('available_date', '<=', $checkDate);
     }
 
     /**
@@ -77,6 +77,6 @@ class Discovery extends Model
     public function scopeUnavailable($query, $date = null)
     {
         $checkDate = $date ? $date : now()->format('Y-m-d');
-        return $query->where('date_disponible', '>', $checkDate);
+        return $query->where('available_date', '>', $checkDate);
     }
 }

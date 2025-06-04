@@ -12,14 +12,14 @@ class WeeklySeries extends Model
         'user_id',
         'count',
         'bonus_tickets',
-        'derniere_participation',
+        'last_participation',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'count' => 'integer',
         'bonus_tickets' => 'integer',
-        'derniere_participation' => 'date',
+        'last_participation' => 'date',
     ];
 
     /**

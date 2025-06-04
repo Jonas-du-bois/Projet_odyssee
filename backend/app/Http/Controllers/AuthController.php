@@ -30,7 +30,6 @@ class AuthController extends Controller
             // Validation avec des messages personnalisés
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'nom' => 'nullable|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
                 'password_confirmation' => 'required|same:password',
@@ -53,10 +52,9 @@ class AuthController extends Controller
             // Créer l'utilisateur
             $user = User::create([
                 'name' => $request->name,
-                'nom' => $request->nom ?? $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'date_inscription' => now(),
+                'registration_date' => now(),
             ]);
         } catch (\Exception $e) {
             // Répondre avec les détails de l'erreur pour le débogage

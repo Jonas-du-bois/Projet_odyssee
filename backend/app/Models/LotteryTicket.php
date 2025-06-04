@@ -11,14 +11,14 @@ class LotteryTicket extends Model
     protected $fillable = [
         'user_id',
         'weekly_id',
-        'date_obtenue',
+        'obtained_date',
         'bonus',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         'weekly_id' => 'integer',
-        'date_obtenue' => 'date',
+        'obtained_date' => 'date',
         'bonus' => 'boolean',
     ];
 
