@@ -1,7 +1,10 @@
 name: Events
 description: |-
 
-  API pour gérer les événements spéciaux de la plateforme
+  API pour gérer les événements spéciaux Breitling League
+  Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+  Chaque unité contient sa propre théorie HTML et questions associées.
+  Un événement peut inclure des unités de plusieurs chapitres différents.
 endpoints:
   -
     httpMethods:
@@ -11,11 +14,14 @@ endpoints:
       groupName: Events
       groupDescription: |-
 
-        API pour gérer les événements spéciaux de la plateforme
+        API pour gérer les événements spéciaux Breitling League
+        Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+        Chaque unité contient sa propre théorie HTML et questions associées.
+        Un événement peut inclure des unités de plusieurs chapitres différents.
       subgroup: ''
       subgroupDescription: ''
       title: 'Lister tous les événements'
-      description: ''
+      description: 'Récupère tous les événements avec leur statut et informations sur les unités associées'
       authenticated: true
       custom: []
     headers:
@@ -38,15 +44,16 @@ endpoints:
             "data": [
               {
                 "id": 1,
-                "title": "Concours d'été Breitling",
-                "description": "Participez à notre grand concours d'été avec des prix exceptionnels !",
-                "start_date": "2024-06-01",
-                "end_date": "2024-08-31",
+                "theme": "Horlogerie Suisse Excellence",
+                "date_debut": "2025-06-01",
+                "date_fin": "2025-06-30",
                 "is_active": true,
-                "image": "https://example.com/event-image.jpg",
-                "theme_color": "#ff6b35",
-                "created_at": "2024-01-01T00:00:00.000000Z",
-                "updated_at": "2024-01-01T00:00:00.000000Z"
+                "is_upcoming": false,
+                "is_finished": false,
+                "remaining_days": 26,
+                "is_ending_soon": false,
+                "units_count": 5,
+                "total_questions": 50
               }
             ]
           }
@@ -64,152 +71,20 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - POST
-    uri: api/events
+      - GET
+    uri: 'api/events/{id}/units'
     metadata:
       groupName: Events
       groupDescription: |-
 
-        API pour gérer les événements spéciaux de la plateforme
+        API pour gérer les événements spéciaux Breitling League
+        Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+        Chaque unité contient sa propre théorie HTML et questions associées.
+        Un événement peut inclure des unités de plusieurs chapitres différents.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer un nouvel événement'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      title:
-        name: title
-        description: "Le titre de l'événement."
-        required: true
-        example: "Concours d'été Breitling"
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      description:
-        name: description
-        description: "La description de l'événement."
-        required: true
-        example: "Participez à notre grand concours d'été avec des prix exceptionnels !"
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      start_date:
-        name: start_date
-        description: "Date de début de l'événement."
-        required: true
-        example: '2024-06-01'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      end_date:
-        name: end_date
-        description: "Date de fin de l'événement."
-        required: true
-        example: '2024-08-31'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      is_active:
-        name: is_active
-        description: "Statut d'activation."
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      image:
-        name: image
-        description: "URL de l'image de l'événement."
-        required: false
-        example: 'https://example.com/event-image.jpg'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      theme_color:
-        name: theme_color
-        description: "Couleur thématique de l'événement."
-        required: false
-        example: '#ff6b35'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      title: "Concours d'été Breitling"
-      description: "Participez à notre grand concours d'été avec des prix exceptionnels !"
-      start_date: '2024-06-01'
-      end_date: '2024-08-31'
-      is_active: true
-      image: 'https://example.com/event-image.jpg'
-      theme_color: '#ff6b35'
-    fileParameters: []
-    responses:
-      -
-        status: 201
-        content: |-
-          {
-            "success": true,
-            "message": "Événement créé avec succès",
-            "data": {
-              "id": 1,
-              "title": "Concours d'été Breitling",
-              "description": "Participez à notre grand concours d'été avec des prix exceptionnels !",
-              "start_date": "2024-06-01",
-              "end_date": "2024-08-31",
-              "is_active": true,
-              "image": "https://example.com/event-image.jpg",
-              "theme_color": "#ff6b35",
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T00:00:00.000000Z"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-    uri: 'api/events/{id}'
-    metadata:
-      groupName: Events
-      groupDescription: |-
-
-        API pour gérer les événements spéciaux de la plateforme
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Mettre à jour un événement existant'
-      description: ''
+      title: "Récupérer les unités d'un événement"
+      description: "Retourne toutes les unités associées à l'événement avec leur théorie HTML et questions"
       authenticated: true
       custom: []
     headers:
@@ -234,7 +109,299 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": [
+              {
+                "id": 1,
+                "titre": "Introduction aux mouvements",
+                "description": "Découverte des différents types de mouvements horlogers",
+                "theorie_html": "<h2>Les mouvements horlogers</h2><p>Un mouvement horloger...</p>",
+                "chapter": {
+                  "id": 1,
+                  "titre": "Horlogerie de base",
+                  "description": "Les fondamentaux de l'horlogerie"
+                },
+                "questions_count": 5,
+                "questions": [
+                  {
+                    "id": 1,
+                    "enonce": "Qu'est-ce qu'un mouvement mécanique ?",
+                    "type": "multiple_choice",
+                    "timer_secondes": 30,
+                    "choices": [
+                      {
+                        "id": 1,
+                        "texte": "Un mouvement actionné par un ressort",
+                        "est_correct": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Événement non trouvé"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/events
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux Breitling League
+        Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+        Chaque unité contient sa propre théorie HTML et questions associées.
+        Un événement peut inclure des unités de plusieurs chapitres différents.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Créer un nouvel événement'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      theme:
+        name: theme
+        description: "Le thème de l'événement."
+        required: true
+        example: 'Horlogerie Suisse Excellence'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_debut:
+        name: date_debut
+        description: 'Date de début au format Y-m-d.'
+        required: true
+        example: '2025-06-01'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_fin:
+        name: date_fin
+        description: 'Date de fin au format Y-m-d.'
+        required: true
+        example: '2025-06-30'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      unit_ids:
+        name: unit_ids
+        description: "Liste des IDs des unités à associer à l'événement."
+        required: false
+        example:
+          - 1
+          - 2
+          - 3
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      theme: 'Horlogerie Suisse Excellence'
+      date_debut: '2025-06-01'
+      date_fin: '2025-06-30'
+      unit_ids:
+        - 1
+        - 2
+        - 3
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "success": true,
+            "message": "Événement créé avec succès",
+            "data": {
+              "id": 1,
+              "theme": "Horlogerie Suisse Excellence",
+              "date_debut": "2025-06-01",
+              "date_fin": "2025-06-30"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "success": false,
+            "message": "Erreurs de validation",
+            "errors": {
+              "theme": ["Le thème est requis"]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/events/{id}'
+    metadata:
+      groupName: Events
+      groupDescription: |-
+
+        API pour gérer les événements spéciaux Breitling League
+        Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+        Chaque unité contient sa propre théorie HTML et questions associées.
+        Un événement peut inclure des unités de plusieurs chapitres différents.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Mettre à jour un événement'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the event.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      theme:
+        name: theme
+        description: "Le thème de l'événement."
+        required: false
+        example: 'Horlogerie Moderne'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_debut:
+        name: date_debut
+        description: 'Date de début au format Y-m-d.'
+        required: false
+        example: '2025-07-01'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_fin:
+        name: date_fin
+        description: 'Date de fin au format Y-m-d.'
+        required: false
+        example: '2025-07-31'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      unit_ids:
+        name: unit_ids
+        description: 'Liste des IDs des unités à associer.'
+        required: false
+        example:
+          - 1
+          - 2
+          - 4
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      theme: 'Horlogerie Moderne'
+      date_debut: '2025-07-01'
+      date_fin: '2025-07-31'
+      unit_ids:
+        - 1
+        - 2
+        - 4
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Événement mis à jour avec succès",
+            "data": {
+              "id": 1,
+              "theme": "Horlogerie Moderne",
+              "date_debut": "2025-07-01",
+              "date_fin": "2025-07-31"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Événement non trouvé"
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers
@@ -252,7 +419,10 @@ endpoints:
       groupName: Events
       groupDescription: |-
 
-        API pour gérer les événements spéciaux de la plateforme
+        API pour gérer les événements spéciaux Breitling League
+        Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+        Chaque unité contient sa propre théorie HTML et questions associées.
+        Un événement peut inclure des unités de plusieurs chapitres différents.
       subgroup: ''
       subgroupDescription: ''
       title: 'Supprimer un événement'
@@ -281,7 +451,27 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Événement supprimé avec succès"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Événement non trouvé"
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers

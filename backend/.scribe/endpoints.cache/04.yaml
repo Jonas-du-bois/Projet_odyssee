@@ -98,8 +98,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 500
-        content: '{"success":false,"message":"Erreur lors de la r\u00e9cup\u00e9ration du rang","error":"SQLSTATE[HY000]: General error: 1 no such column: points (Connection: sqlite, SQL: select \"user_id\" from \"scores\" group by \"user_id\" order by SUM(points) DESC)"}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -147,8 +147,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"success":true,"data":[]}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -196,8 +196,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 500
-        content: '{"success":false,"message":"Erreur lors de la r\u00e9cup\u00e9ration des donn\u00e9es de bilan","error":"SQLSTATE[HY000]: General error: 1 no such column: chapters.title (Connection: sqlite, SQL: select \"chapters\".\"id\", \"chapters\".\"title\", MAX(user_quiz_scores.percentage) as best_score, COUNT(DISTINCT quiz_instances.id) as attempts from \"chapters\" left join \"quiz_instances\" on \"chapters\".\"id\" = \"quiz_instances\".\"chapter_id\" left join \"user_quiz_scores\" on \"quiz_instances\".\"id\" = \"user_quiz_scores\".\"quiz_instance_id\" and \"user_quiz_scores\".\"user_id\" = 4 group by \"chapters\".\"id\", \"chapters\".\"title\")"}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json

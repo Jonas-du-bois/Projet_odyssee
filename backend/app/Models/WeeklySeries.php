@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class WeeklySeries extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'user_id',
         'count',
@@ -26,5 +28,14 @@ class WeeklySeries extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relation avec les tickets de loterie obtenus par cette série
+     */
+    public function lotteryTickets()
+    {
+        return $this->hasMany(LotteryTicket::class, 'user_id', 'user_id')
+            ->where('bonus', true);
     }
 }

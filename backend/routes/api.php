@@ -62,11 +62,11 @@ Route::middleware('cors')->group(function () {
         Route::post('/quiz/start', [QuizController::class, 'start']);
         Route::post('/quiz/submit', [QuizController::class, 'submitAnswers']);
         Route::get('/quiz/{id}/result', [QuizController::class, 'getResult']);
-        
-        // Routes WeeklyController - User routes
+          // Routes WeeklyController - User routes
         Route::get('/weekly', [WeeklyController::class, 'index']);
         Route::post('/weekly/{id}/claim', [WeeklyController::class, 'claimTicket']);
         Route::get('/weekly/series', [WeeklyController::class, 'getSeries']);
+        Route::get('/weekly/tickets', [WeeklyController::class, 'getTickets']);
         
         // Routes ProgressController
         Route::get('/progress', [ProgressController::class, 'getProgress']);
@@ -82,10 +82,18 @@ Route::middleware('cors')->group(function () {
         // Routes NotificationController
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
-          // Routes UserController (optionnel)
+        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);        // Routes UserController (optionnel)
         Route::get('/profile', [UserController::class, 'show']);
         Route::put('/profile', [UserController::class, 'update']);
+          // Routes NoveltyController - User accessible
+        Route::get('/novelties/{id}', [NoveltyController::class, 'show']);
+          // Routes ReminderController - User accessible
+        Route::get('/reminders', [ReminderController::class, 'index']);
+        Route::get('/reminders/{id}', [ReminderController::class, 'show']);
+        
+        // Routes EventController - User accessible
+        Route::get('/events', [EventController::class, 'index']);
+        Route::get('/events/{id}/units', [EventController::class, 'units']);
         
         // Routes protégées pour les administrateurs
         Route::middleware('admin')->group(function () {
@@ -100,9 +108,7 @@ Route::middleware('cors')->group(function () {
             Route::post('/weekly', [WeeklyController::class, 'store']);
             Route::put('/weekly/{id}', [WeeklyController::class, 'update']);
             Route::delete('/weekly/{id}', [WeeklyController::class, 'destroy']);
-            
-            // Routes ReminderController (admin)
-            Route::get('/reminders', [ReminderController::class, 'index']);
+              // Routes ReminderController (admin)
             Route::post('/reminders', [ReminderController::class, 'store']);
             Route::put('/reminders/{id}', [ReminderController::class, 'update']);
             Route::delete('/reminders/{id}', [ReminderController::class, 'destroy']);
@@ -111,9 +117,7 @@ Route::middleware('cors')->group(function () {
             Route::get('/events', [EventController::class, 'index']);
             Route::post('/events', [EventController::class, 'store']);
             Route::put('/events/{id}', [EventController::class, 'update']);
-            Route::delete('/events/{id}', [EventController::class, 'destroy']);
-            
-            // Routes NoveltyController (admin)
+            Route::delete('/events/{id}', [EventController::class, 'destroy']);            // Routes NoveltyController (admin)
             Route::get('/novelties', [NoveltyController::class, 'index']);
             Route::post('/novelties', [NoveltyController::class, 'store']);
             Route::put('/novelties/{id}', [NoveltyController::class, 'update']);

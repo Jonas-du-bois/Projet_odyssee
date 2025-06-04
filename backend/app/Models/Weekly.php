@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Weekly extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'chapter_id',
         'semaine',

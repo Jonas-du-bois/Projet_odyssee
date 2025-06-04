@@ -14,7 +14,7 @@ endpoints:
         API pour gérer les défis hebdomadaires et les tickets de loterie
       subgroup: ''
       subgroupDescription: ''
-      title: 'Lister les défis hebdomadaires actifs'
+      title: "Lister les défis hebdomadaires disponibles pour l'utilisateur"
       description: ''
       authenticated: true
       custom: []
@@ -38,14 +38,15 @@ endpoints:
             "data": [
               {
                 "id": 1,
-                "title": "Défi de la semaine",
-                "description": "Complétez 3 quiz cette semaine",
-                "start_date": "2024-01-01",
-                "end_date": "2024-01-07",
-                "is_active": true,
-                "ticket_reward": 5,
-                "created_at": "2024-01-01T00:00:00.000000Z",
-                "updated_at": "2024-01-01T00:00:00.000000Z"
+                "chapter_id": 1,
+                "semaine": "2025-06-02",
+                "nb_questions": 10,
+                "chapter": {
+                  "id": 1,
+                  "titre": "Introduction",
+                  "description": "Chapitre d'introduction"
+                },
+                "user_has_ticket": false
               }
             ]
           }
@@ -72,7 +73,7 @@ endpoints:
         API pour gérer les défis hebdomadaires et les tickets de loterie
       subgroup: ''
       subgroupDescription: ''
-      title: 'Réclamer un ticket après un défi hebdomadaire réussi'
+      title: 'Réclamer un ticket après avoir réussi un défi hebdomadaire'
       description: ''
       authenticated: true
       custom: []
@@ -95,30 +96,8 @@ endpoints:
       id: 1
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      quiz_count:
-        name: quiz_count
-        description: 'Le nombre de quiz complétés.'
-        required: false
-        example: 3
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      score:
-        name: score
-        description: 'Le score obtenu.'
-        required: false
-        example: 85
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      quiz_count: 3
-      score: 85
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
@@ -128,8 +107,15 @@ endpoints:
             "success": true,
             "message": "Ticket réclamé avec succès",
             "data": {
-              "tickets_earned": 5,
-              "total_tickets": 25
+              "ticket": {
+                "id": 1,
+                "user_id": 1,
+                "weekly_id": 1,
+                "date_obtenue": "2025-06-04",
+                "bonus": false
+              },
+              "bonus_ticket": null,
+              "series_count": 3
             }
           }
         headers: []
@@ -140,7 +126,7 @@ endpoints:
         content: |-
           {
             "success": false,
-            "message": "Défi non éligible ou déjà réclamé"
+            "message": "Ticket déjà réclamé pour ce défi"
           }
         headers: []
         description: ''
@@ -183,16 +169,82 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"success":true,"data":{"user_id":4,"updated_at":"2025-06-03T21:39:39.000000Z","created_at":"2025-06-03T21:39:39.000000Z","id":1}}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
-          access-control-allow-credentials: 'true'
-          access-control-max-age: '86400'
-        description: null
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 1,
+              "user_id": 1,
+              "count": 3,
+              "bonus_tickets": 0,
+              "derniere_participation": "2025-06-04"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/weekly/tickets
+    metadata:
+      groupName: 'Weekly Challenges'
+      groupDescription: |-
+
+        API pour gérer les défis hebdomadaires et les tickets de loterie
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Obtenir les tickets de loterie de l'utilisateur"
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "tickets": [
+                {
+                  "id": 1,
+                  "weekly_id": 1,
+                  "date_obtenue": "2025-06-04",
+                  "bonus": false,
+                  "weekly": {
+                    "id": 1,
+                    "chapter": {
+                      "titre": "Introduction"
+                    }
+                  }
+                }
+              ],
+              "total_tickets": 5,
+              "bonus_tickets": 1
+            }
+          }
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth:
@@ -226,10 +278,59 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      chapter_id:
+        name: chapter_id
+        description: "L'ID du chapitre."
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      semaine:
+        name: semaine
+        description: 'La semaine du défi (format YYYY-MM-DD).'
+        required: true
+        example: '2025-06-02'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      nb_questions:
+        name: nb_questions
+        description: 'Le nombre de questions pour le quiz.'
+        required: true
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      chapter_id: 1
+      semaine: '2025-06-02'
+      nb_questions: 10
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "success": true,
+            "message": "Défi hebdomadaire créé avec succès",
+            "data": {
+              "id": 1,
+              "chapter_id": 1,
+              "semaine": "2025-06-02",
+              "nb_questions": 10
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers
@@ -273,8 +374,41 @@ endpoints:
       id: architecto
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      chapter_id:
+        name: chapter_id
+        description: "L'ID du chapitre."
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      semaine:
+        name: semaine
+        description: 'La semaine du défi (format YYYY-MM-DD).'
+        required: false
+        example: '2025-06-02'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      nb_questions:
+        name: nb_questions
+        description: 'Le nombre de questions pour le quiz.'
+        required: false
+        example: 15
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      chapter_id: 1
+      semaine: '2025-06-02'
+      nb_questions: 15
     fileParameters: []
     responses: []
     responseFields: []

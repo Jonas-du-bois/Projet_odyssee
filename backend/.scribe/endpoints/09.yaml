@@ -1,7 +1,9 @@
 name: Reminders
 description: |-
 
-  API pour gérer les rappels et notifications programmées
+  API pour gérer les reminders de quiz de révision Breitling League
+  Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+  Ils sont liés à un chapitre et doivent être faits avant une date limite.
 endpoints:
   -
     httpMethods:
@@ -11,11 +13,13 @@ endpoints:
       groupName: Reminders
       groupDescription: |-
 
-        API pour gérer les rappels et notifications programmées
+        API pour gérer les reminders de quiz de révision Breitling League
+        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+        Ils sont liés à un chapitre et doivent être faits avant une date limite.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Lister tous les rappels'
-      description: ''
+      title: 'Lister tous les reminders actifs'
+      description: 'Récupère les reminders non expirés avec informations sur les chapitres associés et statut'
       authenticated: true
       custom: []
     headers:
@@ -38,17 +42,111 @@ endpoints:
             "data": [
               {
                 "id": 1,
-                "title": "Rappel quiz quotidien",
-                "message": "N'oubliez pas de faire votre quiz quotidien !",
-                "start_date": "2024-01-01",
-                "end_date": "2024-12-31",
+                "chapter_id": 1,
+                "nb_questions": 10,
+                "date_limite": "2025-06-10",
                 "is_active": true,
-                "priority": 3,
-                "trigger_rule": "daily",
-                "created_at": "2024-01-01T00:00:00.000000Z",
-                "updated_at": "2024-01-01T00:00:00.000000Z"
+                "is_expired": false,
+                "remaining_days": 6,
+                "is_ending_soon": false,
+                "chapter": {
+                  "id": 1,
+                  "nom": "Introduction à l'horlogerie",
+                  "description": "Découverte des bases de l'horlogerie"
+                },
+                "questions_available": 15
               }
             ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/reminders/{id}'
+    metadata:
+      groupName: Reminders
+      groupDescription: |-
+
+        API pour gérer les reminders de quiz de révision Breitling League
+        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+        Ils sont liés à un chapitre et doivent être faits avant une date limite.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Afficher un reminder spécifique'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reminder.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 1,
+              "chapter_id": 1,
+              "nb_questions": 10,
+              "date_limite": "2025-06-10",
+              "is_active": true,
+              "is_expired": false,
+              "remaining_days": 6,
+              "chapter": {
+                "id": 1,
+                "nom": "Introduction à l'horlogerie",
+                "description": "Découverte des bases de l'horlogerie"
+              },
+              "questions": [
+                {
+                  "id": 1,
+                  "unit_id": 1,
+                  "texte": "Quelle est la fonction principale d'un ressort de barillet ?",
+                  "type": "multiple_choice"
+                }
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Reminder non trouvé"
           }
         headers: []
         description: ''
@@ -70,10 +168,12 @@ endpoints:
       groupName: Reminders
       groupDescription: |-
 
-        API pour gérer les rappels et notifications programmées
+        API pour gérer les reminders de quiz de révision Breitling League
+        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+        Ils sont liés à un chapitre et doivent être faits avant une date limite.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer un nouveau rappel'
+      title: 'Créer un nouveau reminder'
       description: ''
       authenticated: true
       custom: []
@@ -86,84 +186,40 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
-        name: title
-        description: 'Le titre du rappel.'
+      chapter_id:
+        name: chapter_id
+        description: 'ID du chapitre.'
         required: true
-        example: 'Rappel quiz quotidien'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      message:
-        name: message
-        description: 'Le message du rappel.'
-        required: true
-        example: "N'oubliez pas de faire votre quiz quotidien !"
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      start_date:
-        name: start_date
-        description: 'Date de début du rappel.'
-        required: true
-        example: '2024-01-01'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      end_date:
-        name: end_date
-        description: 'Date de fin du rappel.'
-        required: true
-        example: '2024-12-31'
-        type: date
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      is_active:
-        name: is_active
-        description: "Statut d'activation."
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      priority:
-        name: priority
-        description: 'Priorité du rappel (1-5).'
-        required: false
-        example: 3
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
-      trigger_rule:
-        name: trigger_rule
-        description: 'Règle de déclenchement.'
-        required: false
-        example: daily
+      nb_questions:
+        name: nb_questions
+        description: 'Nombre de questions pour le quiz de révision.'
+        required: true
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_limite:
+        name: date_limite
+        description: 'Date limite au format Y-m-d.'
+        required: true
+        example: '2025-06-10'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
     cleanBodyParameters:
-      title: 'Rappel quiz quotidien'
-      message: "N'oubliez pas de faire votre quiz quotidien !"
-      start_date: '2024-01-01'
-      end_date: '2024-12-31'
-      is_active: true
-      priority: 3
-      trigger_rule: daily
+      chapter_id: 1
+      nb_questions: 10
+      date_limite: '2025-06-10'
     fileParameters: []
     responses:
       -
@@ -171,18 +227,12 @@ endpoints:
         content: |-
           {
             "success": true,
-            "message": "Rappel créé avec succès",
+            "message": "Reminder créé avec succès",
             "data": {
               "id": 1,
-              "title": "Rappel quiz quotidien",
-              "message": "N'oubliez pas de faire votre quiz quotidien !",
-              "start_date": "2024-01-01",
-              "end_date": "2024-12-31",
-              "is_active": true,
-              "priority": 3,
-              "trigger_rule": "daily",
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T00:00:00.000000Z"
+              "chapter_id": 1,
+              "nb_questions": 10,
+              "date_limite": "2025-06-10"
             }
           }
         headers: []
@@ -193,9 +243,9 @@ endpoints:
         content: |-
           {
             "success": false,
+            "message": "Erreurs de validation",
             "errors": {
-              "title": ["Le champ title est obligatoire."],
-              "end_date": ["Le champ end_date doit être une date postérieure à start_date."]
+              "chapter_id": ["Le chapitre sélectionné n'existe pas"]
             }
           }
         headers: []
@@ -218,10 +268,12 @@ endpoints:
       groupName: Reminders
       groupDescription: |-
 
-        API pour gérer les rappels et notifications programmées
+        API pour gérer les reminders de quiz de révision Breitling League
+        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+        Ils sont liés à un chapitre et doivent être faits avant une date limite.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Mettre à jour un rappel existant'
+      title: 'Mettre à jour un reminder'
       description: ''
       authenticated: true
       custom: []
@@ -244,10 +296,69 @@ endpoints:
       id: architecto
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      chapter_id:
+        name: chapter_id
+        description: 'ID du chapitre.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      nb_questions:
+        name: nb_questions
+        description: 'Nombre de questions pour le quiz de révision.'
+        required: false
+        example: 15
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      date_limite:
+        name: date_limite
+        description: 'Date limite au format Y-m-d.'
+        required: false
+        example: '2025-06-15'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      chapter_id: 1
+      nb_questions: 15
+      date_limite: '2025-06-15'
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Reminder mis à jour avec succès",
+            "data": {
+              "id": 1,
+              "chapter_id": 1,
+              "nb_questions": 15,
+              "date_limite": "2025-06-15"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Reminder non trouvé"
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers
@@ -265,10 +376,12 @@ endpoints:
       groupName: Reminders
       groupDescription: |-
 
-        API pour gérer les rappels et notifications programmées
+        API pour gérer les reminders de quiz de révision Breitling League
+        Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+        Ils sont liés à un chapitre et doivent être faits avant une date limite.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprimer un rappel'
+      title: 'Supprimer un reminder'
       description: ''
       authenticated: true
       custom: []
@@ -294,7 +407,27 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Reminder supprimé avec succès"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "Reminder non trouvé"
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers

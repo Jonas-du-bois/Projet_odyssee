@@ -1,21 +1,103 @@
-name: Discoveries
+name: Novelties
 description: |-
 
-  API pour gérer les découvertes de la plateforme
+  API pour gérer les nouveautés de chapitres Breitling League
+  Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
 endpoints:
   -
     httpMethods:
       - GET
-    uri: api/discoveries
+    uri: 'api/novelties/{id}'
     metadata:
-      groupName: Discoveries
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les découvertes de la plateforme
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Lister toutes les découvertes'
+      title: 'Afficher une nouveauté spécifique avec le contenu du chapitre'
       description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'ID de la nouveauté.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 1,
+              "chapter_id": 1,
+              "date_publication": "2025-06-01",
+              "bonus_initial": true,
+              "is_accessible": true,
+              "is_bonus_eligible": true,
+              "remaining_bonus_days": 4,
+              "chapter": {
+                "id": 1,
+                "titre": "Introduction aux montres Breitling",
+                "description": "Découvrez l'histoire et les valeurs de Breitling"
+              },
+              "units": [
+                {
+                  "id": 1,
+                  "chapter_id": 1,
+                  "titre": "Histoire de Breitling",
+                  "description": "Les origines de la manufacture",
+                  "theorie_html": "<h2>Histoire de Breitling</h2><p>Contenu théorique...</p>"
+                }
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/novelties
+    metadata:
+      groupName: Novelties
+      groupDescription: |-
+
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Lister toutes les nouveautés accessibles'
+      description: 'Récupère les nouveautés disponibles avec informations sur les bonus et chapitres associés'
       authenticated: true
       custom: []
     headers:
@@ -38,12 +120,18 @@ endpoints:
             "data": [
               {
                 "id": 1,
-                "title": "Nouvelle collection Breitling",
-                "content": "Découvrez notre nouvelle collection...",
-                "image": "https://example.com/image.jpg",
-                "is_active": true,
-                "created_at": "2024-01-01T00:00:00.000000Z",
-                "updated_at": "2024-01-01T00:00:00.000000Z"
+                "chapter_id": 1,
+                "date_publication": "2025-06-01",
+                "bonus_initial": true,
+                "is_accessible": true,
+                "is_bonus_eligible": true,
+                "remaining_bonus_days": 4,
+                "chapter": {
+                  "id": 1,
+                  "titre": "Introduction aux montres Breitling",
+                  "description": "Découvrez l'histoire et les valeurs de Breitling"
+                },
+                "units_count": 5
               }
             ]
           }
@@ -61,92 +149,17 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - GET
-    uri: 'api/discoveries/{id}'
-    metadata:
-      groupName: Discoveries
-      groupDescription: |-
-
-        API pour gérer les découvertes de la plateforme
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Afficher une découverte spécifique'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: "L'ID de la découverte."
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": {
-              "id": 1,
-              "title": "Nouvelle collection Breitling",
-              "content": "Découvrez notre nouvelle collection...",
-              "image": "https://example.com/image.jpg",
-              "is_active": true,
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T00:00:00.000000Z"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Découverte non trouvée",
-            "error": "No query results for model [App\\Models\\Discovery] 1"
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 7|w3Bx0PTESYgZ5xXQI8lLWxu4T5prrWU129VBNH8Y0d61c53d'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - POST
-    uri: api/discoveries
+    uri: api/novelties
     metadata:
-      groupName: Discoveries
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les découvertes de la plateforme
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer une nouvelle découverte'
+      title: 'Créer une nouvelle nouveauté (Admin)'
       description: ''
       authenticated: true
       custom: []
@@ -159,39 +172,29 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
-        name: title
-        description: 'Le titre de la découverte.'
+      chapter_id:
+        name: chapter_id
+        description: 'ID du chapitre associé.'
         required: true
-        example: 'Nouvelle collection Breitling'
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
-      content:
-        name: content
-        description: 'Le contenu de la découverte.'
+      date_publication:
+        name: date_publication
+        description: 'Date de publication.'
         required: true
-        example: 'Découvrez notre nouvelle collection avec des modèles innovants...'
-        type: string
+        example: '2025-06-05'
+        type: date
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
-      image:
-        name: image
-        description: "L'URL de l'image associée."
-        required: false
-        example: 'https://example.com/image.jpg'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      is_active:
-        name: is_active
-        description: "Statut d'activation de la découverte."
+      bonus_initial:
+        name: bonus_initial
+        description: 'Bonus accordé dans les 7 jours.'
         required: false
         example: true
         type: boolean
@@ -200,10 +203,9 @@ endpoints:
         nullable: false
         custom: []
     cleanBodyParameters:
-      title: 'Nouvelle collection Breitling'
-      content: 'Découvrez notre nouvelle collection avec des modèles innovants...'
-      image: 'https://example.com/image.jpg'
-      is_active: true
+      chapter_id: 1
+      date_publication: '2025-06-05'
+      bonus_initial: true
     fileParameters: []
     responses:
       -
@@ -211,28 +213,12 @@ endpoints:
         content: |-
           {
             "success": true,
-            "message": "Découverte créée avec succès",
+            "message": "Nouveauté créée avec succès",
             "data": {
-              "id": 1,
-              "title": "Nouvelle collection Breitling",
-              "content": "Découvrez notre nouvelle collection...",
-              "image": "https://example.com/image.jpg",
-              "is_active": true,
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T00:00:00.000000Z"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 422
-        content: |-
-          {
-            "success": false,
-            "errors": {
-              "title": ["Le champ title est obligatoire."],
-              "content": ["Le champ content est obligatoire."]
+              "id": 2,
+              "chapter_id": 1,
+              "date_publication": "2025-06-05",
+              "bonus_initial": true
             }
           }
         headers: []
@@ -250,15 +236,16 @@ endpoints:
   -
     httpMethods:
       - PUT
-    uri: 'api/discoveries/{id}'
+    uri: 'api/novelties/{id}'
     metadata:
-      groupName: Discoveries
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les découvertes de la plateforme
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Mettre à jour une découverte existante'
+      title: 'Mettre à jour une nouveauté existante (Admin)'
       description: ''
       authenticated: true
       custom: []
@@ -269,7 +256,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: "L'ID de la découverte à modifier."
+        description: 'ID de la nouveauté.'
         required: true
         example: 1
         type: integer
@@ -282,51 +269,40 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
-        name: title
-        description: 'Le titre de la découverte.'
+      chapter_id:
+        name: chapter_id
+        description: 'ID du chapitre associé.'
         required: false
-        example: 'Nouvelle collection Breitling mise à jour'
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
-      content:
-        name: content
-        description: 'Le contenu de la découverte.'
+      date_publication:
+        name: date_publication
+        description: 'Date de publication.'
         required: false
-        example: 'Découvrez notre collection mise à jour...'
-        type: string
+        example: '2025-06-05'
+        type: date
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
-      image:
-        name: image
-        description: "L'URL de l'image associée."
+      bonus_initial:
+        name: bonus_initial
+        description: 'Bonus accordé dans les 7 jours.'
         required: false
-        example: 'https://example.com/new-image.jpg'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      is_active:
-        name: is_active
-        description: "Statut d'activation de la découverte."
-        required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
     cleanBodyParameters:
-      title: 'Nouvelle collection Breitling mise à jour'
-      content: 'Découvrez notre collection mise à jour...'
-      image: 'https://example.com/new-image.jpg'
-      is_active: false
+      chapter_id: 1
+      date_publication: '2025-06-05'
+      bonus_initial: true
     fileParameters: []
     responses:
       -
@@ -334,27 +310,13 @@ endpoints:
         content: |-
           {
             "success": true,
-            "message": "Découverte mise à jour avec succès",
+            "message": "Nouveauté mise à jour avec succès",
             "data": {
               "id": 1,
-              "title": "Nouvelle collection Breitling mise à jour",
-              "content": "Découvrez notre collection mise à jour...",
-              "image": "https://example.com/new-image.jpg",
-              "is_active": false,
-              "created_at": "2024-01-01T00:00:00.000000Z",
-              "updated_at": "2024-01-01T12:00:00.000000Z"
+              "chapter_id": 1,
+              "date_publication": "2025-06-05",
+              "bonus_initial": true
             }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Erreur lors de la mise à jour de la découverte",
-            "error": "No query results for model [App\\Models\\Discovery] 1"
           }
         headers: []
         description: ''
@@ -371,15 +333,16 @@ endpoints:
   -
     httpMethods:
       - DELETE
-    uri: 'api/discoveries/{id}'
+    uri: 'api/novelties/{id}'
     metadata:
-      groupName: Discoveries
+      groupName: Novelties
       groupDescription: |-
 
-        API pour gérer les découvertes de la plateforme
+        API pour gérer les nouveautés de chapitres Breitling League
+        Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprimer une découverte'
+      title: 'Supprimer une nouveauté (Admin)'
       description: ''
       authenticated: true
       custom: []
@@ -390,7 +353,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: "L'ID de la découverte à supprimer."
+        description: 'ID de la nouveauté.'
         required: true
         example: 1
         type: integer
@@ -411,18 +374,7 @@ endpoints:
         content: |-
           {
             "success": true,
-            "message": "Découverte supprimée avec succès"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "success": false,
-            "message": "Erreur lors de la suppression de la découverte",
-            "error": "No query results for model [App\\Models\\Discovery] 1"
+            "message": "Nouveauté supprimée avec succès"
           }
         headers: []
         description: ''

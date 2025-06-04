@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'chapter_id',
         'titre',
         'description',
+        'theorie_html',
     ];
 
     protected $casts = [

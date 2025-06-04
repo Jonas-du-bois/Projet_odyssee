@@ -90,19 +90,19 @@
                 </li>
                                     <ul id="tocify-subheader-discoveries" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="discoveries-GETapi-discoveries">
-                                <a href="#discoveries-GETapi-discoveries">Lister toutes les découvertes</a>
+                                <a href="#discoveries-GETapi-discoveries">Lister les explorations de chapitres disponibles</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="discoveries-GETapi-discoveries--id-">
-                                <a href="#discoveries-GETapi-discoveries--id-">Afficher une découverte spécifique</a>
+                                <a href="#discoveries-GETapi-discoveries--id-">Afficher une exploration de chapitre spécifique avec ses unités</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="discoveries-POSTapi-discoveries">
-                                <a href="#discoveries-POSTapi-discoveries">Créer une nouvelle découverte</a>
+                                <a href="#discoveries-POSTapi-discoveries">Créer une nouvelle exploration de chapitre (admin)</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="discoveries-PUTapi-discoveries--id-">
-                                <a href="#discoveries-PUTapi-discoveries--id-">Mettre à jour une découverte existante</a>
+                                <a href="#discoveries-PUTapi-discoveries--id-">Mettre à jour une exploration existante (admin)</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="discoveries-DELETEapi-discoveries--id-">
-                                <a href="#discoveries-DELETEapi-discoveries--id-">Supprimer une découverte</a>
+                                <a href="#discoveries-DELETEapi-discoveries--id-">Supprimer une exploration (admin)</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -139,11 +139,14 @@
                                                     <li class="tocify-item level-2" data-unique="events-GETapi-events">
                                 <a href="#events-GETapi-events">Lister tous les événements</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="events-GETapi-events--id--units">
+                                <a href="#events-GETapi-events--id--units">Récupérer les unités d'un événement</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="events-POSTapi-events">
                                 <a href="#events-POSTapi-events">Créer un nouvel événement</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="events-PUTapi-events--id-">
-                                <a href="#events-PUTapi-events--id-">Mettre à jour un événement existant</a>
+                                <a href="#events-PUTapi-events--id-">Mettre à jour un événement</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="events-DELETEapi-events--id-">
                                 <a href="#events-DELETEapi-events--id-">Supprimer un événement</a>
@@ -187,17 +190,20 @@
                     <a href="#novelties">Novelties</a>
                 </li>
                                     <ul id="tocify-subheader-novelties" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="novelties-GETapi-novelties">
-                                <a href="#novelties-GETapi-novelties">Lister toutes les nouveautés</a>
+                                                    <li class="tocify-item level-2" data-unique="novelties-GETapi-novelties--id-">
+                                <a href="#novelties-GETapi-novelties--id-">Afficher une nouveauté spécifique avec le contenu du chapitre</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="novelties-GETapi-novelties">
+                                <a href="#novelties-GETapi-novelties">Lister toutes les nouveautés accessibles</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="novelties-POSTapi-novelties">
-                                <a href="#novelties-POSTapi-novelties">Créer une nouvelle nouveauté</a>
+                                <a href="#novelties-POSTapi-novelties">Créer une nouvelle nouveauté (Admin)</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="novelties-PUTapi-novelties--id-">
-                                <a href="#novelties-PUTapi-novelties--id-">Mettre à jour une nouveauté existante</a>
+                                <a href="#novelties-PUTapi-novelties--id-">Mettre à jour une nouveauté existante (Admin)</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="novelties-DELETEapi-novelties--id-">
-                                <a href="#novelties-DELETEapi-novelties--id-">Supprimer une nouveauté</a>
+                                <a href="#novelties-DELETEapi-novelties--id-">Supprimer une nouveauté (Admin)</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -242,16 +248,19 @@
                 </li>
                                     <ul id="tocify-subheader-reminders" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="reminders-GETapi-reminders">
-                                <a href="#reminders-GETapi-reminders">Lister tous les rappels</a>
+                                <a href="#reminders-GETapi-reminders">Lister tous les reminders actifs</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="reminders-GETapi-reminders--id-">
+                                <a href="#reminders-GETapi-reminders--id-">Afficher un reminder spécifique</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="reminders-POSTapi-reminders">
-                                <a href="#reminders-POSTapi-reminders">Créer un nouveau rappel</a>
+                                <a href="#reminders-POSTapi-reminders">Créer un nouveau reminder</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="reminders-PUTapi-reminders--id-">
-                                <a href="#reminders-PUTapi-reminders--id-">Mettre à jour un rappel existant</a>
+                                <a href="#reminders-PUTapi-reminders--id-">Mettre à jour un reminder</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="reminders-DELETEapi-reminders--id-">
-                                <a href="#reminders-DELETEapi-reminders--id-">Supprimer un rappel</a>
+                                <a href="#reminders-DELETEapi-reminders--id-">Supprimer un reminder</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -274,13 +283,16 @@
                 </li>
                                     <ul id="tocify-subheader-weekly-challenges" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="weekly-challenges-GETapi-weekly">
-                                <a href="#weekly-challenges-GETapi-weekly">Lister les défis hebdomadaires actifs</a>
+                                <a href="#weekly-challenges-GETapi-weekly">Lister les défis hebdomadaires disponibles pour l'utilisateur</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="weekly-challenges-POSTapi-weekly--id--claim">
-                                <a href="#weekly-challenges-POSTapi-weekly--id--claim">Réclamer un ticket après un défi hebdomadaire réussi</a>
+                                <a href="#weekly-challenges-POSTapi-weekly--id--claim">Réclamer un ticket après avoir réussi un défi hebdomadaire</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="weekly-challenges-GETapi-weekly-series">
                                 <a href="#weekly-challenges-GETapi-weekly-series">Obtenir les informations sur la série de l'utilisateur</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="weekly-challenges-GETapi-weekly-tickets">
+                                <a href="#weekly-challenges-GETapi-weekly-tickets">Obtenir les tickets de loterie de l'utilisateur</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="weekly-challenges-POSTapi-weekly">
                                 <a href="#weekly-challenges-POSTapi-weekly">Créer un nouveau défi hebdomadaire (admin)</a>
@@ -302,7 +314,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 3, 2025</li>
+        <li>Last updated: June 4, 2025</li>
     </ul>
 </div>
 
@@ -662,9 +674,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="discoveries">Discoveries</h1>
 
-    <p>API pour gérer les découvertes de la plateforme</p>
+    <p>API pour gérer les explorations de chapitres (théorie + quiz)</p>
 
-                                <h2 id="discoveries-GETapi-discoveries">Lister toutes les découvertes</h2>
+                                <h2 id="discoveries-GETapi-discoveries">Lister les explorations de chapitres disponibles</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -713,12 +725,15 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;Nouvelle collection Breitling&quot;,
-            &quot;content&quot;: &quot;D&eacute;couvrez notre nouvelle collection...&quot;,
-            &quot;image&quot;: &quot;https://example.com/image.jpg&quot;,
-            &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+            &quot;chapter_id&quot;: 1,
+            &quot;date_disponible&quot;: &quot;2025-06-01&quot;,
+            &quot;chapter&quot;: {
+                &quot;id&quot;: 1,
+                &quot;titre&quot;: &quot;Introduction&quot;,
+                &quot;description&quot;: &quot;Chapitre d&#039;introduction&quot;
+            },
+            &quot;units_count&quot;: 5,
+            &quot;is_available&quot;: true
         }
     ]
 }</code>
@@ -806,7 +821,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="discoveries-GETapi-discoveries--id-">Afficher une découverte spécifique</h2>
+                    <h2 id="discoveries-GETapi-discoveries--id-">Afficher une exploration de chapitre spécifique avec ses unités</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -854,12 +869,22 @@ fetch(url, {
     &quot;success&quot;: true,
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Nouvelle collection Breitling&quot;,
-        &quot;content&quot;: &quot;D&eacute;couvrez notre nouvelle collection...&quot;,
-        &quot;image&quot;: &quot;https://example.com/image.jpg&quot;,
-        &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+        &quot;chapter_id&quot;: 1,
+        &quot;date_disponible&quot;: &quot;2025-06-01&quot;,
+        &quot;chapter&quot;: {
+            &quot;id&quot;: 1,
+            &quot;titre&quot;: &quot;Introduction&quot;,
+            &quot;description&quot;: &quot;Chapitre d&#039;introduction&quot;
+        },
+        &quot;units&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;titre&quot;: &quot;Unit&eacute; 1&quot;,
+                &quot;description&quot;: &quot;Description de l&#039;unit&eacute;&quot;,
+                &quot;theorie_html&quot;: &quot;&lt;p&gt;Contenu HTML de la th&eacute;orie&lt;/p&gt;&quot;
+            }
+        ],
+        &quot;is_available&quot;: true
     }
 }</code>
  </pre>
@@ -870,8 +895,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
-    &quot;message&quot;: &quot;D&eacute;couverte non trouv&eacute;e&quot;,
-    &quot;error&quot;: &quot;No query results for model [App\\Models\\Discovery] 1&quot;
+    &quot;message&quot;: &quot;Exploration non trouv&eacute;e&quot;
 }</code>
  </pre>
     </span>
@@ -965,11 +989,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="1"
                data-component="url">
     <br>
-<p>L'ID de la découverte. Example: <code>1</code></p>
+<p>L'ID de l'exploration. Example: <code>1</code></p>
             </div>
                     </form>
 
-                    <h2 id="discoveries-POSTapi-discoveries">Créer une nouvelle découverte</h2>
+                    <h2 id="discoveries-POSTapi-discoveries">Créer une nouvelle exploration de chapitre (admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -988,10 +1012,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"title\": \"Nouvelle collection Breitling\",
-    \"content\": \"Découvrez notre nouvelle collection avec des modèles innovants...\",
-    \"image\": \"https:\\/\\/example.com\\/image.jpg\",
-    \"is_active\": true
+    \"chapter_id\": 1,
+    \"date_disponible\": \"2025-06-01\"
 }"
 </code></pre></div>
 
@@ -1008,10 +1030,8 @@ const headers = {
 };
 
 let body = {
-    "title": "Nouvelle collection Breitling",
-    "content": "Découvrez notre nouvelle collection avec des modèles innovants...",
-    "image": "https:\/\/example.com\/image.jpg",
-    "is_active": true
+    "chapter_id": 1,
+    "date_disponible": "2025-06-01"
 };
 
 fetch(url, {
@@ -1030,15 +1050,11 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
-    &quot;message&quot;: &quot;D&eacute;couverte cr&eacute;&eacute;e avec succ&egrave;s&quot;,
+    &quot;message&quot;: &quot;Exploration cr&eacute;&eacute;e avec succ&egrave;s&quot;,
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Nouvelle collection Breitling&quot;,
-        &quot;content&quot;: &quot;D&eacute;couvrez notre nouvelle collection...&quot;,
-        &quot;image&quot;: &quot;https://example.com/image.jpg&quot;,
-        &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+        &quot;chapter_id&quot;: 1,
+        &quot;date_disponible&quot;: &quot;2025-06-01&quot;
     }
 }</code>
  </pre>
@@ -1050,11 +1066,11 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
     &quot;errors&quot;: {
-        &quot;title&quot;: [
-            &quot;Le champ title est obligatoire.&quot;
+        &quot;chapter_id&quot;: [
+            &quot;Le champ chapter_id est obligatoire.&quot;
         ],
-        &quot;content&quot;: [
-            &quot;Le champ content est obligatoire.&quot;
+        &quot;date_disponible&quot;: [
+            &quot;Le champ date_disponible est obligatoire.&quot;
         ]
     }
 }</code>
@@ -1142,62 +1158,30 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="POSTapi-discoveries"
+               value="1"
+               data-component="body">
+    <br>
+<p>L'ID du chapitre. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_disponible</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="title"                data-endpoint="POSTapi-discoveries"
-               value="Nouvelle collection Breitling"
+                              name="date_disponible"                data-endpoint="POSTapi-discoveries"
+               value="2025-06-01"
                data-component="body">
     <br>
-<p>Le titre de la découverte. Example: <code>Nouvelle collection Breitling</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="content"                data-endpoint="POSTapi-discoveries"
-               value="Découvrez notre nouvelle collection avec des modèles innovants..."
-               data-component="body">
-    <br>
-<p>Le contenu de la découverte. Example: <code>Découvrez notre nouvelle collection avec des modèles innovants...</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="image"                data-endpoint="POSTapi-discoveries"
-               value="https://example.com/image.jpg"
-               data-component="body">
-    <br>
-<p>L'URL de l'image associée. Example: <code>https://example.com/image.jpg</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
-                <label data-endpoint="POSTapi-discoveries" style="display: none">
-            <input type="radio" name="is_active"
-                   value="true"
-                   data-endpoint="POSTapi-discoveries"
-                   data-component="body"             >
-            <code>true</code>
-        </label>
-        <label data-endpoint="POSTapi-discoveries" style="display: none">
-            <input type="radio" name="is_active"
-                   value="false"
-                   data-endpoint="POSTapi-discoveries"
-                   data-component="body"             >
-            <code>false</code>
-        </label>
-    <br>
-<p>Statut d'activation de la découverte. Example: <code>true</code></p>
+<p>La date de disponibilité (format YYYY-MM-DD). Example: <code>2025-06-01</code></p>
         </div>
         </form>
 
-                    <h2 id="discoveries-PUTapi-discoveries--id-">Mettre à jour une découverte existante</h2>
+                    <h2 id="discoveries-PUTapi-discoveries--id-">Mettre à jour une exploration existante (admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -1216,10 +1200,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"title\": \"Nouvelle collection Breitling mise à jour\",
-    \"content\": \"Découvrez notre collection mise à jour...\",
-    \"image\": \"https:\\/\\/example.com\\/new-image.jpg\",
-    \"is_active\": false
+    \"chapter_id\": 2,
+    \"date_disponible\": \"2025-06-15\"
 }"
 </code></pre></div>
 
@@ -1236,10 +1218,8 @@ const headers = {
 };
 
 let body = {
-    "title": "Nouvelle collection Breitling mise à jour",
-    "content": "Découvrez notre collection mise à jour...",
-    "image": "https:\/\/example.com\/new-image.jpg",
-    "is_active": false
+    "chapter_id": 2,
+    "date_disponible": "2025-06-15"
 };
 
 fetch(url, {
@@ -1258,27 +1238,12 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
-    &quot;message&quot;: &quot;D&eacute;couverte mise &agrave; jour avec succ&egrave;s&quot;,
+    &quot;message&quot;: &quot;Exploration mise &agrave; jour avec succ&egrave;s&quot;,
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Nouvelle collection Breitling mise &agrave; jour&quot;,
-        &quot;content&quot;: &quot;D&eacute;couvrez notre collection mise &agrave; jour...&quot;,
-        &quot;image&quot;: &quot;https://example.com/new-image.jpg&quot;,
-        &quot;is_active&quot;: false,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T12:00:00.000000Z&quot;
+        &quot;chapter_id&quot;: 2,
+        &quot;date_disponible&quot;: &quot;2025-06-15&quot;
     }
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la mise &agrave; jour de la d&eacute;couverte&quot;,
-    &quot;error&quot;: &quot;No query results for model [App\\Models\\Discovery] 1&quot;
 }</code>
  </pre>
     </span>
@@ -1372,66 +1337,34 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="1"
                data-component="url">
     <br>
-<p>L'ID de la découverte à modifier. Example: <code>1</code></p>
+<p>L'ID de l'exploration à modifier. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
 <i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="title"                data-endpoint="PUTapi-discoveries--id-"
-               value="Nouvelle collection Breitling mise à jour"
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="PUTapi-discoveries--id-"
+               value="2"
                data-component="body">
     <br>
-<p>Le titre de la découverte. Example: <code>Nouvelle collection Breitling mise à jour</code></p>
+<p>L'ID du chapitre. Example: <code>2</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+            <b style="line-height: 2;"><code>date_disponible</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
-                              name="content"                data-endpoint="PUTapi-discoveries--id-"
-               value="Découvrez notre collection mise à jour..."
+                              name="date_disponible"                data-endpoint="PUTapi-discoveries--id-"
+               value="2025-06-15"
                data-component="body">
     <br>
-<p>Le contenu de la découverte. Example: <code>Découvrez notre collection mise à jour...</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="image"                data-endpoint="PUTapi-discoveries--id-"
-               value="https://example.com/new-image.jpg"
-               data-component="body">
-    <br>
-<p>L'URL de l'image associée. Example: <code>https://example.com/new-image.jpg</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
-                <label data-endpoint="PUTapi-discoveries--id-" style="display: none">
-            <input type="radio" name="is_active"
-                   value="true"
-                   data-endpoint="PUTapi-discoveries--id-"
-                   data-component="body"             >
-            <code>true</code>
-        </label>
-        <label data-endpoint="PUTapi-discoveries--id-" style="display: none">
-            <input type="radio" name="is_active"
-                   value="false"
-                   data-endpoint="PUTapi-discoveries--id-"
-                   data-component="body"             >
-            <code>false</code>
-        </label>
-    <br>
-<p>Statut d'activation de la découverte. Example: <code>false</code></p>
+<p>La date de disponibilité (format YYYY-MM-DD). Example: <code>2025-06-15</code></p>
         </div>
         </form>
 
-                    <h2 id="discoveries-DELETEapi-discoveries--id-">Supprimer une découverte</h2>
+                    <h2 id="discoveries-DELETEapi-discoveries--id-">Supprimer une exploration (admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -1477,18 +1410,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
-    &quot;message&quot;: &quot;D&eacute;couverte supprim&eacute;e avec succ&egrave;s&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la suppression de la d&eacute;couverte&quot;,
-    &quot;error&quot;: &quot;No query results for model [App\\Models\\Discovery] 1&quot;
+    &quot;message&quot;: &quot;Exploration supprim&eacute;e avec succ&egrave;s&quot;
 }</code>
  </pre>
     </span>
@@ -1582,7 +1504,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="1"
                data-component="url">
     <br>
-<p>L'ID de la découverte à supprimer. Example: <code>1</code></p>
+<p>L'ID de l'exploration à supprimer. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -2042,7 +1964,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-me">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2058,15 +1980,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 4,
-    &quot;name&quot;: &quot;Demo User&quot;,
-    &quot;email&quot;: &quot;demo@example.com&quot;,
-    &quot;email_verified_at&quot;: &quot;2025-06-03T20:50:33.000000Z&quot;,
-    &quot;created_at&quot;: &quot;2025-06-03T20:50:33.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2025-06-03T20:50:33.000000Z&quot;,
-    &quot;nom&quot;: null,
-    &quot;rang_id&quot;: null,
-    &quot;date_inscription&quot;: &quot;2025-06-03T00:00:00.000000Z&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -2398,7 +2312,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="events">Events</h1>
 
-    <p>API pour gérer les événements spéciaux de la plateforme</p>
+    <p>API pour gérer les événements spéciaux Breitling League
+Les événements sont des modules spéciaux liés à plusieurs unités via la table event_units.
+Chaque unité contient sa propre théorie HTML et questions associées.
+Un événement peut inclure des unités de plusieurs chapitres différents.</p>
 
                                 <h2 id="events-GETapi-events">Lister tous les événements</h2>
 
@@ -2406,7 +2323,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Récupère tous les événements avec leur statut et informations sur les unités associées</p>
 
 <span id="example-requests-GETapi-events">
 <blockquote>Example request:</blockquote>
@@ -2449,15 +2366,16 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;Concours d&#039;&eacute;t&eacute; Breitling&quot;,
-            &quot;description&quot;: &quot;Participez &agrave; notre grand concours d&#039;&eacute;t&eacute; avec des prix exceptionnels !&quot;,
-            &quot;start_date&quot;: &quot;2024-06-01&quot;,
-            &quot;end_date&quot;: &quot;2024-08-31&quot;,
+            &quot;theme&quot;: &quot;Horlogerie Suisse Excellence&quot;,
+            &quot;date_debut&quot;: &quot;2025-06-01&quot;,
+            &quot;date_fin&quot;: &quot;2025-06-30&quot;,
             &quot;is_active&quot;: true,
-            &quot;image&quot;: &quot;https://example.com/event-image.jpg&quot;,
-            &quot;theme_color&quot;: &quot;#ff6b35&quot;,
-            &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+            &quot;is_upcoming&quot;: false,
+            &quot;is_finished&quot;: false,
+            &quot;remaining_days&quot;: 26,
+            &quot;is_ending_soon&quot;: false,
+            &quot;units_count&quot;: 5,
+            &quot;total_questions&quot;: 50
         }
     ]
 }</code>
@@ -2545,6 +2463,188 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+                    <h2 id="events-GETapi-events--id--units">Récupérer les unités d&#039;un événement</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retourne toutes les unités associées à l'événement avec leur théorie HTML et questions</p>
+
+<span id="example-requests-GETapi-events--id--units">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/events/architecto/units" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/events/architecto/units"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-events--id--units">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;titre&quot;: &quot;Introduction aux mouvements&quot;,
+            &quot;description&quot;: &quot;D&eacute;couverte des diff&eacute;rents types de mouvements horlogers&quot;,
+            &quot;theorie_html&quot;: &quot;&lt;h2&gt;Les mouvements horlogers&lt;/h2&gt;&lt;p&gt;Un mouvement horloger...&lt;/p&gt;&quot;,
+            &quot;chapter&quot;: {
+                &quot;id&quot;: 1,
+                &quot;titre&quot;: &quot;Horlogerie de base&quot;,
+                &quot;description&quot;: &quot;Les fondamentaux de l&#039;horlogerie&quot;
+            },
+            &quot;questions_count&quot;: 5,
+            &quot;questions&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;enonce&quot;: &quot;Qu&#039;est-ce qu&#039;un mouvement m&eacute;canique ?&quot;,
+                    &quot;type&quot;: &quot;multiple_choice&quot;,
+                    &quot;timer_secondes&quot;: 30,
+                    &quot;choices&quot;: [
+                        {
+                            &quot;id&quot;: 1,
+                            &quot;texte&quot;: &quot;Un mouvement actionn&eacute; par un ressort&quot;,
+                            &quot;est_correct&quot;: true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;&Eacute;v&eacute;nement non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-events--id--units" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-events--id--units"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-events--id--units"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-events--id--units" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-events--id--units">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-events--id--units" data-method="GET"
+      data-path="api/events/{id}/units"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-events--id--units', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-events--id--units"
+                    onclick="tryItOut('GETapi-events--id--units');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-events--id--units"
+                    onclick="cancelTryOut('GETapi-events--id--units');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-events--id--units"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/events/{id}/units</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-events--id--units"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-events--id--units"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-events--id--units"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-events--id--units"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the event. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
                     <h2 id="events-POSTapi-events">Créer un nouvel événement</h2>
 
 <p>
@@ -2564,13 +2664,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"title\": \"Concours d\'été Breitling\",
-    \"description\": \"Participez à notre grand concours d\'été avec des prix exceptionnels !\",
-    \"start_date\": \"2024-06-01\",
-    \"end_date\": \"2024-08-31\",
-    \"is_active\": true,
-    \"image\": \"https:\\/\\/example.com\\/event-image.jpg\",
-    \"theme_color\": \"#ff6b35\"
+    \"theme\": \"Horlogerie Suisse Excellence\",
+    \"date_debut\": \"2025-06-01\",
+    \"date_fin\": \"2025-06-30\",
+    \"unit_ids\": [
+        1,
+        2,
+        3
+    ]
 }"
 </code></pre></div>
 
@@ -2587,13 +2688,14 @@ const headers = {
 };
 
 let body = {
-    "title": "Concours d'été Breitling",
-    "description": "Participez à notre grand concours d'été avec des prix exceptionnels !",
-    "start_date": "2024-06-01",
-    "end_date": "2024-08-31",
-    "is_active": true,
-    "image": "https:\/\/example.com\/event-image.jpg",
-    "theme_color": "#ff6b35"
+    "theme": "Horlogerie Suisse Excellence",
+    "date_debut": "2025-06-01",
+    "date_fin": "2025-06-30",
+    "unit_ids": [
+        1,
+        2,
+        3
+    ]
 };
 
 fetch(url, {
@@ -2615,15 +2717,24 @@ fetch(url, {
     &quot;message&quot;: &quot;&Eacute;v&eacute;nement cr&eacute;&eacute; avec succ&egrave;s&quot;,
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Concours d&#039;&eacute;t&eacute; Breitling&quot;,
-        &quot;description&quot;: &quot;Participez &agrave; notre grand concours d&#039;&eacute;t&eacute; avec des prix exceptionnels !&quot;,
-        &quot;start_date&quot;: &quot;2024-06-01&quot;,
-        &quot;end_date&quot;: &quot;2024-08-31&quot;,
-        &quot;is_active&quot;: true,
-        &quot;image&quot;: &quot;https://example.com/event-image.jpg&quot;,
-        &quot;theme_color&quot;: &quot;#ff6b35&quot;,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+        &quot;theme&quot;: &quot;Horlogerie Suisse Excellence&quot;,
+        &quot;date_debut&quot;: &quot;2025-06-01&quot;,
+        &quot;date_fin&quot;: &quot;2025-06-30&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Erreurs de validation&quot;,
+    &quot;errors&quot;: {
+        &quot;theme&quot;: [
+            &quot;Le th&egrave;me est requis&quot;
+        ]
     }
 }</code>
  </pre>
@@ -2710,95 +2821,54 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="title"                data-endpoint="POSTapi-events"
-               value="Concours d'été Breitling"
+                              name="theme"                data-endpoint="POSTapi-events"
+               value="Horlogerie Suisse Excellence"
                data-component="body">
     <br>
-<p>Le titre de l'événement. Example: <code>Concours d'été Breitling</code></p>
+<p>Le thème de l'événement. Example: <code>Horlogerie Suisse Excellence</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>date_debut</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="description"                data-endpoint="POSTapi-events"
-               value="Participez à notre grand concours d'été avec des prix exceptionnels !"
+                              name="date_debut"                data-endpoint="POSTapi-events"
+               value="2025-06-01"
                data-component="body">
     <br>
-<p>La description de l'événement. Example: <code>Participez à notre grand concours d'été avec des prix exceptionnels !</code></p>
+<p>Date de début au format Y-m-d. Example: <code>2025-06-01</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="start_date"                data-endpoint="POSTapi-events"
-               value="2024-06-01"
-               data-component="body">
-    <br>
-<p>Date de début de l'événement. Example: <code>2024-06-01</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="end_date"                data-endpoint="POSTapi-events"
-               value="2024-08-31"
-               data-component="body">
-    <br>
-<p>Date de fin de l'événement. Example: <code>2024-08-31</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
-                <label data-endpoint="POSTapi-events" style="display: none">
-            <input type="radio" name="is_active"
-                   value="true"
-                   data-endpoint="POSTapi-events"
-                   data-component="body"             >
-            <code>true</code>
-        </label>
-        <label data-endpoint="POSTapi-events" style="display: none">
-            <input type="radio" name="is_active"
-                   value="false"
-                   data-endpoint="POSTapi-events"
-                   data-component="body"             >
-            <code>false</code>
-        </label>
-    <br>
-<p>Statut d'activation. Example: <code>true</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>date_fin</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="date_fin"                data-endpoint="POSTapi-events"
+               value="2025-06-30"
+               data-component="body">
+    <br>
+<p>Date de fin au format Y-m-d. Example: <code>2025-06-30</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>unit_ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
-                              name="image"                data-endpoint="POSTapi-events"
-               value="https://example.com/event-image.jpg"
+                              name="unit_ids[0]"                data-endpoint="POSTapi-events"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="unit_ids[1]"                data-endpoint="POSTapi-events"
                data-component="body">
     <br>
-<p>URL de l'image de l'événement. Example: <code>https://example.com/event-image.jpg</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>theme_color</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="theme_color"                data-endpoint="POSTapi-events"
-               value="#ff6b35"
-               data-component="body">
-    <br>
-<p>Couleur thématique de l'événement. Example: <code>#ff6b35</code></p>
+<p>Liste des IDs des unités à associer à l'événement.</p>
         </div>
         </form>
 
-                    <h2 id="events-PUTapi-events--id-">Mettre à jour un événement existant</h2>
+                    <h2 id="events-PUTapi-events--id-">Mettre à jour un événement</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -2815,7 +2885,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/events/architecto" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"theme\": \"Horlogerie Moderne\",
+    \"date_debut\": \"2025-07-01\",
+    \"date_fin\": \"2025-07-31\",
+    \"unit_ids\": [
+        1,
+        2,
+        4
+    ]
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2829,15 +2910,53 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "theme": "Horlogerie Moderne",
+    "date_debut": "2025-07-01",
+    "date_fin": "2025-07-31",
+    "unit_ids": [
+        1,
+        2,
+        4
+    ]
+};
+
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-PUTapi-events--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;&Eacute;v&eacute;nement mis &agrave; jour avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;theme&quot;: &quot;Horlogerie Moderne&quot;,
+        &quot;date_debut&quot;: &quot;2025-07-01&quot;,
+        &quot;date_fin&quot;: &quot;2025-07-31&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;&Eacute;v&eacute;nement non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-events--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-events--id-"></span>:
@@ -2930,7 +3049,54 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the event. Example: <code>architecto</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>theme</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="theme"                data-endpoint="PUTapi-events--id-"
+               value="Horlogerie Moderne"
+               data-component="body">
+    <br>
+<p>Le thème de l'événement. Example: <code>Horlogerie Moderne</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_debut</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="date_debut"                data-endpoint="PUTapi-events--id-"
+               value="2025-07-01"
+               data-component="body">
+    <br>
+<p>Date de début au format Y-m-d. Example: <code>2025-07-01</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_fin</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="date_fin"                data-endpoint="PUTapi-events--id-"
+               value="2025-07-31"
+               data-component="body">
+    <br>
+<p>Date de fin au format Y-m-d. Example: <code>2025-07-31</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>unit_ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="unit_ids[0]"                data-endpoint="PUTapi-events--id-"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="unit_ids[1]"                data-endpoint="PUTapi-events--id-"
+               data-component="body">
+    <br>
+<p>Liste des IDs des unités à associer.</p>
+        </div>
+        </form>
 
                     <h2 id="events-DELETEapi-events--id-">Supprimer un événement</h2>
 
@@ -2971,7 +3137,27 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-events--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;&Eacute;v&eacute;nement supprim&eacute; avec succ&egrave;s&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;&Eacute;v&eacute;nement non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-events--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-events--id-"></span>:
@@ -3403,7 +3589,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-tickets-stats">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3419,65 +3605,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;total_tickets&quot;: 0,
-        &quot;regular_tickets&quot;: 0,
-        &quot;bonus_tickets&quot;: 0,
-        &quot;monthly_stats&quot;: [
-            {
-                &quot;month&quot;: &quot;Jan&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Feb&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Mar&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Apr&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;May&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Jun&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Jul&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Aug&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Sep&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Oct&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Nov&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Dec&quot;,
-                &quot;count&quot;: 0
-            }
-        ],
-        &quot;current_streak&quot;: 0,
-        &quot;max_streak&quot;: 0,
-        &quot;last_ticket_date&quot;: null
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -3904,7 +4032,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-notifications-unread-count">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3920,10 +4048,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;count&quot;: 0
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -4011,15 +4136,182 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="novelties">Novelties</h1>
 
-    <p>API pour gérer les nouveautés produits Breitling</p>
+    <p>API pour gérer les nouveautés de chapitres Breitling League
+Les nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.</p>
 
-                                <h2 id="novelties-GETapi-novelties">Lister toutes les nouveautés</h2>
+                                <h2 id="novelties-GETapi-novelties--id-">Afficher une nouveauté spécifique avec le contenu du chapitre</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
 
+
+<span id="example-requests-GETapi-novelties--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/novelties/1" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/novelties/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-novelties--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;chapter_id&quot;: 1,
+        &quot;date_publication&quot;: &quot;2025-06-01&quot;,
+        &quot;bonus_initial&quot;: true,
+        &quot;is_accessible&quot;: true,
+        &quot;is_bonus_eligible&quot;: true,
+        &quot;remaining_bonus_days&quot;: 4,
+        &quot;chapter&quot;: {
+            &quot;id&quot;: 1,
+            &quot;titre&quot;: &quot;Introduction aux montres Breitling&quot;,
+            &quot;description&quot;: &quot;D&eacute;couvrez l&#039;histoire et les valeurs de Breitling&quot;
+        },
+        &quot;units&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;chapter_id&quot;: 1,
+                &quot;titre&quot;: &quot;Histoire de Breitling&quot;,
+                &quot;description&quot;: &quot;Les origines de la manufacture&quot;,
+                &quot;theorie_html&quot;: &quot;&lt;h2&gt;Histoire de Breitling&lt;/h2&gt;&lt;p&gt;Contenu th&eacute;orique...&lt;/p&gt;&quot;
+            }
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-novelties--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-novelties--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-novelties--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-novelties--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-novelties--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-novelties--id-" data-method="GET"
+      data-path="api/novelties/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-novelties--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-novelties--id-"
+                    onclick="tryItOut('GETapi-novelties--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-novelties--id-"
+                    onclick="cancelTryOut('GETapi-novelties--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-novelties--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/novelties/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-novelties--id-"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-novelties--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-novelties--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-novelties--id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID de la nouveauté. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="novelties-GETapi-novelties">Lister toutes les nouveautés accessibles</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Récupère les nouveautés disponibles avec informations sur les bonus et chapitres associés</p>
 
 <span id="example-requests-GETapi-novelties">
 <blockquote>Example request:</blockquote>
@@ -4062,15 +4354,18 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;Nouvelle Navitimer B01&quot;,
-            &quot;description&quot;: &quot;D&eacute;couvrez la nouvelle collection Navitimer avec mouvement manufacture B01&quot;,
-            &quot;product_code&quot;: &quot;NAV-B01-2024&quot;,
-            &quot;image&quot;: &quot;https://example.com/navitimer.jpg&quot;,
-            &quot;start_date&quot;: &quot;2024-01-01&quot;,
-            &quot;end_date&quot;: &quot;2024-03-31&quot;,
-            &quot;bonus_points&quot;: 50,
-            &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+            &quot;chapter_id&quot;: 1,
+            &quot;date_publication&quot;: &quot;2025-06-01&quot;,
+            &quot;bonus_initial&quot;: true,
+            &quot;is_accessible&quot;: true,
+            &quot;is_bonus_eligible&quot;: true,
+            &quot;remaining_bonus_days&quot;: 4,
+            &quot;chapter&quot;: {
+                &quot;id&quot;: 1,
+                &quot;titre&quot;: &quot;Introduction aux montres Breitling&quot;,
+                &quot;description&quot;: &quot;D&eacute;couvrez l&#039;histoire et les valeurs de Breitling&quot;
+            },
+            &quot;units_count&quot;: 5
         }
     ]
 }</code>
@@ -4158,7 +4453,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="novelties-POSTapi-novelties">Créer une nouvelle nouveauté</h2>
+                    <h2 id="novelties-POSTapi-novelties">Créer une nouvelle nouveauté (Admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -4177,13 +4472,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"title\": \"Nouvelle Navitimer B01\",
-    \"description\": \"Découvrez la nouvelle collection Navitimer avec mouvement manufacture B01\",
-    \"product_code\": \"NAV-B01-2024\",
-    \"image\": \"https:\\/\\/example.com\\/navitimer.jpg\",
-    \"start_date\": \"2024-01-01\",
-    \"end_date\": \"2024-03-31\",
-    \"bonus_points\": 50
+    \"chapter_id\": 1,
+    \"date_publication\": \"2025-06-05\",
+    \"bonus_initial\": true
 }"
 </code></pre></div>
 
@@ -4200,13 +4491,9 @@ const headers = {
 };
 
 let body = {
-    "title": "Nouvelle Navitimer B01",
-    "description": "Découvrez la nouvelle collection Navitimer avec mouvement manufacture B01",
-    "product_code": "NAV-B01-2024",
-    "image": "https:\/\/example.com\/navitimer.jpg",
-    "start_date": "2024-01-01",
-    "end_date": "2024-03-31",
-    "bonus_points": 50
+    "chapter_id": 1,
+    "date_publication": "2025-06-05",
+    "bonus_initial": true
 };
 
 fetch(url, {
@@ -4227,16 +4514,10 @@ fetch(url, {
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Nouveaut&eacute; cr&eacute;&eacute;e avec succ&egrave;s&quot;,
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Nouvelle Navitimer B01&quot;,
-        &quot;description&quot;: &quot;D&eacute;couvrez la nouvelle collection Navitimer avec mouvement manufacture B01&quot;,
-        &quot;product_code&quot;: &quot;NAV-B01-2024&quot;,
-        &quot;image&quot;: &quot;https://example.com/navitimer.jpg&quot;,
-        &quot;start_date&quot;: &quot;2024-01-01&quot;,
-        &quot;end_date&quot;: &quot;2024-03-31&quot;,
-        &quot;bonus_points&quot;: 50,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+        &quot;id&quot;: 2,
+        &quot;chapter_id&quot;: 1,
+        &quot;date_publication&quot;: &quot;2025-06-05&quot;,
+        &quot;bonus_initial&quot;: true
     }
 }</code>
  </pre>
@@ -4323,85 +4604,51 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="title"                data-endpoint="POSTapi-novelties"
-               value="Nouvelle Navitimer B01"
-               data-component="body">
-    <br>
-<p>Le titre de la nouveauté. Example: <code>Nouvelle Navitimer B01</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="description"                data-endpoint="POSTapi-novelties"
-               value="Découvrez la nouvelle collection Navitimer avec mouvement manufacture B01"
-               data-component="body">
-    <br>
-<p>La description de la nouveauté. Example: <code>Découvrez la nouvelle collection Navitimer avec mouvement manufacture B01</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>product_code</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="product_code"                data-endpoint="POSTapi-novelties"
-               value="NAV-B01-2024"
-               data-component="body">
-    <br>
-<p>Le code produit. Example: <code>NAV-B01-2024</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="image"                data-endpoint="POSTapi-novelties"
-               value="https://example.com/navitimer.jpg"
-               data-component="body">
-    <br>
-<p>URL de l'image du produit. Example: <code>https://example.com/navitimer.jpg</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="start_date"                data-endpoint="POSTapi-novelties"
-               value="2024-01-01"
-               data-component="body">
-    <br>
-<p>Date de début de disponibilité. Example: <code>2024-01-01</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="end_date"                data-endpoint="POSTapi-novelties"
-               value="2024-03-31"
-               data-component="body">
-    <br>
-<p>Date de fin de promotion. Example: <code>2024-03-31</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>bonus_points</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="bonus_points"                data-endpoint="POSTapi-novelties"
-               value="50"
+               step="any"               name="chapter_id"                data-endpoint="POSTapi-novelties"
+               value="1"
                data-component="body">
     <br>
-<p>Points bonus accordés. Example: <code>50</code></p>
+<p>ID du chapitre associé. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_publication</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="date_publication"                data-endpoint="POSTapi-novelties"
+               value="2025-06-05"
+               data-component="body">
+    <br>
+<p>Date de publication. Example: <code>2025-06-05</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>bonus_initial</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+                <label data-endpoint="POSTapi-novelties" style="display: none">
+            <input type="radio" name="bonus_initial"
+                   value="true"
+                   data-endpoint="POSTapi-novelties"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-novelties" style="display: none">
+            <input type="radio" name="bonus_initial"
+                   value="false"
+                   data-endpoint="POSTapi-novelties"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Bonus accordé dans les 7 jours. Example: <code>true</code></p>
         </div>
         </form>
 
-                    <h2 id="novelties-PUTapi-novelties--id-">Mettre à jour une nouveauté existante</h2>
+                    <h2 id="novelties-PUTapi-novelties--id-">Mettre à jour une nouveauté existante (Admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -4415,15 +4662,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/novelties/architecto" \
+    "http://127.0.0.1:8000/api/novelties/1" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"chapter_id\": 1,
+    \"date_publication\": \"2025-06-05\",
+    \"bonus_initial\": true
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/novelties/architecto"
+    "http://127.0.0.1:8000/api/novelties/1"
 );
 
 const headers = {
@@ -4432,15 +4685,38 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "chapter_id": 1,
+    "date_publication": "2025-06-05",
+    "bonus_initial": true
+};
+
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-PUTapi-novelties--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Nouveaut&eacute; mise &agrave; jour avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;chapter_id&quot;: 1,
+        &quot;date_publication&quot;: &quot;2025-06-05&quot;,
+        &quot;bonus_initial&quot;: true
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-novelties--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-novelties--id-"></span>:
@@ -4524,18 +4800,62 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="PUTapi-novelties--id-"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-novelties--id-"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the novelty. Example: <code>architecto</code></p>
+<p>ID de la nouveauté. Example: <code>1</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="PUTapi-novelties--id-"
+               value="1"
+               data-component="body">
+    <br>
+<p>ID du chapitre associé. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_publication</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="date_publication"                data-endpoint="PUTapi-novelties--id-"
+               value="2025-06-05"
+               data-component="body">
+    <br>
+<p>Date de publication. Example: <code>2025-06-05</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>bonus_initial</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+                <label data-endpoint="PUTapi-novelties--id-" style="display: none">
+            <input type="radio" name="bonus_initial"
+                   value="true"
+                   data-endpoint="PUTapi-novelties--id-"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PUTapi-novelties--id-" style="display: none">
+            <input type="radio" name="bonus_initial"
+                   value="false"
+                   data-endpoint="PUTapi-novelties--id-"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Bonus accordé dans les 7 jours. Example: <code>true</code></p>
+        </div>
+        </form>
 
-                    <h2 id="novelties-DELETEapi-novelties--id-">Supprimer une nouveauté</h2>
+                    <h2 id="novelties-DELETEapi-novelties--id-">Supprimer une nouveauté (Admin)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -4549,7 +4869,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/novelties/architecto" \
+    "http://127.0.0.1:8000/api/novelties/1" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4557,7 +4877,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/novelties/architecto"
+    "http://127.0.0.1:8000/api/novelties/1"
 );
 
 const headers = {
@@ -4574,7 +4894,17 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-novelties--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Nouveaut&eacute; supprim&eacute;e avec succ&egrave;s&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-novelties--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-novelties--id-"></span>:
@@ -4658,14 +4988,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="DELETEapi-novelties--id-"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="DELETEapi-novelties--id-"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the novelty. Example: <code>architecto</code></p>
+<p>ID de la nouveauté. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -4864,7 +5194,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-rank">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4880,9 +5210,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration du rang&quot;,
-    &quot;error&quot;: &quot;SQLSTATE[HY000]: General error: 1 no such column: points (Connection: sqlite, SQL: select \&quot;user_id\&quot; from \&quot;scores\&quot; group by \&quot;user_id\&quot; order by SUM(points) DESC)&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -5008,7 +5336,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-history">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5024,8 +5352,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: []
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -5151,7 +5478,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-wrap">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5167,9 +5494,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration des donn&eacute;es de bilan&quot;,
-    &quot;error&quot;: &quot;SQLSTATE[HY000]: General error: 1 no such column: chapters.title (Connection: sqlite, SQL: select \&quot;chapters\&quot;.\&quot;id\&quot;, \&quot;chapters\&quot;.\&quot;title\&quot;, MAX(user_quiz_scores.percentage) as best_score, COUNT(DISTINCT quiz_instances.id) as attempts from \&quot;chapters\&quot; left join \&quot;quiz_instances\&quot; on \&quot;chapters\&quot;.\&quot;id\&quot; = \&quot;quiz_instances\&quot;.\&quot;chapter_id\&quot; left join \&quot;user_quiz_scores\&quot; on \&quot;quiz_instances\&quot;.\&quot;id\&quot; = \&quot;user_quiz_scores\&quot;.\&quot;quiz_instance_id\&quot; and \&quot;user_quiz_scores\&quot;.\&quot;user_id\&quot; = 4 group by \&quot;chapters\&quot;.\&quot;id\&quot;, \&quot;chapters\&quot;.\&quot;title\&quot;)&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -5543,7 +5868,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-quiz--id--result">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5559,9 +5884,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration des r&eacute;sultats&quot;,
-    &quot;error&quot;: &quot;No query results for model [App\\Models\\QuizInstance] architecto&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -5661,15 +5984,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="reminders">Reminders</h1>
 
-    <p>API pour gérer les rappels et notifications programmées</p>
+    <p>API pour gérer les reminders de quiz de révision Breitling League
+Les reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.
+Ils sont liés à un chapitre et doivent être faits avant une date limite.</p>
 
-                                <h2 id="reminders-GETapi-reminders">Lister tous les rappels</h2>
+                                <h2 id="reminders-GETapi-reminders">Lister tous les reminders actifs</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Récupère les reminders non expirés avec informations sur les chapitres associés et statut</p>
 
 <span id="example-requests-GETapi-reminders">
 <blockquote>Example request:</blockquote>
@@ -5712,15 +6037,19 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;Rappel quiz quotidien&quot;,
-            &quot;message&quot;: &quot;N&#039;oubliez pas de faire votre quiz quotidien !&quot;,
-            &quot;start_date&quot;: &quot;2024-01-01&quot;,
-            &quot;end_date&quot;: &quot;2024-12-31&quot;,
+            &quot;chapter_id&quot;: 1,
+            &quot;nb_questions&quot;: 10,
+            &quot;date_limite&quot;: &quot;2025-06-10&quot;,
             &quot;is_active&quot;: true,
-            &quot;priority&quot;: 3,
-            &quot;trigger_rule&quot;: &quot;daily&quot;,
-            &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+            &quot;is_expired&quot;: false,
+            &quot;remaining_days&quot;: 6,
+            &quot;is_ending_soon&quot;: false,
+            &quot;chapter&quot;: {
+                &quot;id&quot;: 1,
+                &quot;nom&quot;: &quot;Introduction &agrave; l&#039;horlogerie&quot;,
+                &quot;description&quot;: &quot;D&eacute;couverte des bases de l&#039;horlogerie&quot;
+            },
+            &quot;questions_available&quot;: 15
         }
     ]
 }</code>
@@ -5808,7 +6137,182 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="reminders-POSTapi-reminders">Créer un nouveau rappel</h2>
+                    <h2 id="reminders-GETapi-reminders--id-">Afficher un reminder spécifique</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-reminders--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/reminders/architecto" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/reminders/architecto"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-reminders--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;chapter_id&quot;: 1,
+        &quot;nb_questions&quot;: 10,
+        &quot;date_limite&quot;: &quot;2025-06-10&quot;,
+        &quot;is_active&quot;: true,
+        &quot;is_expired&quot;: false,
+        &quot;remaining_days&quot;: 6,
+        &quot;chapter&quot;: {
+            &quot;id&quot;: 1,
+            &quot;nom&quot;: &quot;Introduction &agrave; l&#039;horlogerie&quot;,
+            &quot;description&quot;: &quot;D&eacute;couverte des bases de l&#039;horlogerie&quot;
+        },
+        &quot;questions&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;unit_id&quot;: 1,
+                &quot;texte&quot;: &quot;Quelle est la fonction principale d&#039;un ressort de barillet ?&quot;,
+                &quot;type&quot;: &quot;multiple_choice&quot;
+            }
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Reminder non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-reminders--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-reminders--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-reminders--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-reminders--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-reminders--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-reminders--id-" data-method="GET"
+      data-path="api/reminders/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-reminders--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-reminders--id-"
+                    onclick="tryItOut('GETapi-reminders--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-reminders--id-"
+                    onclick="cancelTryOut('GETapi-reminders--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-reminders--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/reminders/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-reminders--id-"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-reminders--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-reminders--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="GETapi-reminders--id-"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The ID of the reminder. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="reminders-POSTapi-reminders">Créer un nouveau reminder</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -5827,13 +6331,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"title\": \"Rappel quiz quotidien\",
-    \"message\": \"N\'oubliez pas de faire votre quiz quotidien !\",
-    \"start_date\": \"2024-01-01\",
-    \"end_date\": \"2024-12-31\",
-    \"is_active\": true,
-    \"priority\": 3,
-    \"trigger_rule\": \"daily\"
+    \"chapter_id\": 1,
+    \"nb_questions\": 10,
+    \"date_limite\": \"2025-06-10\"
 }"
 </code></pre></div>
 
@@ -5850,13 +6350,9 @@ const headers = {
 };
 
 let body = {
-    "title": "Rappel quiz quotidien",
-    "message": "N'oubliez pas de faire votre quiz quotidien !",
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31",
-    "is_active": true,
-    "priority": 3,
-    "trigger_rule": "daily"
+    "chapter_id": 1,
+    "nb_questions": 10,
+    "date_limite": "2025-06-10"
 };
 
 fetch(url, {
@@ -5875,18 +6371,12 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
-    &quot;message&quot;: &quot;Rappel cr&eacute;&eacute; avec succ&egrave;s&quot;,
+    &quot;message&quot;: &quot;Reminder cr&eacute;&eacute; avec succ&egrave;s&quot;,
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Rappel quiz quotidien&quot;,
-        &quot;message&quot;: &quot;N&#039;oubliez pas de faire votre quiz quotidien !&quot;,
-        &quot;start_date&quot;: &quot;2024-01-01&quot;,
-        &quot;end_date&quot;: &quot;2024-12-31&quot;,
-        &quot;is_active&quot;: true,
-        &quot;priority&quot;: 3,
-        &quot;trigger_rule&quot;: &quot;daily&quot;,
-        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+        &quot;chapter_id&quot;: 1,
+        &quot;nb_questions&quot;: 10,
+        &quot;date_limite&quot;: &quot;2025-06-10&quot;
     }
 }</code>
  </pre>
@@ -5897,12 +6387,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Erreurs de validation&quot;,
     &quot;errors&quot;: {
-        &quot;title&quot;: [
-            &quot;Le champ title est obligatoire.&quot;
-        ],
-        &quot;end_date&quot;: [
-            &quot;Le champ end_date doit &ecirc;tre une date post&eacute;rieure &agrave; start_date.&quot;
+        &quot;chapter_id&quot;: [
+            &quot;Le chapitre s&eacute;lectionn&eacute; n&#039;existe pas&quot;
         ]
     }
 }</code>
@@ -5990,95 +6478,41 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="title"                data-endpoint="POSTapi-reminders"
-               value="Rappel quiz quotidien"
-               data-component="body">
-    <br>
-<p>Le titre du rappel. Example: <code>Rappel quiz quotidien</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>message</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="message"                data-endpoint="POSTapi-reminders"
-               value="N'oubliez pas de faire votre quiz quotidien !"
-               data-component="body">
-    <br>
-<p>Le message du rappel. Example: <code>N'oubliez pas de faire votre quiz quotidien !</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>start_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="start_date"                data-endpoint="POSTapi-reminders"
-               value="2024-01-01"
-               data-component="body">
-    <br>
-<p>Date de début du rappel. Example: <code>2024-01-01</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="end_date"                data-endpoint="POSTapi-reminders"
-               value="2024-12-31"
-               data-component="body">
-    <br>
-<p>Date de fin du rappel. Example: <code>2024-12-31</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
-                <label data-endpoint="POSTapi-reminders" style="display: none">
-            <input type="radio" name="is_active"
-                   value="true"
-                   data-endpoint="POSTapi-reminders"
-                   data-component="body"             >
-            <code>true</code>
-        </label>
-        <label data-endpoint="POSTapi-reminders" style="display: none">
-            <input type="radio" name="is_active"
-                   value="false"
-                   data-endpoint="POSTapi-reminders"
-                   data-component="body"             >
-            <code>false</code>
-        </label>
-    <br>
-<p>Statut d'activation. Example: <code>true</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>priority</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="priority"                data-endpoint="POSTapi-reminders"
-               value="3"
+               step="any"               name="chapter_id"                data-endpoint="POSTapi-reminders"
+               value="1"
                data-component="body">
     <br>
-<p>Priorité du rappel (1-5). Example: <code>3</code></p>
+<p>ID du chapitre. Example: <code>1</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>trigger_rule</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="trigger_rule"                data-endpoint="POSTapi-reminders"
-               value="daily"
+            <b style="line-height: 2;"><code>nb_questions</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="nb_questions"                data-endpoint="POSTapi-reminders"
+               value="10"
                data-component="body">
     <br>
-<p>Règle de déclenchement. Example: <code>daily</code></p>
+<p>Nombre de questions pour le quiz de révision. Example: <code>10</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_limite</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="date_limite"                data-endpoint="POSTapi-reminders"
+               value="2025-06-10"
+               data-component="body">
+    <br>
+<p>Date limite au format Y-m-d. Example: <code>2025-06-10</code></p>
         </div>
         </form>
 
-                    <h2 id="reminders-PUTapi-reminders--id-">Mettre à jour un rappel existant</h2>
+                    <h2 id="reminders-PUTapi-reminders--id-">Mettre à jour un reminder</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -6095,7 +6529,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/reminders/architecto" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"chapter_id\": 1,
+    \"nb_questions\": 15,
+    \"date_limite\": \"2025-06-15\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -6109,15 +6549,48 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "chapter_id": 1,
+    "nb_questions": 15,
+    "date_limite": "2025-06-15"
+};
+
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-PUTapi-reminders--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Reminder mis &agrave; jour avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;chapter_id&quot;: 1,
+        &quot;nb_questions&quot;: 15,
+        &quot;date_limite&quot;: &quot;2025-06-15&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Reminder non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-reminders--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-reminders--id-"></span>:
@@ -6210,9 +6683,43 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the reminder. Example: <code>architecto</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="PUTapi-reminders--id-"
+               value="1"
+               data-component="body">
+    <br>
+<p>ID du chapitre. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nb_questions</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="nb_questions"                data-endpoint="PUTapi-reminders--id-"
+               value="15"
+               data-component="body">
+    <br>
+<p>Nombre de questions pour le quiz de révision. Example: <code>15</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>date_limite</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="date_limite"                data-endpoint="PUTapi-reminders--id-"
+               value="2025-06-15"
+               data-component="body">
+    <br>
+<p>Date limite au format Y-m-d. Example: <code>2025-06-15</code></p>
+        </div>
+        </form>
 
-                    <h2 id="reminders-DELETEapi-reminders--id-">Supprimer un rappel</h2>
+                    <h2 id="reminders-DELETEapi-reminders--id-">Supprimer un reminder</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -6251,7 +6758,27 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-reminders--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Reminder supprim&eacute; avec succ&egrave;s&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Reminder non trouv&eacute;&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-reminders--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-reminders--id-"></span>:
@@ -6712,7 +7239,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     <p>API pour gérer les défis hebdomadaires et les tickets de loterie</p>
 
-                                <h2 id="weekly-challenges-GETapi-weekly">Lister les défis hebdomadaires actifs</h2>
+                                <h2 id="weekly-challenges-GETapi-weekly">Lister les défis hebdomadaires disponibles pour l&#039;utilisateur</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -6761,14 +7288,15 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;D&eacute;fi de la semaine&quot;,
-            &quot;description&quot;: &quot;Compl&eacute;tez 3 quiz cette semaine&quot;,
-            &quot;start_date&quot;: &quot;2024-01-01&quot;,
-            &quot;end_date&quot;: &quot;2024-01-07&quot;,
-            &quot;is_active&quot;: true,
-            &quot;ticket_reward&quot;: 5,
-            &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+            &quot;chapter_id&quot;: 1,
+            &quot;semaine&quot;: &quot;2025-06-02&quot;,
+            &quot;nb_questions&quot;: 10,
+            &quot;chapter&quot;: {
+                &quot;id&quot;: 1,
+                &quot;titre&quot;: &quot;Introduction&quot;,
+                &quot;description&quot;: &quot;Chapitre d&#039;introduction&quot;
+            },
+            &quot;user_has_ticket&quot;: false
         }
     ]
 }</code>
@@ -6856,7 +7384,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="weekly-challenges-POSTapi-weekly--id--claim">Réclamer un ticket après un défi hebdomadaire réussi</h2>
+                    <h2 id="weekly-challenges-POSTapi-weekly--id--claim">Réclamer un ticket après avoir réussi un défi hebdomadaire</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -6873,12 +7401,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/weekly/1/claim" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"quiz_count\": 3,
-    \"score\": 85
-}"
-</code></pre></div>
+    --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
@@ -6892,15 +7415,9 @@ const headers = {
     "Accept": "application/json",
 };
 
-let body = {
-    "quiz_count": 3,
-    "score": 85
-};
-
 fetch(url, {
     method: "POST",
     headers,
-    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -6915,8 +7432,15 @@ fetch(url, {
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Ticket r&eacute;clam&eacute; avec succ&egrave;s&quot;,
     &quot;data&quot;: {
-        &quot;tickets_earned&quot;: 5,
-        &quot;total_tickets&quot;: 25
+        &quot;ticket&quot;: {
+            &quot;id&quot;: 1,
+            &quot;user_id&quot;: 1,
+            &quot;weekly_id&quot;: 1,
+            &quot;date_obtenue&quot;: &quot;2025-06-04&quot;,
+            &quot;bonus&quot;: false
+        },
+        &quot;bonus_ticket&quot;: null,
+        &quot;series_count&quot;: 3
     }
 }</code>
  </pre>
@@ -6927,7 +7451,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
-    &quot;message&quot;: &quot;D&eacute;fi non &eacute;ligible ou d&eacute;j&agrave; r&eacute;clam&eacute;&quot;
+    &quot;message&quot;: &quot;Ticket d&eacute;j&agrave; r&eacute;clam&eacute; pour ce d&eacute;fi&quot;
 }</code>
  </pre>
     </span>
@@ -7023,30 +7547,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>L'ID du défi hebdomadaire. Example: <code>1</code></p>
             </div>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>quiz_count</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="quiz_count"                data-endpoint="POSTapi-weekly--id--claim"
-               value="3"
-               data-component="body">
-    <br>
-<p>Le nombre de quiz complétés. Example: <code>3</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>score</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="score"                data-endpoint="POSTapi-weekly--id--claim"
-               value="85"
-               data-component="body">
-    <br>
-<p>Le score obtenu. Example: <code>85</code></p>
-        </div>
-        </form>
+                    </form>
 
                     <h2 id="weekly-challenges-GETapi-weekly-series">Obtenir les informations sur la série de l&#039;utilisateur</h2>
 
@@ -7090,26 +7591,16 @@ fetch(url, {
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
-access-control-max-age: 86400
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: true,
     &quot;data&quot;: {
-        &quot;user_id&quot;: 4,
-        &quot;updated_at&quot;: &quot;2025-06-03T21:39:39.000000Z&quot;,
-        &quot;created_at&quot;: &quot;2025-06-03T21:39:39.000000Z&quot;,
-        &quot;id&quot;: 1
+        &quot;id&quot;: 1,
+        &quot;user_id&quot;: 1,
+        &quot;count&quot;: 3,
+        &quot;bonus_tickets&quot;: 0,
+        &quot;derniere_participation&quot;: &quot;2025-06-04&quot;
     }
 }</code>
  </pre>
@@ -7196,6 +7687,155 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+                    <h2 id="weekly-challenges-GETapi-weekly-tickets">Obtenir les tickets de loterie de l&#039;utilisateur</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-weekly-tickets">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/weekly/tickets" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/weekly/tickets"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-weekly-tickets">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;tickets&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;weekly_id&quot;: 1,
+                &quot;date_obtenue&quot;: &quot;2025-06-04&quot;,
+                &quot;bonus&quot;: false,
+                &quot;weekly&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;chapter&quot;: {
+                        &quot;titre&quot;: &quot;Introduction&quot;
+                    }
+                }
+            }
+        ],
+        &quot;total_tickets&quot;: 5,
+        &quot;bonus_tickets&quot;: 1
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-weekly-tickets" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-weekly-tickets"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-weekly-tickets"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-weekly-tickets" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-weekly-tickets">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-weekly-tickets" data-method="GET"
+      data-path="api/weekly/tickets"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-weekly-tickets', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-weekly-tickets"
+                    onclick="tryItOut('GETapi-weekly-tickets');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-weekly-tickets"
+                    onclick="cancelTryOut('GETapi-weekly-tickets');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-weekly-tickets"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/weekly/tickets</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-weekly-tickets"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-weekly-tickets"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-weekly-tickets"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
                     <h2 id="weekly-challenges-POSTapi-weekly">Créer un nouveau défi hebdomadaire (admin)</h2>
 
 <p>
@@ -7213,7 +7853,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/weekly" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"chapter_id\": 1,
+    \"semaine\": \"2025-06-02\",
+    \"nb_questions\": 10
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -7227,15 +7873,38 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "chapter_id": 1,
+    "semaine": "2025-06-02",
+    "nb_questions": 10
+};
+
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-POSTapi-weekly">
-</span>
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;D&eacute;fi hebdomadaire cr&eacute;&eacute; avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;chapter_id&quot;: 1,
+        &quot;semaine&quot;: &quot;2025-06-02&quot;,
+        &quot;nb_questions&quot;: 10
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-weekly" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-weekly"></span>:
@@ -7316,7 +7985,41 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="POSTapi-weekly"
+               value="1"
+               data-component="body">
+    <br>
+<p>L'ID du chapitre. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>semaine</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="semaine"                data-endpoint="POSTapi-weekly"
+               value="2025-06-02"
+               data-component="body">
+    <br>
+<p>La semaine du défi (format YYYY-MM-DD). Example: <code>2025-06-02</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nb_questions</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="nb_questions"                data-endpoint="POSTapi-weekly"
+               value="10"
+               data-component="body">
+    <br>
+<p>Le nombre de questions pour le quiz. Example: <code>10</code></p>
+        </div>
+        </form>
 
                     <h2 id="weekly-challenges-PUTapi-weekly--id-">Mettre à jour un défi hebdomadaire existant (admin)</h2>
 
@@ -7335,7 +8038,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/weekly/architecto" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"chapter_id\": 1,
+    \"semaine\": \"2025-06-02\",
+    \"nb_questions\": 15
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -7349,9 +8058,16 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "chapter_id": 1,
+    "semaine": "2025-06-02",
+    "nb_questions": 15
+};
+
 fetch(url, {
     method: "PUT",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -7450,7 +8166,41 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the weekly. Example: <code>architecto</code></p>
             </div>
-                    </form>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="PUTapi-weekly--id-"
+               value="1"
+               data-component="body">
+    <br>
+<p>L'ID du chapitre. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>semaine</code></b>&nbsp;&nbsp;
+<small>date</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="semaine"                data-endpoint="PUTapi-weekly--id-"
+               value="2025-06-02"
+               data-component="body">
+    <br>
+<p>La semaine du défi (format YYYY-MM-DD). Example: <code>2025-06-02</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nb_questions</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="nb_questions"                data-endpoint="PUTapi-weekly--id-"
+               value="15"
+               data-component="body">
+    <br>
+<p>Le nombre de questions pour le quiz. Example: <code>15</code></p>
+        </div>
+        </form>
 
                     <h2 id="weekly-challenges-DELETEapi-weekly--id-">Supprimer un défi hebdomadaire (admin)</h2>
 

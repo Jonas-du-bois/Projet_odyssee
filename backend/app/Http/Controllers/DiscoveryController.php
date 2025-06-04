@@ -3,31 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discovery;
+use App\Models\Chapter;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 /**
  * @group Discoveries
  *
- * API pour gérer les découvertes de la plateforme
+ * API pour gérer les explorations de chapitres (théorie + quiz)
  */
 class DiscoveryController extends Controller
 {
     /**
-     * Lister toutes les découvertes
+     * Lister les explorations de chapitres disponibles
      *
      * @response 200 {
      *   "success": true,
      *   "data": [
      *     {
      *       "id": 1,
-     *       "title": "Nouvelle collection Breitling",
-     *       "content": "Découvrez notre nouvelle collection...",
-     *       "image": "https://example.com/image.jpg",
-     *       "is_active": true,
-     *       "created_at": "2024-01-01T00:00:00.000000Z",
-     *       "updated_at": "2024-01-01T00:00:00.000000Z"
+     *       "chapter_id": 1,
+     *       "date_disponible": "2025-06-01",
+     *       "chapter": {
+     *         "id": 1,
+     *         "titre": "Introduction",
+     *         "description": "Chapitre d'introduction"
+     *       },
+     *       "units_count": 5,
+     *       "is_available": true
      *     }
      *   ]
      * }
@@ -37,7 +43,27 @@ class DiscoveryController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $discoveries = Discovery::all();
+            $currentDate = Carbon::now()->toDateString();
+            
+            // Récupérer les discoveries avec leurs chapitres et compter les unités
+            $discoveries = Discovery::with(['chapter'])
+                ->get()
+                ->map(function ($discovery) use ($currentDate) {
+                    $unitsCount = Unit::where('chapter_id', $discovery->chapter_id)->count();
+                    
+                    return [
+                        'id' => $discovery->id,
+                        'chapter_id' => $discovery->chapter_id,
+                        'date_disponible' => $discovery->date_disponible,
+                        'chapter' => [
+                            'id' => $discovery->chapter->id,
+                            'titre' => $discovery->chapter->titre,
+                            'description' => $discovery->chapter->description
+                        ],
+                        'units_count' => $unitsCount,
+                        'is_available' => $discovery->date_disponible <= $currentDate
+                    ];
+                });
             
             return response()->json([
                 'success' => true,
@@ -46,80 +72,113 @@ class DiscoveryController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la récupération des découvertes',
+                'message' => 'Erreur lors de la récupération des explorations',
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
-     * Afficher une découverte spécifique
+    }
+
+    /**
+     * Afficher une exploration de chapitre spécifique avec ses unités
      *
-     * @urlParam id int required L'ID de la découverte. Example: 1
+     * @urlParam id int required L'ID de l'exploration. Example: 1
      *
      * @response 200 {
      *   "success": true,
      *   "data": {
      *     "id": 1,
-     *     "title": "Nouvelle collection Breitling",
-     *     "content": "Découvrez notre nouvelle collection...",
-     *     "image": "https://example.com/image.jpg",
-     *     "is_active": true,
-     *     "created_at": "2024-01-01T00:00:00.000000Z",
-     *     "updated_at": "2024-01-01T00:00:00.000000Z"
+     *     "chapter_id": 1,
+     *     "date_disponible": "2025-06-01",
+     *     "chapter": {
+     *       "id": 1,
+     *       "titre": "Introduction",
+     *       "description": "Chapitre d'introduction"
+     *     },
+     *     "units": [
+     *       {
+     *         "id": 1,
+     *         "titre": "Unité 1",
+     *         "description": "Description de l'unité",
+     *         "theorie_html": "<p>Contenu HTML de la théorie</p>"
+     *       }
+     *     ],
+     *     "is_available": true
      *   }
      * }
      *
      * @response 404 {
      *   "success": false,
-     *   "message": "Découverte non trouvée",
-     *   "error": "No query results for model [App\\Models\\Discovery] 1"
+     *   "message": "Exploration non trouvée"
      * }
      *
-     * @param int $id Identifiant de la découverte
+     * @param int $id Identifiant de l'exploration
      * @return JsonResponse
      */
     public function show($id): JsonResponse
     {
         try {
-            $discovery = Discovery::findOrFail($id);
+            $discovery = Discovery::with(['chapter'])->findOrFail($id);
+            $currentDate = Carbon::now()->toDateString();
+            
+            // Vérifier si l'exploration est disponible
+            if ($discovery->date_disponible > $currentDate) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Cette exploration n\'est pas encore disponible',
+                    'available_date' => $discovery->date_disponible
+                ], 403);
+            }
+            
+            // Récupérer les unités du chapitre avec leur théorie
+            $units = Unit::where('chapter_id', $discovery->chapter_id)
+                ->select(['id', 'titre', 'description', 'theorie_html'])
+                ->get();
             
             return response()->json([
                 'success' => true,
-                'data' => $discovery
+                'data' => [
+                    'id' => $discovery->id,
+                    'chapter_id' => $discovery->chapter_id,
+                    'date_disponible' => $discovery->date_disponible,
+                    'chapter' => [
+                        'id' => $discovery->chapter->id,
+                        'titre' => $discovery->chapter->titre,
+                        'description' => $discovery->chapter->description
+                    ],
+                    'units' => $units,
+                    'is_available' => true
+                ]
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Découverte non trouvée',
+                'message' => 'Exploration non trouvée',
                 'error' => $e->getMessage()
             ], 404);
         }
-    }    /**
-     * Créer une nouvelle découverte
+    }
+
+    /**
+     * Créer une nouvelle exploration de chapitre (admin)
      *
-     * @bodyParam title string required Le titre de la découverte. Example: Nouvelle collection Breitling
-     * @bodyParam content string required Le contenu de la découverte. Example: Découvrez notre nouvelle collection avec des modèles innovants...
-     * @bodyParam image string L'URL de l'image associée. Example: https://example.com/image.jpg
-     * @bodyParam is_active boolean Statut d'activation de la découverte. Example: true
+     * @bodyParam chapter_id int required L'ID du chapitre. Example: 1
+     * @bodyParam date_disponible date required La date de disponibilité (format YYYY-MM-DD). Example: 2025-06-01
      *
      * @response 201 {
      *   "success": true,
-     *   "message": "Découverte créée avec succès",
+     *   "message": "Exploration créée avec succès",
      *   "data": {
      *     "id": 1,
-     *     "title": "Nouvelle collection Breitling",
-     *     "content": "Découvrez notre nouvelle collection...",
-     *     "image": "https://example.com/image.jpg",
-     *     "is_active": true,
-     *     "created_at": "2024-01-01T00:00:00.000000Z",
-     *     "updated_at": "2024-01-01T00:00:00.000000Z"
+     *     "chapter_id": 1,
+     *     "date_disponible": "2025-06-01"
      *   }
      * }
      *
      * @response 422 {
      *   "success": false,
      *   "errors": {
-     *     "title": ["Le champ title est obligatoire."],
-     *     "content": ["Le champ content est obligatoire."]
+     *     "chapter_id": ["Le champ chapter_id est obligatoire."],
+     *     "date_disponible": ["Le champ date_disponible est obligatoire."]
      *   }
      * }
      *
@@ -130,10 +189,8 @@ class DiscoveryController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|string|max:255',
-                'content' => 'required|string',
-                'image' => 'nullable|string',
-                'is_active' => 'boolean',
+                'chapter_id' => 'required|integer|exists:chapters,id',
+                'date_disponible' => 'required|date',
             ]);
 
             if ($validator->fails()) {
@@ -143,51 +200,53 @@ class DiscoveryController extends Controller
                 ], 422);
             }
 
-            $discovery = Discovery::create($request->all());
+            // Vérifier qu'il n'existe pas déjà une exploration pour ce chapitre
+            $existingDiscovery = Discovery::where('chapter_id', $request->chapter_id)->first();
+            if ($existingDiscovery) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Une exploration existe déjà pour ce chapitre'
+                ], 400);
+            }
+
+            $discovery = Discovery::create([
+                'chapter_id' => $request->chapter_id,
+                'date_disponible' => $request->date_disponible,
+            ]);
             
             return response()->json([
                 'success' => true,
-                'message' => 'Découverte créée avec succès',
+                'message' => 'Exploration créée avec succès',
                 'data' => $discovery
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la création de la découverte',
+                'message' => 'Erreur lors de la création de l\'exploration',
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
-     * Mettre à jour une découverte existante
+    }
+
+    /**
+     * Mettre à jour une exploration existante (admin)
      *
-     * @urlParam id int required L'ID de la découverte à modifier. Example: 1
-     * @bodyParam title string Le titre de la découverte. Example: Nouvelle collection Breitling mise à jour
-     * @bodyParam content string Le contenu de la découverte. Example: Découvrez notre collection mise à jour...
-     * @bodyParam image string L'URL de l'image associée. Example: https://example.com/new-image.jpg
-     * @bodyParam is_active boolean Statut d'activation de la découverte. Example: false
+     * @urlParam id int required L'ID de l'exploration à modifier. Example: 1
+     * @bodyParam chapter_id int L'ID du chapitre. Example: 2
+     * @bodyParam date_disponible date La date de disponibilité (format YYYY-MM-DD). Example: 2025-06-15
      *
      * @response 200 {
      *   "success": true,
-     *   "message": "Découverte mise à jour avec succès",
+     *   "message": "Exploration mise à jour avec succès",
      *   "data": {
      *     "id": 1,
-     *     "title": "Nouvelle collection Breitling mise à jour",
-     *     "content": "Découvrez notre collection mise à jour...",
-     *     "image": "https://example.com/new-image.jpg",
-     *     "is_active": false,
-     *     "created_at": "2024-01-01T00:00:00.000000Z",
-     *     "updated_at": "2024-01-01T12:00:00.000000Z"
+     *     "chapter_id": 2,
+     *     "date_disponible": "2025-06-15"
      *   }
      * }
      *
-     * @response 404 {
-     *   "success": false,
-     *   "message": "Erreur lors de la mise à jour de la découverte",
-     *   "error": "No query results for model [App\\Models\\Discovery] 1"
-     * }
-     *
      * @param Request $request Données de la requête
-     * @param int $id Identifiant de la découverte
+     * @param int $id Identifiant de l'exploration
      * @return JsonResponse
      */
     public function update(Request $request, $id): JsonResponse
@@ -196,10 +255,8 @@ class DiscoveryController extends Controller
             $discovery = Discovery::findOrFail($id);
             
             $validator = Validator::make($request->all(), [
-                'title' => 'string|max:255',
-                'content' => 'string',
-                'image' => 'nullable|string',
-                'is_active' => 'boolean',
+                'chapter_id' => 'integer|exists:chapters,id',
+                'date_disponible' => 'date',
             ]);
 
             if ($validator->fails()) {
@@ -209,37 +266,47 @@ class DiscoveryController extends Controller
                 ], 422);
             }
 
-            $discovery->update($request->all());
+            // Si on change le chapitre, vérifier qu'il n'y a pas de conflit
+            if ($request->has('chapter_id') && $request->chapter_id != $discovery->chapter_id) {
+                $existingDiscovery = Discovery::where('chapter_id', $request->chapter_id)
+                    ->where('id', '!=', $id)
+                    ->first();
+                    
+                if ($existingDiscovery) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Une exploration existe déjà pour ce chapitre'
+                    ], 400);
+                }
+            }
+
+            $discovery->update($request->only(['chapter_id', 'date_disponible']));
             
             return response()->json([
                 'success' => true,
-                'message' => 'Découverte mise à jour avec succès',
+                'message' => 'Exploration mise à jour avec succès',
                 'data' => $discovery
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la mise à jour de la découverte',
+                'message' => 'Erreur lors de la mise à jour de l\'exploration',
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
-     * Supprimer une découverte
+    }
+
+    /**
+     * Supprimer une exploration (admin)
      *
-     * @urlParam id int required L'ID de la découverte à supprimer. Example: 1
+     * @urlParam id int required L'ID de l'exploration à supprimer. Example: 1
      *
      * @response 200 {
      *   "success": true,
-     *   "message": "Découverte supprimée avec succès"
+     *   "message": "Exploration supprimée avec succès"
      * }
      *
-     * @response 404 {
-     *   "success": false,
-     *   "message": "Erreur lors de la suppression de la découverte",
-     *   "error": "No query results for model [App\\Models\\Discovery] 1"
-     * }
-     *
-     * @param int $id Identifiant de la découverte
+     * @param int $id Identifiant de l'exploration
      * @return JsonResponse
      */
     public function destroy($id): JsonResponse
@@ -250,12 +317,12 @@ class DiscoveryController extends Controller
             
             return response()->json([
                 'success' => true,
-                'message' => 'Découverte supprimée avec succès'
+                'message' => 'Exploration supprimée avec succès'
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors de la suppression de la découverte',
+                'message' => 'Erreur lors de la suppression de l\'exploration',
                 'error' => $e->getMessage()
             ], 500);
         }

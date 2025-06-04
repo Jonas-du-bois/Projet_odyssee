@@ -13,16 +13,17 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'nom',
         'email',
-        'password',
+        'mot_de_passe',
         'rang_id',
         'date_inscription',
     ];
@@ -33,7 +34,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'mot_de_passe',
         'remember_token',
     ];
 
@@ -45,8 +46,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'mot_de_passe' => 'hashed',
             'date_inscription' => 'date',
         ];
     }
@@ -57,6 +57,14 @@ class User extends Authenticatable
     public function rank()
     {
         return $this->belongsTo(Rank::class, 'rang_id');
+    }
+
+    /**
+     * Get the password for authentication.
+     */
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
     }
 
     public function scores()
