@@ -2,137 +2,100 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Reminder extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
     
+    protected $table = 'reminders'; // Match your database table name
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'chapter_id',
         'number_questions',
         'deadline_date',
     ];
 
+    /**
+     * Cast attributes
+     */
     protected $casts = [
-        'chapter_id' => 'integer',
         'number_questions' => 'integer',
         'deadline_date' => 'date',
     ];
 
     /**
-     * Relations
+     * Relationship with chapter
      */
     public function chapter()
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(Chapter::class, 'chapter_id');
     }
 
     /**
-     * Méthodes utilitaires
+     * Check if reminder is still active (before deadline)
      */
-    
-    /**
-     * Vérifie si le reminder est encore actif (date limite non dépassée)
-     * 
-     * @param string|null $date Date à vérifier (format Y-m-d), par défaut aujourd'hui
-     * @return bool
-     */
-    public function isActive($date = null): bool
+    public function isActive($date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return Carbon::parse($this->deadline_date)->gte($checkDate->startOfDay());
+        return Carbon::parse($this->deadline_date)->endOfDay()->gte($checkDate->startOfDay());
     }
 
     /**
-     * Vérifie si le reminder est expiré
-     * 
-     * @param string|null $date Date à vérifier (format Y-m-d), par défaut aujourd'hui
-     * @return bool
+     * Check if reminder is expired
      */
-    public function isExpired($date = null): bool
-    {
-        return !$this->isActive($date);
-    }
-
-    /**
-     * Calcule le nombre de jours restants avant expiration
-     * 
-     * @param string|null $date Date de référence, par défaut aujourd'hui
-     * @return int Nombre de jours restants (0 si expiré)
-     */
-    public function getRemainingDays($date = null): int
+    public function isExpired($date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        $limitDate = Carbon::parse($this->deadline_date);
-        
-        if ($limitDate->lt($checkDate->startOfDay())) {
-            return 0; // Expiré
-        }
-        
-        return $checkDate->startOfDay()->diffInDays($limitDate->startOfDay()) + 1;
+        return Carbon::parse($this->deadline_date)->endOfDay()->lt($checkDate->startOfDay());
     }
 
     /**
-     * Récupère les questions du chapitre pour générer le quiz de révision
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection
+     * Get days remaining until deadline
      */
-    public function getChapterQuestions()
+    public function getDaysRemaining($date = null)
     {
-        if (!$this->chapter) {
-            return collect();
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
+        $deadline = Carbon::parse($this->deadline_date);
+        
+        if ($deadline->lt($checkDate->startOfDay())) {
+            return 0; // Expired
         }
-
-        return $this->chapter->units()
-            ->with('questions')
-            ->get()
-            ->pluck('questions')
-            ->flatten()
-            ->take($this->number_questions);
+        
+        return $checkDate->startOfDay()->diffInDays($deadline->startOfDay()) + 1;
     }
 
     /**
-     * Scopes
-     */
-
-    /**
-     * Scope pour les reminders actifs (non expirés)
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $date Date de référence (par défaut aujourd'hui)
-     * @return \Illuminate\Database\Eloquent\Builder
+     * Scope for active reminders
      */
     public function scopeActive($query, $date = null)
     {
-        $checkDate = $date ? Carbon::parse($date)->startOfDay() : Carbon::now()->startOfDay();
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
         return $query->where('deadline_date', '>=', $checkDate->format('Y-m-d'));
     }
 
     /**
-     * Scope pour les reminders expirés
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $date Date de référence (par défaut aujourd'hui)
-     * @return \Illuminate\Database\Eloquent\Builder
+     * Scope for expired reminders
      */
     public function scopeExpired($query, $date = null)
     {
-        $checkDate = $date ? Carbon::parse($date)->startOfDay() : Carbon::now()->startOfDay();
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
         return $query->where('deadline_date', '<', $checkDate->format('Y-m-d'));
     }
 
     /**
-     * Scope pour les reminders se terminant bientôt (dans X jours)
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int $days Nombre de jours
-     * @return \Illuminate\Database\Eloquent\Builder
+     * Scope for reminders expiring soon
      */
-    public function scopeEndingSoon($query, $days = 3)
+    public function scopeExpiringSoon($query, $days = 7)
     {
-        $today = Carbon::now()->startOfDay();
+        $today = Carbon::now();
         $limitDate = $today->copy()->addDays($days);
         
         return $query->where('deadline_date', '>=', $today->format('Y-m-d'))

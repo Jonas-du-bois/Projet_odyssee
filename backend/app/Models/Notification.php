@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
+    use HasFactory;
+
+    public $timestamps = false;
+    
+    protected $table = 'notifications'; // Match your database table name
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'user_id',
         'type',
@@ -14,30 +24,59 @@ class Notification extends Model
         'date',
     ];
 
+    /**
+     * Cast attributes
+     */
     protected $casts = [
-        'user_id' => 'integer',
         'read' => 'boolean',
         'date' => 'datetime',
     ];
 
     /**
-     * Relations
+     * Relationship with user
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * Scopes
+     * Scope for unread notifications
      */
     public function scopeUnread($query)
     {
         return $query->where('read', false);
     }
 
+    /**
+     * Scope for read notifications
+     */
     public function scopeRead($query)
     {
         return $query->where('read', true);
+    }
+
+    /**
+     * Scope for notifications by type
+     */
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    /**
+     * Mark notification as read
+     */
+    public function markAsRead()
+    {
+        $this->update(['read' => true]);
+    }
+
+    /**
+     * Mark notification as unread
+     */
+    public function markAsUnread()
+    {
+        $this->update(['read' => false]);
     }
 }

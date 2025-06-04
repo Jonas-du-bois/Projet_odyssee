@@ -2,52 +2,76 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Chapter extends Model
 {
-    public $timestamps = false;
-    
+    use HasFactory;
+
+    protected $table = 'chapters'; // Match your database table name
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'title',
         'description',
     ];
 
     /**
-     * Relations
+     * Relationship with units
      */
     public function units()
     {
-        return $this->hasMany(Unit::class);
+        return $this->hasMany(Unit::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with discoveries
+     */
     public function discoveries()
     {
-        return $this->hasMany(Discovery::class);
+        return $this->hasMany(Discovery::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with novelties
+     */
     public function novelties()
     {
-        return $this->hasMany(Novelty::class);
+        return $this->hasMany(Novelty::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with events
+     */
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with reminders
+     */
     public function reminders()
     {
-        return $this->hasMany(Reminder::class);
+        return $this->hasMany(Reminder::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with weeklies
+     */
     public function weeklies()
     {
-        return $this->hasMany(Weekly::class);
+        return $this->hasMany(Weekly::class, 'chapter_id');
     }
 
+    /**
+     * Relationship with progress
+     */
     public function progress()
     {
-        return $this->hasMany(Progress::class);
+        return $this->hasMany(Progress::class, 'chapter_id');
     }
 }

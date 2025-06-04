@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable;
 
     public $timestamps = false;
+    
+    protected $table = 'users'; // Match your database table name
 
     /**
      * The attributes that are mass assignable.
@@ -46,13 +46,21 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'password' => 'hashed',
             'registration_date' => 'date',
+            'password' => 'hashed',
         ];
     }
 
     /**
-     * Relations
+     * Get the password attribute name for authentication.
+     */
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Relationship with Rank
      */
     public function rank()
     {
@@ -60,45 +68,42 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the password for authentication.
+     * Relationship with scores
      */
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
     public function scores()
     {
-        return $this->hasMany(Score::class);
+        return $this->hasMany(Score::class, 'user_id');
     }
 
-    public function progress()
-    {
-        return $this->hasMany(Progress::class);
-    }
-
+    /**
+     * Relationship with quiz instances
+     */
     public function quizInstances()
     {
-        return $this->hasMany(QuizInstance::class);
+        return $this->hasMany(QuizInstance::class, 'user_id');
     }
 
-    public function userAnswers()
+    /**
+     * Relationship with progress
+     */
+    public function progress()
     {
-        return $this->hasMany(UserAnswer::class);
+        return $this->hasMany(Progress::class, 'user_id');
     }
 
+    /**
+     * Relationship with lottery tickets
+     */
     public function lotteryTickets()
     {
-        return $this->hasMany(LotteryTicket::class);
+        return $this->hasMany(LotteryTicket::class, 'user_id');
     }
 
-    public function weeklySeries()
-    {
-        return $this->hasMany(WeeklySeries::class);
-    }
-
+    /**
+     * Relationship with notifications
+     */
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Notification::class, 'user_id');
     }
 }

@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserAnswer extends Model
 {
+    use HasFactory;
+
+    public $timestamps = false;
+    
+    protected $table = 'user_answers'; // Match your database table name
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'user_id',
         'question_id',
@@ -16,10 +26,10 @@ class UserAnswer extends Model
         'date',
     ];
 
+    /**
+     * Cast attributes
+     */
     protected $casts = [
-        'user_id' => 'integer',
-        'question_id' => 'integer',
-        'choice_id' => 'integer',
         'is_correct' => 'boolean',
         'response_time' => 'integer',
         'points_obtained' => 'integer',
@@ -27,20 +37,85 @@ class UserAnswer extends Model
     ];
 
     /**
-     * Relations
+     * Relationship with user
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Relationship with question
+     */
     public function question()
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Question::class, 'question_id');
     }
 
+    /**
+     * Relationship with choice
+     */
     public function choice()
     {
-        return $this->belongsTo(Choice::class, 'choix_id');
+        return $this->belongsTo(Choice::class, 'choice_id');
+    }
+
+    /**
+     * Scope for correct answers
+     */
+    public function scopeCorrect($query)
+    {
+        return $query->where('is_correct', true);
+    }
+
+    /**
+     * Scope for incorrect answers
+     */
+    public function scopeIncorrect($query)
+    {
+        return $query->where('is_correct', false);
+    }
+
+    /**
+     * Scope for answers by user
+     */
+    public function scopeByUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    /**
+     * Scope for answers by question
+     */
+    public function scopeByQuestion($query, $questionId)
+    {
+        return $query->where('question_id', $questionId);
+    }
+
+    /**
+     * Calculate accuracy percentage for a user
+     */
+    public static function getUserAccuracy($userId)
+    {
+        $totalAnswers = static::where('user_id', $userId)->count();
+        $correctAnswers = static::where('user_id', $userId)->where('is_correct', true)->count();
+        
+        return $totalAnswers > 0 ? ($correctAnswers / $totalAnswers) * 100 : 0;
+    }
+
+    /**
+     * Get average response time for a user
+     */
+    public static function getUserAverageResponseTime($userId)
+    {
+        return static::where('user_id', $userId)->avg('response_time');
+    }
+
+    /**
+     * Get total points earned by a user
+     */
+    public static function getUserTotalPoints($userId)
+    {
+        return static::where('user_id', $userId)->sum('points_obtained');
     }
 }

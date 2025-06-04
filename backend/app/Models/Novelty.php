@@ -2,143 +2,70 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Novelty extends Model
 {
+    use HasFactory;
+
     public $timestamps = false;
     
+    protected $table = 'novelties'; // Match your database table name
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'chapter_id',
-        'date_publication',
-        'bonus_initial',
-    ];
-
-    protected $casts = [
-        'chapter_id' => 'integer',
-        'date_publication' => 'date',
-        'bonus_initial' => 'boolean',
+        'publication_date',
+        'initial_bonus',
     ];
 
     /**
-     * Relations
+     * Cast attributes
+     */
+    protected $casts = [
+        'publication_date' => 'date',
+        'initial_bonus' => 'integer',
+    ];
+
+    /**
+     * Relationship with chapter
      */
     public function chapter()
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(Chapter::class, 'chapter_id');
     }
 
     /**
-     * Méthodes utilitaires
-     */
-    
-    /**
-     * Vérifie si la nouveauté est accessible (publiée)
+     * Vérifie si la nouveauté est publiée
      * 
-     * @param string|null $date Date à vérifier (format Y-m-d), par défaut aujourd'hui
+     * @param string|null $date Date de référence, par défaut aujourd'hui
      * @return bool
      */
-    public function isAccessible($date = null): bool
+    public function isPublished($date = null): bool
     {
-        $checkDate = $date ? Carbon::parse($date) : now();
-        return $this->date_publication <= $checkDate->format('Y-m-d');
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
+        return Carbon::parse($this->publication_date)->startOfDay()->lte($checkDate->endOfDay());
     }
 
     /**
-     * Vérifie si la nouveauté est éligible au bonus (dans les 7 jours)
-     * 
-     * @param string|null $date Date à vérifier (format Y-m-d), par défaut aujourd'hui
-     * @return bool
+     * Scope pour les nouveautés publiées
      */
-    public function isEligibleForBonus($date = null): bool
+    public function scopePublished($query, $date = null)
     {
-        if (!$this->bonus_initial) {
-            return false;
-        }
-        
-        $checkDate = $date ? Carbon::parse($date) : now();
-        $publicationDate = Carbon::parse($this->date_publication);
-        
-        // Bonus disponible dans les 7 jours suivant la publication
-        return $checkDate->diffInDays($publicationDate, false) <= 7 && $checkDate >= $publicationDate;
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
+        return $query->where('publication_date', '<=', $checkDate->format('Y-m-d'));
     }
 
     /**
-     * Récupère les unités du chapitre avec leur contenu théorique
-     * 
-     * @return \Illuminate\Database\Eloquent\Collection
+     * Scope pour les nouveautés à venir
      */
-    public function getChapterUnitsWithTheory()
+    public function scopeUpcoming($query, $date = null)
     {
-        return $this->chapter->units()
-            ->select(['id', 'chapter_id', 'title', 'description', 'theory_html'])
-            ->get();
-    }
-
-    /**
-     * Calcule les jours restants pour le bonus
-     * 
-     * @param string|null $date Date de référence (format Y-m-d), par défaut aujourd'hui
-     * @return int Nombre de jours restants (0 si expiré ou pas de bonus)
-     */
-    public function getRemainingBonusDays($date = null): int
-    {
-        if (!$this->bonus_initial) {
-            return 0;
-        }
-        
-        $checkDate = $date ? Carbon::parse($date) : now();
-        $publicationDate = Carbon::parse($this->date_publication);
-        $bonusEndDate = $publicationDate->addDays(7);
-        
-        if ($checkDate > $bonusEndDate || $checkDate < $publicationDate) {
-            return 0;
-        }
-        
-        return max(0, $bonusEndDate->diffInDays($checkDate, false));
-    }
-
-    /**
-     * Scope pour les nouveautés accessibles
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $date Date de référence (par défaut aujourd'hui)
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeAccessible($query, $date = null)
-    {
-        $checkDate = $date ? $date : now()->format('Y-m-d');
-        return $query->where('date_publication', '<=', $checkDate);
-    }
-
-    /**
-     * Scope pour les nouveautés non encore accessibles
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $date Date de référence (par défaut aujourd'hui)
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNotAccessible($query, $date = null)
-    {
-        $checkDate = $date ? $date : now()->format('Y-m-d');
-        return $query->where('date_publication', '>', $checkDate);
-    }
-
-    /**
-     * Scope pour les nouveautés éligibles au bonus
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $date Date de référence (par défaut aujourd'hui)
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeBonusEligible($query, $date = null)
-    {
-        $checkDate = $date ? Carbon::parse($date) : now();
-        $sevenDaysAgo = $checkDate->copy()->subDays(7)->format('Y-m-d');
-        
-        return $query->where('bonus_initial', true)
-                    ->where('date_publication', '<=', $checkDate->format('Y-m-d'))
-                    ->where('date_publication', '>=', $sevenDaysAgo);
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
+        return $query->where('publication_date', '>', $checkDate->format('Y-m-d'));
     }
 }
