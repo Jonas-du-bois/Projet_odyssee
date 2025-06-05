@@ -9,8 +9,6 @@ use Carbon\Carbon;
 class WeeklySeries extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'weekly_series'; // Match your database table name
 

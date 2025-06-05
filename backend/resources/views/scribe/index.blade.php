@@ -157,7 +157,22 @@
                 </li>
                                     <ul id="tocify-subheader-notifications" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="notifications-GETapi-notifications">
-                                <a href="#notifications-GETapi-notifications">Lister les notifications de l'utilisateur connecté</a>
+                                <a href="#notifications-GETapi-notifications">Lister les notifications de l'utilisateur connecté
+    * @response 200 {
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "title": "Nouveau quiz disponible",
+      "message": "Un nouveau quiz sur l'aviation est maintenant disponible !",
+      "type": "quiz",
+      "read": false,
+      "created_at": "2024-01-15T14:30:00.000000Z",
+      "updated_at": "2024-01-15T14:30:00.000000Z"
+    }
+  ]
+}</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="notifications-PATCHapi-notifications--id--read">
                                 <a href="#notifications-PATCHapi-notifications--id--read">Marquer une notification comme lue</a>
@@ -2564,7 +2579,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     <p>API pour gérer les notifications utilisateur</p>
 
-                                <h2 id="notifications-GETapi-notifications">Lister les notifications de l&#039;utilisateur connecté</h2>
+                                <h2 id="notifications-GETapi-notifications">Lister les notifications de l&#039;utilisateur connecté
+    * @response 200 {
+  &quot;success&quot;: true,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;user_id&quot;: 1,
+      &quot;title&quot;: &quot;Nouveau quiz disponible&quot;,
+      &quot;message&quot;: &quot;Un nouveau quiz sur l&#039;aviation est maintenant disponible !&quot;,
+      &quot;type&quot;: &quot;quiz&quot;,
+      &quot;read&quot;: false,
+      &quot;created_at&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;,
+      &quot;updated_at&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;
+    }
+  ]
+}</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -2604,24 +2634,23 @@ fetch(url, {
 
 <span id="example-responses-GETapi-notifications">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
-                <pre>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
+access-control-allow-credentials: true
+access-control-max-age: 86400
+ </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;user_id&quot;: 1,
-            &quot;title&quot;: &quot;Nouveau quiz disponible&quot;,
-            &quot;message&quot;: &quot;Un nouveau quiz sur l&#039;aviation est maintenant disponible !&quot;,
-            &quot;type&quot;: &quot;quiz&quot;,
-            &quot;is_read&quot;: false,
-            &quot;created_at&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;
-        }
-    ]
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>

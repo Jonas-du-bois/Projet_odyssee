@@ -7,7 +7,6 @@ use Carbon\Carbon;
 
 class Event extends Model
 {
-    public $timestamps = false;
     
     protected $table = 'events'; // Match your database table name
     

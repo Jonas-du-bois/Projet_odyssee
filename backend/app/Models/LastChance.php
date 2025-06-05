@@ -9,8 +9,6 @@ use Carbon\Carbon;
 class LastChance extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'last_chances';
     

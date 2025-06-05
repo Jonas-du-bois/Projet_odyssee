@@ -113,14 +113,11 @@ class SynchronizeUserScores extends Command
             
             // Créer le score mensuel
             $monthDate = Carbon::createFromFormat('Y-m', $month)->startOfMonth();
-            
-            Score::create([
+              Score::create([
                 'user_id' => $userId,
                 'total_points' => $totalPoints,
                 'bonus_points' => $totalBonus,
                 'rank_id' => $user->rank_id ?? 1,
-                'created_at' => $monthDate,
-                'updated_at' => $monthDate,
             ]);
 
             $totalPointsAdded += $totalPoints;

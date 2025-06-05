@@ -9,8 +9,6 @@ use Carbon\Carbon;
 class Novelty extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'novelties'; // Match your database table name
 

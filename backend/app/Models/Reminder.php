@@ -9,8 +9,6 @@ use Carbon\Carbon;
 class Reminder extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'reminders'; // Match your database table name
 

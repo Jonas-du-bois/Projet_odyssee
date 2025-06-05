@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LotteryTicket extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'lottery_tickets'; // Match your database table name
 

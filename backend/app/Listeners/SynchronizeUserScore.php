@@ -36,14 +36,11 @@ class SynchronizeUserScore implements ShouldQueue
             } else {
                 // Créer un nouveau score pour ce mois
                 $currentRank = $this->getCurrentUserRank($userId);
-                
-                $score = Score::create([
+                  $score = Score::create([
                     'user_id' => $userId,
                     'total_points' => $points,
                     'bonus_points' => $bonusPoints,
                     'rank_id' => $currentRank ? $currentRank->id : 1,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
                 ]);
             }
 

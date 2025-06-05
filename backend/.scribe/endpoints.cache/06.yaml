@@ -16,7 +16,23 @@ endpoints:
         API pour gérer les notifications utilisateur
       subgroup: ''
       subgroupDescription: ''
-      title: "Lister les notifications de l'utilisateur connecté"
+      title: |-
+        Lister les notifications de l'utilisateur connecté
+            * @response 200 {
+          "success": true,
+          "data": [
+            {
+              "id": 1,
+              "user_id": 1,
+              "title": "Nouveau quiz disponible",
+              "message": "Un nouveau quiz sur l'aviation est maintenant disponible !",
+              "type": "quiz",
+              "read": false,
+              "created_at": "2024-01-15T14:30:00.000000Z",
+              "updated_at": "2024-01-15T14:30:00.000000Z"
+            }
+          ]
+        }
       description: ''
       authenticated: true
       custom: []
@@ -33,25 +49,17 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": [
-              {
-                "id": 1,
-                "user_id": 1,
-                "title": "Nouveau quiz disponible",
-                "message": "Un nouveau quiz sur l'aviation est maintenant disponible !",
-                "type": "quiz",
-                "is_read": false,
-                "created_at": "2024-01-15T14:30:00.000000Z",
-                "updated_at": "2024-01-15T14:30:00.000000Z"
-              }
-            ]
-          }
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
+          access-control-allow-credentials: 'true'
+          access-control-max-age: '86400'
+        description: null
         custom: []
     responseFields: []
     auth:

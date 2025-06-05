@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Score extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'scores'; // Match your database table name
 

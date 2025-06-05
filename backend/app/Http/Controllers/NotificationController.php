@@ -16,8 +16,7 @@ class NotificationController extends Controller
 {
     /**
      * Lister les notifications de l'utilisateur connecté
-     *
-     * @response 200 {
+     *     * @response 200 {
      *   "success": true,
      *   "data": [
      *     {
@@ -26,7 +25,7 @@ class NotificationController extends Controller
      *       "title": "Nouveau quiz disponible",
      *       "message": "Un nouveau quiz sur l'aviation est maintenant disponible !",
      *       "type": "quiz",
-     *       "is_read": false,
+     *       "read": false,
      *       "created_at": "2024-01-15T14:30:00.000000Z",
      *       "updated_at": "2024-01-15T14:30:00.000000Z"
      *     }
@@ -105,12 +104,11 @@ class NotificationController extends Controller
      * Compter les notifications non lues
      *
      * @return JsonResponse
-     */
-    public function unreadCount(): JsonResponse
+     */    public function unreadCount(): JsonResponse
     {
         try {
             $count = Notification::where('user_id', Auth::id())
-                ->whereNull('read_at')
+                ->unread()
                 ->count();
             
             return response()->json([

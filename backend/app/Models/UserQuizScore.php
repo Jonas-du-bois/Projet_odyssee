@@ -9,8 +9,6 @@ use App\Events\QuizCompleted;
 class UserQuizScore extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
     
     protected $table = 'user_quiz_scores'; // Match your database table name
 
