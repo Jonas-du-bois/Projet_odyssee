@@ -9,6 +9,8 @@ class Event extends Model
 {
     public $timestamps = false;
     
+    protected $table = 'events'; // Match your database table name
+    
     protected $fillable = [
         'theme',
         'start_date',
@@ -25,11 +27,11 @@ class Event extends Model
      */
     
     /**
-     * Relation many-to-many avec les unités via event_units
+     * Relation many-to-many avec les unités via EventUnit
      */
     public function units()
     {
-        return $this->belongsToMany(Unit::class, 'event_units');
+        return $this->belongsToMany(Unit::class, 'EventUnit', 'event_id', 'unit_id');
     }
 
     /**
@@ -106,12 +108,12 @@ class Event extends Model
             ->map(function ($unit) {
                 return [
                     'id' => $unit->id,
-                    'title' => $unit->title,
+                    'theme' => $unit->theme,
                     'description' => $unit->description,
                     'theory_html' => $unit->theory_html,
                     'chapter' => $unit->chapter ? [
                         'id' => $unit->chapter->id,
-                        'title' => $unit->chapter->title,
+                        'theme' => $unit->chapter->theme,
                         'description' => $unit->chapter->description
                     ] : null,
                     'questions_count' => $unit->questions->count(),
@@ -161,8 +163,8 @@ class Event extends Model
     public function scopeActive($query, $date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return $query->where('date_debut', '<=', $checkDate->format('Y-m-d'))
-                    ->where('date_fin', '>=', $checkDate->format('Y-m-d'));
+        return $query->where('start_date', '<=', $checkDate->format('Y-m-d'))
+                    ->where('end_date', '>=', $checkDate->format('Y-m-d'));
     }
 
     /**
@@ -175,7 +177,7 @@ class Event extends Model
     public function scopeUpcoming($query, $date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return $query->where('date_debut', '>', $checkDate->format('Y-m-d'));
+        return $query->where('start_date', '>', $checkDate->format('Y-m-d'));
     }
 
     /**
@@ -188,7 +190,7 @@ class Event extends Model
     public function scopeFinished($query, $date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
-        return $query->where('date_fin', '<', $checkDate->format('Y-m-d'));
+        return $query->where('end_date', '<', $checkDate->format('Y-m-d'));
     }
 
     /**
@@ -203,7 +205,7 @@ class Event extends Model
         $today = Carbon::now();
         $limitDate = $today->copy()->addDays($days);
         
-        return $query->where('date_fin', '>=', $today->format('Y-m-d'))
-                    ->where('date_fin', '<=', $limitDate->format('Y-m-d'));
+        return $query->where('end_date', '>=', $today->format('Y-m-d'))
+                    ->where('end_date', '<=', $limitDate->format('Y-m-d'));
     }
 }
