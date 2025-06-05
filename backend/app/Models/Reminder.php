@@ -60,7 +60,7 @@ class Reminder extends Model
     /**
      * Get days remaining until deadline
      */
-    public function getDaysRemaining($date = null)
+    public function getRemainingDays($date = null)
     {
         $checkDate = $date ? Carbon::parse($date) : Carbon::now();
         $deadline = Carbon::parse($this->deadline_date);
@@ -100,5 +100,26 @@ class Reminder extends Model
         
         return $query->where('deadline_date', '>=', $today->format('Y-m-d'))
                     ->where('deadline_date', '<=', $limitDate->format('Y-m-d'));
+    }
+
+    /**
+     * Get questions from the chapter associated with this reminder
+     * Limited by the number_questions attribute
+     */
+    public function getChapterQuestions()
+    {
+        if (!$this->chapter) {
+            return collect([]);
+        }
+
+        $questions = collect([]);
+        
+        // Get all questions from all units in the chapter
+        foreach ($this->chapter->units as $unit) {
+            $questions = $questions->merge($unit->questions);
+        }
+        
+        // Shuffle and limit to the number of questions specified for this reminder
+        return $questions->shuffle()->take($this->number_questions);
     }
 }

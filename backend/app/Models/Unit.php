@@ -48,11 +48,11 @@ class Unit extends Model
     }
 
     /**
-     * Relationship with events through EventUnit pivot table
+     * Relationship with events through event_units pivot table
      */
     public function events()
     {
-        return $this->belongsToMany(Event::class, 'EventUnit', 'unit_id', 'event_id');
+        return $this->belongsToMany(Event::class, 'event_units', 'unit_id', 'event_id');
     }
 
     /**

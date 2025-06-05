@@ -28,7 +28,7 @@ class Score extends Model
      */
     protected $casts = [
         'total_points' => 'integer',
-        'points_bonus' => 'integer',
+        'bonus_points' => 'integer',
     ];
 
     /**
@@ -52,7 +52,7 @@ class Score extends Model
      */
     public function getTotalWithBonusAttribute()
     {
-        return $this->total_points + $this->points_bonus;
+        return $this->total_points + $this->bonus_points;
     }
 
     /**
@@ -62,7 +62,7 @@ class Score extends Model
     {
         $this->increment('total_points', $points);
         if ($bonus > 0) {
-            $this->increment('points_bonus', $bonus);
+            $this->increment('bonus_points', $bonus);
         }
     }
 
@@ -71,7 +71,7 @@ class Score extends Model
      */
     public function updateRank()
     {
-        $totalPoints = $this->total_points + $this->points_bonus;
+        $totalPoints = $this->total_points + $this->bonus_points;
         $newRank = Rank::getRankByPoints($totalPoints);
         
         if ($newRank && $newRank->id !== $this->rank_id) {
@@ -84,7 +84,7 @@ class Score extends Model
      */
     public function scopeTopScores($query, $limit = 10)
     {
-        return $query->orderByRaw('(total_points + points_bonus) DESC')
+        return $query->orderByRaw('(total_points + bonus_points) DESC')
                     ->limit($limit);
     }
 

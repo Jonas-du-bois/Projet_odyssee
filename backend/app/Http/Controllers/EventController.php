@@ -50,12 +50,11 @@ class EventController extends Controller
         try {
             $events = Event::withCount('units')
                 ->get()
-                ->map(function ($event) {
-                    return [
+                ->map(function ($event) {                    return [
                         'id' => $event->id,
                         'theme' => $event->theme,
-                        'date_debut' => Carbon::parse($event->date_debut)->format('Y-m-d'),
-                        'date_fin' => Carbon::parse($event->date_fin)->format('Y-m-d'),
+                        'date_debut' => Carbon::parse($event->start_date)->format('Y-m-d'),
+                        'date_fin' => Carbon::parse($event->end_date)->format('Y-m-d'),
                         'is_active' => $event->isActive(),
                         'is_upcoming' => $event->isUpcoming(),
                         'is_finished' => $event->isFinished(),
@@ -133,27 +132,23 @@ class EventController extends Controller
                     'message' => 'Erreurs de validation',
                     'errors' => $validator->errors()
                 ], 422);
-            }
-
-            $event = Event::create([
+            }            $event = Event::create([
                 'theme' => $request->theme,
-                'date_debut' => $request->date_debut,
-                'date_fin' => $request->date_fin,
+                'start_date' => $request->date_debut,
+                'end_date' => $request->date_fin,
             ]);
 
             // Associer les unités si fournies
             if ($request->has('unit_ids') && is_array($request->unit_ids)) {
                 $event->units()->sync($request->unit_ids);
-            }
-
-            return response()->json([
+            }            return response()->json([
                 'success' => true,
                 'message' => 'Événement créé avec succès',
                 'data' => [
                     'id' => $event->id,
                     'theme' => $event->theme,
-                    'date_debut' => $event->date_debut,
-                    'date_fin' => $event->date_fin,
+                    'date_debut' => $event->start_date,
+                    'date_fin' => $event->end_date,
                 ]
             ], 201);
         } catch (\Exception $e) {
@@ -226,21 +221,23 @@ class EventController extends Controller
                 ], 422);
             }
 
-            $event->update($request->only(['theme', 'date_debut', 'date_fin']));
+            $event->update([
+                'theme' => $request->theme ?? $event->theme,
+                'start_date' => $request->date_debut ?? $event->start_date,
+                'end_date' => $request->date_fin ?? $event->end_date,
+            ]);
 
             // Mettre à jour les unités associées si fournies
             if ($request->has('unit_ids')) {
                 $event->units()->sync($request->unit_ids);
-            }
-
-            return response()->json([
+            }            return response()->json([
                 'success' => true,
                 'message' => 'Événement mis à jour avec succès',
                 'data' => [
                     'id' => $event->id,
                     'theme' => $event->theme,
-                    'date_debut' => $event->date_debut,
-                    'date_fin' => $event->date_fin,
+                    'date_debut' => $event->start_date,
+                    'date_fin' => $event->end_date,
                 ]
             ]);
         } catch (\Exception $e) {

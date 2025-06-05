@@ -41,16 +41,12 @@ class WeeklyController extends Controller
      * }
      *
      * @return JsonResponse
-     */
-    public function index(): JsonResponse
+     */    public function index(): JsonResponse
     {
         try {
-            $currentWeek = Carbon::now()->startOfWeek();
-            
-            // Récupérer les weeklies de la semaine courante avec leurs chapitres
+            // Récupérer toutes les weeklies avec leurs chapitres
             $weeklies = Weekly::with('chapter')
-                ->where('semaine', '>=', $currentWeek)
-                ->where('semaine', '<', $currentWeek->copy()->addWeek())
+                ->orderBy('week_start', 'desc') // Les plus récentes en premier
                 ->get();
             
             // Vérifier si l'utilisateur a déjà obtenu un ticket pour chaque weekly
@@ -62,11 +58,11 @@ class WeeklyController extends Controller
                 return [
                     'id' => $weekly->id,
                     'chapter_id' => $weekly->chapter_id,
-                    'semaine' => $weekly->semaine,
-                    'nb_questions' => $weekly->nb_questions,
+                    'semaine' => $weekly->week_start,
+                    'nb_questions' => $weekly->number_questions,
                     'chapter' => [
                         'id' => $weekly->chapter->id,
-                        'titre' => $weekly->chapter->titre,
+                        'titre' => $weekly->chapter->title,
                         'description' => $weekly->chapter->description
                     ],
                     'user_has_ticket' => $hasTicket
@@ -131,12 +127,11 @@ class WeeklyController extends Controller
                     'message' => 'Vous avez déjà obtenu un ticket pour ce défi'
                 ], 400);
             }
-            
-            // Créer le ticket principal
+              // Créer le ticket principal
             $ticket = LotteryTicket::create([
                 'user_id' => Auth::id(),
                 'weekly_id' => $id,
-                'date_obtenue' => now()->toDateString(),
+                'obtained_date' => now()->toDateString(),
                 'bonus' => false,
             ]);
             
@@ -186,12 +181,11 @@ class WeeklyController extends Controller
         try {
             $series = WeeklySeries::where('user_id', Auth::id())->first();
                 
-            if (!$series) {
-                $series = WeeklySeries::create([
+            if (!$series) {                $series = WeeklySeries::create([
                     'user_id' => Auth::id(),
                     'count' => 0,
                     'bonus_tickets' => 0,
-                    'derniere_participation' => null,
+                    'last_participation' => null,
                 ]);
             }
             
@@ -236,11 +230,10 @@ class WeeklyController extends Controller
      * @return JsonResponse
      */
     public function getTickets(): JsonResponse
-    {
-        try {
+    {        try {
             $tickets = LotteryTicket::with(['weekly.chapter'])
                 ->where('user_id', Auth::id())
-                ->orderBy('date_obtenue', 'desc')
+                ->orderBy('obtained_date', 'desc')
                 ->get();
             
             $totalTickets = $tickets->count();
@@ -286,11 +279,10 @@ class WeeklyController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        try {
-            $validator = Validator::make($request->all(), [
+        try {            $validator = Validator::make($request->all(), [
                 'chapter_id' => 'required|integer|exists:chapters,id',
-                'semaine' => 'required|date',
-                'nb_questions' => 'required|integer|min:1|max:50',
+                'week_start' => 'required|date',
+                'number_questions' => 'required|integer|min:1|max:50',
             ]);
 
             if ($validator->fails()) {
@@ -302,7 +294,7 @@ class WeeklyController extends Controller
 
             // Vérifier qu'il n'existe pas déjà un weekly pour cette semaine et ce chapitre
             $existingWeekly = Weekly::where('chapter_id', $request->chapter_id)
-                ->where('semaine', $request->semaine)
+                ->where('week_start', $request->week_start)
                 ->first();
                 
             if ($existingWeekly) {
@@ -314,8 +306,8 @@ class WeeklyController extends Controller
 
             $weekly = Weekly::create([
                 'chapter_id' => $request->chapter_id,
-                'semaine' => $request->semaine,
-                'nb_questions' => $request->nb_questions,
+                'week_start' => $request->week_start,
+                'number_questions' => $request->number_questions,
             ]);
             
             return response()->json([
@@ -347,11 +339,10 @@ class WeeklyController extends Controller
     {
         try {
             $weekly = Weekly::findOrFail($id);
-            
-            $validator = Validator::make($request->all(), [
+              $validator = Validator::make($request->all(), [
                 'chapter_id' => 'integer|exists:chapters,id',
-                'semaine' => 'date',
-                'nb_questions' => 'integer|min:1|max:50',
+                'week_start' => 'date',
+                'number_questions' => 'integer|min:1|max:50',
             ]);
 
             if ($validator->fails()) {
@@ -362,12 +353,12 @@ class WeeklyController extends Controller
             }
 
             // Si on change le chapitre ou la semaine, vérifier qu'il n'y a pas de conflit
-            if ($request->has('chapter_id') || $request->has('semaine')) {
+            if ($request->has('chapter_id') || $request->has('week_start')) {
                 $chapterId = $request->get('chapter_id', $weekly->chapter_id);
-                $semaine = $request->get('semaine', $weekly->semaine);
+                $weekStart = $request->get('week_start', $weekly->week_start);
                 
                 $existingWeekly = Weekly::where('chapter_id', $chapterId)
-                    ->where('semaine', $semaine)
+                    ->where('week_start', $weekStart)
                     ->where('id', '!=', $id)
                     ->first();
                     
@@ -433,18 +424,17 @@ class WeeklyController extends Controller
         $series = WeeklySeries::where('user_id', $userId)->first();
         $currentDate = now()->toDateString();
         
-        if (!$series) {
-            // Créer une nouvelle série
+        if (!$series) {            // Créer une nouvelle série
             WeeklySeries::create([
                 'user_id' => $userId,
                 'count' => 1,
                 'bonus_tickets' => 0,
-                'derniere_participation' => $currentDate,
+                'last_participation' => $currentDate,
             ]);
             return null;
         }
         
-        $lastParticipation = $series->derniere_participation ? Carbon::parse($series->derniere_participation) : null;
+        $lastParticipation = $series->last_participation ? Carbon::parse($series->last_participation) : null;
         $currentWeek = Carbon::now()->startOfWeek();
         
         // Vérifier si c'est une semaine consécutive
@@ -456,16 +446,15 @@ class WeeklyController extends Controller
             $series->count = 1;
         }
         
-        $series->derniere_participation = $currentDate;
+        $series->last_participation = $currentDate;
         
         // Vérifier si l'utilisateur atteint 5 weeklies d'affilée
         $bonusTicket = null;
-        if ($series->count == 5) {
-            // Créer un ticket bonus
+        if ($series->count == 5) {            // Créer un ticket bonus
             $bonusTicket = LotteryTicket::create([
                 'user_id' => $userId,
                 'weekly_id' => $weeklyId,
-                'date_obtenue' => $currentDate,
+                'obtained_date' => $currentDate,
                 'bonus' => true,
             ]);
             

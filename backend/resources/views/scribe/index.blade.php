@@ -286,7 +286,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 4, 2025</li>
+        <li>Last updated: June 5, 2025</li>
     </ul>
 </div>
 
@@ -343,6 +343,27 @@ La plupart des endpoints nécessitent une authentification. Assurez-vous d'inclu
 </p>
 
 <p>Récupère la liste complète des chapitres avec leurs unités associées.</p>
+<ul>
+<li>@response 200 {
+&quot;success&quot;: true,
+&quot;data&quot;: [
+{
+&quot;id&quot;: 1,
+&quot;title&quot;: &quot;Introduction à Breitling&quot;,
+&quot;description&quot;: &quot;Découverte de l'histoire et des valeurs de Breitling&quot;,
+&quot;order&quot;: 1,
+&quot;units&quot;: [
+{
+&quot;id&quot;: 1,
+&quot;name&quot;: &quot;Histoire de la marque&quot;,
+&quot;content&quot;: &quot;Contenu de formation...&quot;,
+&quot;chapter_id&quot;: 1
+}
+]
+}
+]
+}</li>
+</ul>
 
 <span id="example-requests-GETapi-chapters">
 <blockquote>Example request:</blockquote>
@@ -376,25 +397,23 @@ fetch(url, {
 
 <span id="example-responses-GETapi-chapters">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
-                <pre>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
+access-control-allow-credentials: true
+access-control-max-age: 86400
+ </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;title&quot;: &quot;Introduction &agrave; Breitling&quot;,
-            &quot;description&quot;: &quot;D&eacute;couverte de l&#039;histoire et des valeurs de Breitling&quot;,
-            &quot;order&quot;: 1,
-            &quot;unit&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Histoire de la marque&quot;,
-                &quot;content&quot;: &quot;Contenu de formation...&quot;
-            }
-        }
-    ]
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -520,23 +539,23 @@ fetch(url, {
 
 <span id="example-responses-GETapi-chapters--id-">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
-                <pre>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
+access-control-allow-credentials: true
+access-control-max-age: 86400
+ </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;title&quot;: &quot;Introduction &agrave; Breitling&quot;,
-        &quot;description&quot;: &quot;D&eacute;couverte de l&#039;histoire et des valeurs de Breitling&quot;,
-        &quot;order&quot;: 1,
-        &quot;unit&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Histoire de la marque&quot;,
-            &quot;content&quot;: &quot;Contenu de formation...&quot;
-        }
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
             <blockquote>
@@ -1421,7 +1440,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-me">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1437,11 +1456,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;api user&quot;,
-    &quot;email&quot;: &quot;api@demo.ch&quot;,
-    &quot;rank_id&quot;: null,
-    &quot;registration_date&quot;: &quot;2025-06-04T00:00:00.000000Z&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -2443,7 +2458,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-tickets-stats">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2459,65 +2474,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;total_tickets&quot;: 0,
-        &quot;regular_tickets&quot;: 0,
-        &quot;bonus_tickets&quot;: 0,
-        &quot;monthly_stats&quot;: [
-            {
-                &quot;month&quot;: &quot;Jan&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Feb&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Mar&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Apr&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;May&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Jun&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Jul&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Aug&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Sep&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Oct&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Nov&quot;,
-                &quot;count&quot;: 0
-            },
-            {
-                &quot;month&quot;: &quot;Dec&quot;,
-                &quot;count&quot;: 0
-            }
-        ],
-        &quot;current_streak&quot;: 0,
-        &quot;max_streak&quot;: 0,
-        &quot;last_ticket_date&quot;: null
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -2944,7 +2901,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-notifications-unread-count">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2960,10 +2917,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;count&quot;: 0
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -3563,7 +3517,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-rank">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3579,9 +3533,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration du rang&quot;,
-    &quot;error&quot;: &quot;SQLSTATE[HY000]: General error: 1 no such column: points (Connection: sqlite, SQL: select \&quot;user_id\&quot; from \&quot;scores\&quot; group by \&quot;user_id\&quot; order by SUM(points) DESC)&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -3707,7 +3659,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-history">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3723,8 +3675,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: []
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -3850,7 +3801,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-progress-wrap">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3866,9 +3817,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration des donn&eacute;es de bilan&quot;,
-    &quot;error&quot;: &quot;SQLSTATE[HY000]: General error: 1 no such column: user_quiz_scores.percentage (Connection: sqlite, SQL: select \&quot;chapters\&quot;.\&quot;id\&quot;, \&quot;chapters\&quot;.\&quot;title\&quot;, MAX(user_quiz_scores.percentage) as best_score, COUNT(DISTINCT quiz_instances.id) as attempts from \&quot;chapters\&quot; left join \&quot;quiz_instances\&quot; on \&quot;chapters\&quot;.\&quot;id\&quot; = \&quot;quiz_instances\&quot;.\&quot;chapter_id\&quot; left join \&quot;user_quiz_scores\&quot; on \&quot;quiz_instances\&quot;.\&quot;id\&quot; = \&quot;user_quiz_scores\&quot;.\&quot;quiz_instance_id\&quot; and \&quot;user_quiz_scores\&quot;.\&quot;user_id\&quot; = 1 group by \&quot;chapters\&quot;.\&quot;id\&quot;, \&quot;chapters\&quot;.\&quot;title\&quot;)&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -4387,7 +4336,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-quiz--id--result">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4403,9 +4352,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Erreur lors de la r&eacute;cup&eacute;ration des r&eacute;sultats&quot;,
-    &quot;error&quot;: &quot;No query results for model [App\\Models\\QuizInstance] architecto&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -4888,7 +4835,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-profile">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4904,14 +4851,7 @@ access-control-max-age: 86400
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;api user&quot;,
-        &quot;email&quot;: &quot;api@demo.ch&quot;,
-        &quot;rank_id&quot;: null,
-        &quot;registration_date&quot;: &quot;2025-06-04T00:00:00.000000Z&quot;
-    }
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>

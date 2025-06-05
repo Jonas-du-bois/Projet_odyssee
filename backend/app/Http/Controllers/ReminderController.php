@@ -56,12 +56,11 @@ class ReminderController extends Controller
                 ->map(function ($reminder) {
                     // Compter les questions disponibles pour le chapitre
                     $questionsCount = $reminder->getChapterQuestions()->count();
-                    
-                    return [
+                      return [
                         'id' => $reminder->id,
                         'chapter_id' => $reminder->chapter_id,
-                        'nb_questions' => $reminder->nb_questions,
-                        'date_limite' => Carbon::parse($reminder->date_limite)->format('Y-m-d'),
+                        'number_questions' => $reminder->number_questions,
+                        'deadline_date' => Carbon::parse($reminder->deadline_date)->format('Y-m-d'),
                         'is_active' => $reminder->isActive(),
                         'is_expired' => $reminder->isExpired(),
                         'remaining_days' => $reminder->getRemainingDays(),
@@ -138,12 +137,11 @@ class ReminderController extends Controller
 
             // Récupérer les questions pour le quiz de révision
             $questions = $reminder->getChapterQuestions();
-            
-            $data = [
+              $data = [
                 'id' => $reminder->id,
                 'chapter_id' => $reminder->chapter_id,
-                'nb_questions' => $reminder->nb_questions,
-                'date_limite' => Carbon::parse($reminder->date_limite)->format('Y-m-d'),
+                'number_questions' => $reminder->number_questions,
+                'deadline_date' => Carbon::parse($reminder->deadline_date)->format('Y-m-d'),
                 'is_active' => $reminder->isActive(),
                 'is_expired' => $reminder->isExpired(),
                 'remaining_days' => $reminder->getRemainingDays(),
@@ -204,20 +202,19 @@ class ReminderController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        try {
-            $validator = Validator::make($request->all(), [
+        try {            $validator = Validator::make($request->all(), [
                 'chapter_id' => 'required|integer|exists:chapters,id',
-                'nb_questions' => 'required|integer|min:1|max:50',
-                'date_limite' => 'required|date|date_format:Y-m-d|after:today',
+                'number_questions' => 'required|integer|min:1|max:50',
+                'deadline_date' => 'required|date|date_format:Y-m-d|after:today',
             ], [
                 'chapter_id.required' => 'L\'ID du chapitre est requis',
                 'chapter_id.exists' => 'Le chapitre sélectionné n\'existe pas',
-                'nb_questions.required' => 'Le nombre de questions est requis',
-                'nb_questions.min' => 'Il faut au moins 1 question',
-                'nb_questions.max' => 'Maximum 50 questions autorisées',
-                'date_limite.required' => 'La date limite est requise',
-                'date_limite.date_format' => 'La date limite doit être au format Y-m-d',
-                'date_limite.after' => 'La date limite doit être dans le futur',
+                'number_questions.required' => 'Le nombre de questions est requis',
+                'number_questions.min' => 'Il faut au moins 1 question',
+                'number_questions.max' => 'Maximum 50 questions autorisées',
+                'deadline_date.required' => 'La date limite est requise',
+                'deadline_date.date_format' => 'La date limite doit être au format Y-m-d',
+                'deadline_date.after' => 'La date limite doit être dans le futur',
             ]);
 
             if ($validator->fails()) {
@@ -226,23 +223,21 @@ class ReminderController extends Controller
                     'message' => 'Erreurs de validation',
                     'errors' => $validator->errors()
                 ], 422);
-            }
-
-            // Vérifier que le chapitre a suffisamment de questions
+            }            // Vérifier que le chapitre a suffisamment de questions
             $chapter = Chapter::with('units.questions')->find($request->chapter_id);
             $availableQuestions = $chapter->units->pluck('questions')->flatten()->count();
             
-            if ($availableQuestions < $request->nb_questions) {
+            if ($availableQuestions < $request->number_questions) {
                 return response()->json([
                     'success' => false,
-                    'message' => "Le chapitre ne contient que {$availableQuestions} question(s), impossible de créer un reminder avec {$request->nb_questions} questions"
+                    'message' => "Le chapitre ne contient que {$availableQuestions} question(s), impossible de créer un reminder avec {$request->number_questions} questions"
                 ], 422);
             }
 
             $reminder = Reminder::create([
                 'chapter_id' => $request->chapter_id,
-                'nb_questions' => $request->nb_questions,
-                'date_limite' => $request->date_limite,
+                'number_questions' => $request->number_questions,
+                'deadline_date' => $request->deadline_date,
             ]);
 
             return response()->json([
@@ -251,8 +246,8 @@ class ReminderController extends Controller
                 'data' => [
                     'id' => $reminder->id,
                     'chapter_id' => $reminder->chapter_id,
-                    'nb_questions' => $reminder->nb_questions,
-                    'date_limite' => $reminder->date_limite,
+                    'number_questions' => $reminder->number_questions,
+                    'deadline_date' => $reminder->deadline_date,
                 ]
             ], 201);
         } catch (\Exception $e) {
@@ -299,18 +294,16 @@ class ReminderController extends Controller
                     'success' => false,
                     'message' => 'Reminder non trouvé'
                 ], 404);
-            }
-
-            $validator = Validator::make($request->all(), [
+            }            $validator = Validator::make($request->all(), [
                 'chapter_id' => 'sometimes|integer|exists:chapters,id',
-                'nb_questions' => 'sometimes|integer|min:1|max:50',
-                'date_limite' => 'sometimes|date|date_format:Y-m-d|after:today',
+                'number_questions' => 'sometimes|integer|min:1|max:50',
+                'deadline_date' => 'sometimes|date|date_format:Y-m-d|after:today',
             ], [
                 'chapter_id.exists' => 'Le chapitre sélectionné n\'existe pas',
-                'nb_questions.min' => 'Il faut au moins 1 question',
-                'nb_questions.max' => 'Maximum 50 questions autorisées',
-                'date_limite.date_format' => 'La date limite doit être au format Y-m-d',
-                'date_limite.after' => 'La date limite doit être dans le futur',
+                'number_questions.min' => 'Il faut au moins 1 question',
+                'number_questions.max' => 'Maximum 50 questions autorisées',
+                'deadline_date.date_format' => 'La date limite doit être au format Y-m-d',
+                'deadline_date.after' => 'La date limite doit être dans le futur',
             ]);
 
             if ($validator->fails()) {
@@ -319,25 +312,23 @@ class ReminderController extends Controller
                     'message' => 'Erreurs de validation',
                     'errors' => $validator->errors()
                 ], 422);
-            }
-
-            // Si le chapitre ou le nombre de questions change, vérifier la disponibilité
+            }            // Si le chapitre ou le nombre de questions change, vérifier la disponibilité
             $chapterId = $request->has('chapter_id') ? $request->chapter_id : $reminder->chapter_id;
-            $nbQuestions = $request->has('nb_questions') ? $request->nb_questions : $reminder->nb_questions;
+            $numberQuestions = $request->has('number_questions') ? $request->number_questions : $reminder->number_questions;
             
-            if ($request->has('chapter_id') || $request->has('nb_questions')) {
+            if ($request->has('chapter_id') || $request->has('number_questions')) {
                 $chapter = Chapter::with('units.questions')->find($chapterId);
                 $availableQuestions = $chapter->units->pluck('questions')->flatten()->count();
                 
-                if ($availableQuestions < $nbQuestions) {
+                if ($availableQuestions < $numberQuestions) {
                     return response()->json([
                         'success' => false,
-                        'message' => "Le chapitre ne contient que {$availableQuestions} question(s), impossible d'avoir {$nbQuestions} questions"
+                        'message' => "Le chapitre ne contient que {$availableQuestions} question(s), impossible d'avoir {$numberQuestions} questions"
                     ], 422);
                 }
             }
 
-            $reminder->update($request->only(['chapter_id', 'nb_questions', 'date_limite']));
+            $reminder->update($request->only(['chapter_id', 'number_questions', 'deadline_date']));
 
             return response()->json([
                 'success' => true,
@@ -345,8 +336,8 @@ class ReminderController extends Controller
                 'data' => [
                     'id' => $reminder->id,
                     'chapter_id' => $reminder->chapter_id,
-                    'nb_questions' => $reminder->nb_questions,
-                    'date_limite' => $reminder->date_limite,
+                    'number_questions' => $reminder->number_questions,
+                    'deadline_date' => $reminder->deadline_date,
                 ]
             ]);
         } catch (\Exception $e) {

@@ -42,11 +42,10 @@ class TicketController extends Controller
      * @return JsonResponse
      */
     public function listTickets(): JsonResponse
-    {
-        try {
+    {        try {
             $tickets = LotteryTicket::where('user_id', Auth::id())
                 ->with('weekly')
-                ->orderBy('claimed_at', 'desc')
+                ->orderBy('obtained_date', 'desc')
                 ->get();
             
             return response()->json([
@@ -94,22 +93,21 @@ class TicketController extends Controller
                     'message' => 'Aucune série trouvée pour cet utilisateur'
                 ], 404);
             }
-            
-            // Vérifier si la série est suffisante pour un bonus (5 semaines consécutives)
-            if ($series->current_streak < 5) {
+              // Vérifier si la série est suffisante pour un bonus (5 semaines consécutives)
+            if ($series->count < 5) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Série insuffisante pour réclamer un bonus',
-                    'current_streak' => $series->current_streak,
+                    'current_streak' => $series->count,
                     'required_streak' => 5
                 ], 400);
             }
             
             // Calculer combien de bonus l'utilisateur peut réclamer
-            $eligibleBonuses = floor($series->current_streak / 5);
+            $eligibleBonuses = floor($series->count / 5);
             $claimedBonuses = DB::table('lottery_tickets')
                 ->where('user_id', $userId)
-                ->where('is_bonus', true)
+                ->where('bonus', true)
                 ->count();
             
             $availableBonuses = $eligibleBonuses - $claimedBonuses;
@@ -118,7 +116,7 @@ class TicketController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Tous les bonus ont déjà été réclamés',
-                    'current_streak' => $series->current_streak,
+                    'current_streak' => $series->count,
                     'claimed_bonuses' => $claimedBonuses
                 ], 400);
             }
@@ -126,12 +124,9 @@ class TicketController extends Controller
             // Créer un ticket bonus
             $bonusTicket = LotteryTicket::create([
                 'user_id' => $userId,
-                'weekly_id' => null,
-                'claimed_at' => now(),
-                'ticket_number' => $this->generateBonusTicketNumber(),
-                'is_bonus' => true,
-                'bonus_type' => 'streak',
-                'bonus_value' => 5 // Valeur du bonus (5 semaines consécutives)
+                'weekly_id' => null, // Les tickets bonus n'ont pas de weekly_id
+                'obtained_date' => now()->toDateString(),
+                'bonus' => true
             ]);
             
             return response()->json([
@@ -153,8 +148,7 @@ class TicketController extends Controller
      * Obtenir des statistiques sur les tickets
      *
      * @return JsonResponse
-     */
-    public function getStats(): JsonResponse
+     */    public function getStats(): JsonResponse
     {
         try {
             $userId = Auth::id();
@@ -162,7 +156,7 @@ class TicketController extends Controller
             // Statistiques globales
             $totalTickets = LotteryTicket::where('user_id', $userId)->count();
             $bonusTickets = LotteryTicket::where('user_id', $userId)
-                ->where('is_bonus', true)
+                ->where('bonus', true)
                 ->count();
             $regularTickets = $totalTickets - $bonusTickets;
             
@@ -172,8 +166,8 @@ class TicketController extends Controller
             
             for ($month = 1; $month <= 12; $month++) {
                 $monthlyCount = LotteryTicket::where('user_id', $userId)
-                    ->whereYear('claimed_at', $currentYear)
-                    ->whereMonth('claimed_at', $month)
+                    ->whereYear('obtained_date', $currentYear)
+                    ->whereMonth('obtained_date', $month)
                     ->count();
                     
                 $monthlyStats[] = [
@@ -182,18 +176,21 @@ class TicketController extends Controller
                 ];
             }
             
-            // Série actuelle et meilleure série
+            // Série actuelle et dernière date de ticket
             $series = WeeklySeries::where('user_id', $userId)->first();
+            $lastTicket = LotteryTicket::where('user_id', $userId)
+                ->orderBy('obtained_date', 'desc')
+                ->first();
             
             $stats = [
                 'total_tickets' => $totalTickets,
                 'regular_tickets' => $regularTickets,
                 'bonus_tickets' => $bonusTickets,
                 'monthly_stats' => $monthlyStats,
-                'current_streak' => $series ? $series->current_streak : 0,
-                'max_streak' => $series ? $series->max_streak : 0,
-                'last_ticket_date' => $series && $series->last_weekly_date 
-                    ? Carbon::parse($series->last_weekly_date)->format('Y-m-d')
+                'current_streak' => $series ? $series->count : null,
+                'max_streak' => $series ? $series->count : null, // Pour l'instant, on utilise count comme max
+                'last_ticket_date' => $lastTicket 
+                    ? Carbon::parse($lastTicket->obtained_date)->format('Y-m-d')
                     : null
             ];
             

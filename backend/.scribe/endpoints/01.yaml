@@ -15,7 +15,27 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: 'Lister tous les chapitres'
-      description: 'Récupère la liste complète des chapitres avec leurs unités associées.'
+      description: |-
+        Récupère la liste complète des chapitres avec leurs unités associées.
+            * @response 200 {
+          "success": true,
+          "data": [
+            {
+              "id": 1,
+              "title": "Introduction à Breitling",
+              "description": "Découverte de l'histoire et des valeurs de Breitling",
+              "order": 1,
+              "units": [
+                {
+                  "id": 1,
+                  "name": "Histoire de la marque",
+                  "content": "Contenu de formation...",
+                  "chapter_id": 1
+                }
+              ]
+            }
+          ]
+        }
       authenticated: true
       custom: []
     headers:
@@ -31,26 +51,17 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": [
-              {
-                "id": 1,
-                "title": "Introduction à Breitling",
-                "description": "Découverte de l'histoire et des valeurs de Breitling",
-                "order": 1,
-                "unit": {
-                  "id": 1,
-                  "name": "Histoire de la marque",
-                  "content": "Contenu de formation..."
-                }
-              }
-            ]
-          }
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
+          access-control-allow-credentials: 'true'
+          access-control-max-age: '86400'
+        description: null
         custom: []
     responseFields: []
     auth:
@@ -100,24 +111,17 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": {
-              "id": 1,
-              "title": "Introduction à Breitling",
-              "description": "Découverte de l'histoire et des valeurs de Breitling",
-              "order": 1,
-              "unit": {
-                "id": 1,
-                "name": "Histoire de la marque",
-                "content": "Contenu de formation..."
-              }
-            }
-          }
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
+          access-control-allow-credentials: 'true'
+          access-control-max-age: '86400'
+        description: null
         custom: []
       -
         status: 404

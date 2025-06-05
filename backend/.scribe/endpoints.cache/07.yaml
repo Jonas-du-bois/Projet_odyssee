@@ -45,8 +45,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"success":true,"data":{"id":1,"name":"api user","email":"api@demo.ch","rank_id":null,"registration_date":"2025-06-04T00:00:00.000000Z"}}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
