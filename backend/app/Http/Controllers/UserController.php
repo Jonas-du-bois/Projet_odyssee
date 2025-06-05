@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @group User Management
@@ -177,8 +178,7 @@ class UserController extends Controller
      *     "quiz_count": 25
      *   }
      * }
-     */
-    public function showPublicProfile($id): JsonResponse
+     */    public function showPublicProfile($id): JsonResponse
     {
         try {
             $user = User::with(['rank', 'scores'])->find($id);
@@ -190,7 +190,7 @@ class UserController extends Controller
                 ], 404);
             }
 
-            $totalScore = $user->scores()->sum('points_total');
+            $totalScore = $user->getTotalPointsWithFallback();
             $quizCount = $user->quizInstances()->count();
 
             return response()->json([

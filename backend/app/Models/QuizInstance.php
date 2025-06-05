@@ -57,6 +57,14 @@ class QuizInstance extends Model
     }
 
     /**
+     * Relationship with user answers
+     */
+    public function userAnswers()
+    {
+        return $this->hasMany(UserAnswer::class, 'quiz_instance_id');
+    }
+
+    /**
      * Polymorphic relationship to get the module (Unit, Discovery, Event, Weekly, etc.)
      */
     public function module()

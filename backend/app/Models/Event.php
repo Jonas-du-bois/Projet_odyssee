@@ -27,11 +27,11 @@ class Event extends Model
      */
     
     /**
-     * Relation many-to-many avec les unités via EventUnit
+     * Relation many-to-many avec les unités via event_units
      */
     public function units()
     {
-        return $this->belongsToMany(Unit::class, 'EventUnit', 'event_id', 'unit_id');
+        return $this->belongsToMany(Unit::class, 'event_units', 'event_id', 'unit_id');
     }
 
     /**
@@ -108,26 +108,26 @@ class Event extends Model
             ->map(function ($unit) {
                 return [
                     'id' => $unit->id,
-                    'theme' => $unit->theme,
+                    'titre' => $unit->title,
                     'description' => $unit->description,
-                    'theory_html' => $unit->theory_html,
+                    'theorie_html' => $unit->theory_html,
                     'chapter' => $unit->chapter ? [
                         'id' => $unit->chapter->id,
-                        'theme' => $unit->chapter->theme,
+                        'titre' => $unit->chapter->title,
                         'description' => $unit->chapter->description
                     ] : null,
                     'questions_count' => $unit->questions->count(),
                     'questions' => $unit->questions->map(function ($question) {
                         return [
                             'id' => $question->id,
-                            'statement' => $question->statement,
+                            'enonce' => $question->statement,
                             'type' => $question->type,
-                            'timer_seconds' => $question->timer_seconds,
+                            'timer_secondes' => $question->timer_seconds,
                             'choices' => $question->choices->map(function ($choice) {
                                 return [
                                     'id' => $choice->id,
-                                    'text' => $choice->text,
-                                    'is_correct' => $choice->is_correct
+                                    'texte' => $choice->text,
+                                    'est_correct' => $choice->is_correct
                                 ];
                             })
                         ];

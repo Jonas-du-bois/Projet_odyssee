@@ -64,30 +64,52 @@ class ProgressController extends Controller
                     'last_activity' => now(),
                 ]
             );
-            
-            // Mettre à jour les statistiques
+              // Mettre à jour les statistiques
             $completedQuizzes = QuizInstance::where('user_id', $userId)
-                ->where('status', 'completed')
+                ->whereHas('userQuizScore')
                 ->count();
             
-            $totalPoints = UserQuizScore::where('user_id', $userId)
-                ->sum('score');
+            $totalPoints = UserQuizScore::whereHas('quizInstance', function($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                })
+                ->sum('total_points');
             
             // On pourrait ajouter d'autres points provenant d'autres activités
             $additionalPoints = DB::table('scores')
                 ->where('user_id', $userId)
-                ->sum('points');
+                ->sum('total_points');
             
-            $totalPoints += $additionalPoints;
-            
-            // Calculer le pourcentage de progression global (exemple)
+            $totalPoints += $additionalPoints;            // Calculer le pourcentage de progression global (exemple)
             $totalChapters = DB::table('chapters')->count();
-            $completedChapters = DB::table('user_quiz_scores')
-                ->join('quiz_instances', 'user_quiz_scores.quiz_instance_id', '=', 'quiz_instances.id')
-                ->where('user_quiz_scores.user_id', $userId)
-                ->where('user_quiz_scores.percentage', '>=', 70) // Seuil de réussite
-                ->distinct('quiz_instances.chapter_id')
-                ->count('quiz_instances.chapter_id');
+            
+            // Récupérer les chapitres complétés à partir des quiz instances
+            // en utilisant les relations polymorphes avec les différents types de modules
+            $completedChapterIds = collect();
+            
+            // Pour chaque type de module, joindre la table appropriée pour récupérer chapter_id
+            $moduleTypes = [
+                'Unit' => 'units',
+                'Discovery' => 'discoveries', 
+                'Novelty' => 'novelties',
+                'Weekly' => 'weeklies',
+                'Reminder' => 'reminders'
+            ];
+              foreach ($moduleTypes as $moduleType => $tableName) {
+                $chapterIds = DB::table('user_quiz_scores')
+                    ->join('quiz_instances', 'user_quiz_scores.quiz_instance_id', '=', 'quiz_instances.id')
+                    ->join($tableName, function($join) use ($moduleType, $tableName) {
+                        $join->on('quiz_instances.module_id', '=', $tableName . '.id')
+                             ->where('quiz_instances.module_type', '=', $moduleType);
+                    })
+                    ->where('quiz_instances.user_id', $userId)
+                    ->where('user_quiz_scores.total_points', '>=', 700) // Seuil de réussite (70% de 1000 points de base)
+                    ->distinct($tableName . '.chapter_id')
+                    ->pluck($tableName . '.chapter_id');
+                
+                $completedChapterIds = $completedChapterIds->merge($chapterIds);
+            }
+            
+            $completedChapters = $completedChapterIds->unique()->count();
                 
             $progressPercentage = $totalChapters > 0 
                 ? min(100, round(($completedChapters / $totalChapters) * 100)) 
@@ -116,9 +138,7 @@ class ProgressController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    /**
+    }    /**
      * Récupérer le rang de l'utilisateur et ses statistiques
      *
      * @return JsonResponse
@@ -129,31 +149,33 @@ class ProgressController extends Controller
             $userId = Auth::id();
             
             // Récupérer le score total de l'utilisateur
-            $totalPoints = Score::where('user_id', $userId)->sum('points');
+            $totalPoints = Score::where('user_id', $userId)->sum('total_points');
             
             // Déterminer le rang en fonction des points
-            $rank = Rank::where('min_points', '<=', $totalPoints)
-                ->where('max_points', '>=', $totalPoints)
+            $rank = Rank::where('minimum_points', '<=', $totalPoints)
+                ->orderBy('minimum_points', 'desc')
                 ->first();
             
             if (!$rank) {
                 // Rang par défaut si aucun ne correspond
-                $rank = Rank::where('min_points', 0)->first();
+                $rank = Rank::orderBy('minimum_points', 'asc')->first();
             }
             
             // Statistiques additionnelles
             $completedQuizzes = QuizInstance::where('user_id', $userId)
-                ->where('status', 'completed')
+                ->whereHas('userQuizScore')
                 ->count();
             
-            $averageScore = UserQuizScore::where('user_id', $userId)
-                ->avg('percentage');
+            $averageScore = UserQuizScore::whereHas('quizInstance', function($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                })
+                ->avg('total_points');
             
             // Position dans le classement global
             $userPosition = DB::table('scores')
                 ->select('user_id')
                 ->groupBy('user_id')
-                ->orderByRaw('SUM(points) DESC')
+                ->orderByRaw('SUM(total_points) DESC')
                 ->get()
                 ->search(function ($item) use ($userId) {
                     return $item->user_id === $userId;
@@ -177,9 +199,7 @@ class ProgressController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    /**
+    }    /**
      * Récupérer l'historique des quiz de l'utilisateur
      *
      * @return JsonResponse
@@ -191,8 +211,8 @@ class ProgressController extends Controller
             
             $quizHistory = QuizInstance::with(['userQuizScore', 'quizType'])
                 ->where('user_id', $userId)
-                ->where('status', 'completed')
-                ->orderBy('completed_at', 'desc')
+                ->whereHas('userQuizScore')
+                ->orderBy('created_at', 'desc')
                 ->get();
             
             return response()->json([
@@ -206,9 +226,7 @@ class ProgressController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    /**
+    }    /**
      * Récupérer les données de bilan (wrap) de l'utilisateur
      *
      * @return JsonResponse
@@ -223,17 +241,19 @@ class ProgressController extends Controller
             $yearData = [
                 'total_points' => Score::where('user_id', $userId)
                     ->whereYear('created_at', $currentYear)
-                    ->sum('points'),
+                    ->sum('total_points'),
                 'completed_quizzes' => QuizInstance::where('user_id', $userId)
-                    ->where('status', 'completed')
-                    ->whereYear('completed_at', $currentYear)
-                    ->count(),
-                'average_score' => UserQuizScore::where('user_id', $userId)
+                    ->whereHas('userQuizScore')
                     ->whereYear('created_at', $currentYear)
-                    ->avg('percentage'),
+                    ->count(),
+                'average_score' => UserQuizScore::whereHas('quizInstance', function($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    })
+                    ->whereYear('created_at', $currentYear)
+                    ->avg('total_points'),
                 'weekly_participations' => DB::table('lottery_tickets')
                     ->where('user_id', $userId)
-                    ->whereYear('claimed_at', $currentYear)
+                    ->whereYear('obtained_date', $currentYear)
                     ->count(),
             ];
             
@@ -245,25 +265,50 @@ class ProgressController extends Controller
                     'points' => Score::where('user_id', $userId)
                         ->whereYear('created_at', $currentYear)
                         ->whereMonth('created_at', $month)
-                        ->sum('points'),
+                        ->sum('total_points'),
                     'quizzes' => QuizInstance::where('user_id', $userId)
-                        ->where('status', 'completed')
-                        ->whereYear('completed_at', $currentYear)
-                        ->whereMonth('completed_at', $month)
+                        ->whereHas('userQuizScore')
+                        ->whereYear('created_at', $currentYear)
+                        ->whereMonth('created_at', $month)
                         ->count(),
                 ];
-            }
-            
-            // Progression par chapitre
+            }              // Progression par chapitre avec vraies statistiques
             $chapterProgress = DB::table('chapters')
-                ->leftJoin('quiz_instances', 'chapters.id', '=', 'quiz_instances.chapter_id')
-                ->leftJoin('user_quiz_scores', function($join) use ($userId) {
-                    $join->on('quiz_instances.id', '=', 'user_quiz_scores.quiz_instance_id')
-                        ->where('user_quiz_scores.user_id', '=', $userId);
+                ->leftJoin('units', 'chapters.id', '=', 'units.chapter_id')
+                ->leftJoin('quiz_instances as qi_units', function($join) use ($userId) {
+                    $join->on('units.id', '=', 'qi_units.module_id')
+                         ->where('qi_units.module_type', '=', 'Unit')
+                         ->where('qi_units.user_id', '=', $userId);
                 })
-                ->select('chapters.id', 'chapters.title', 
-                    DB::raw('MAX(user_quiz_scores.percentage) as best_score'),
-                    DB::raw('COUNT(DISTINCT quiz_instances.id) as attempts'))
+                ->leftJoin('user_quiz_scores as uqs_units', 'qi_units.id', '=', 'uqs_units.quiz_instance_id')
+                ->leftJoin('discoveries', 'chapters.id', '=', 'discoveries.chapter_id')
+                ->leftJoin('quiz_instances as qi_discoveries', function($join) use ($userId) {
+                    $join->on('discoveries.id', '=', 'qi_discoveries.module_id')
+                         ->where('qi_discoveries.module_type', '=', 'Discovery')
+                         ->where('qi_discoveries.user_id', '=', $userId);
+                })
+                ->leftJoin('user_quiz_scores as uqs_discoveries', 'qi_discoveries.id', '=', 'uqs_discoveries.quiz_instance_id')
+                ->leftJoin('novelties', 'chapters.id', '=', 'novelties.chapter_id')
+                ->leftJoin('quiz_instances as qi_novelties', function($join) use ($userId) {
+                    $join->on('novelties.id', '=', 'qi_novelties.module_id')
+                         ->where('qi_novelties.module_type', '=', 'Novelty')
+                         ->where('qi_novelties.user_id', '=', $userId);
+                })
+                ->leftJoin('user_quiz_scores as uqs_novelties', 'qi_novelties.id', '=', 'uqs_novelties.quiz_instance_id')
+                ->select(
+                    'chapters.id',
+                    'chapters.title',
+                    DB::raw('COALESCE(MAX(GREATEST(
+                        COALESCE(uqs_units.total_points, 0),
+                        COALESCE(uqs_discoveries.total_points, 0),
+                        COALESCE(uqs_novelties.total_points, 0)
+                    )), 0) as best_score'),
+                    DB::raw('(
+                        COALESCE(COUNT(DISTINCT qi_units.id), 0) +
+                        COALESCE(COUNT(DISTINCT qi_discoveries.id), 0) +
+                        COALESCE(COUNT(DISTINCT qi_novelties.id), 0)
+                    ) as attempts')
+                )
                 ->groupBy('chapters.id', 'chapters.title')
                 ->get();
                 
@@ -283,8 +328,7 @@ class ProgressController extends Controller
             ], 500);
         }
     }
-    
-    /**
+      /**
      * Récupérer le prochain rang à atteindre
      *
      * @param Rank $currentRank Rang actuel de l'utilisateur
@@ -293,12 +337,12 @@ class ProgressController extends Controller
      */
     private function getNextRank($currentRank, $totalPoints): ?array
     {
-        $nextRank = Rank::where('min_points', '>', $currentRank->max_points)
-            ->orderBy('min_points', 'asc')
+        $nextRank = Rank::where('minimum_points', '>', $currentRank->minimum_points)
+            ->orderBy('minimum_points', 'asc')
             ->first();
             
         if ($nextRank) {
-            $pointsNeeded = $nextRank->min_points - $totalPoints;
+            $pointsNeeded = $nextRank->minimum_points - $totalPoints;
             return [
                 'rank' => $nextRank,
                 'points_needed' => $pointsNeeded
@@ -306,9 +350,7 @@ class ProgressController extends Controller
         }
         
         return null;
-    }
-
-    /**
+    }    /**
      * Afficher le classement général de tous les joueurs
      *
      * @response 200 {
@@ -330,7 +372,7 @@ class ProgressController extends Controller
     {
         try {
             $leaderboard = Score::with(['user.rank'])
-                ->orderBy('points_total', 'desc')
+                ->orderBy('total_points', 'desc')
                 ->limit(50) // Top 50
                 ->get()
                 ->map(function ($score, $index) {
@@ -344,8 +386,8 @@ class ProgressController extends Controller
                                 'level' => $score->user->rank->level
                             ] : null
                         ],
-                        'total_points' => $score->points_total,
-                        'bonus_points' => $score->points_bonus
+                        'total_points' => $score->total_points,
+                        'bonus_points' => $score->bonus_points
                     ];
                 });
 

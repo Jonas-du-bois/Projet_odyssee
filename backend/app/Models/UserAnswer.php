@@ -18,6 +18,7 @@ class UserAnswer extends Model
      */
     protected $fillable = [
         'user_id',
+        'quiz_instance_id',
         'question_id',
         'choice_id',
         'is_correct',
@@ -42,6 +43,14 @@ class UserAnswer extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Relationship with quiz instance
+     */
+    public function quizInstance()
+    {
+        return $this->belongsTo(QuizInstance::class, 'quiz_instance_id');
     }
 
     /**

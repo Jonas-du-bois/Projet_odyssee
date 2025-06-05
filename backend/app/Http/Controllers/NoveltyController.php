@@ -54,14 +54,14 @@ class NoveltyController extends Controller
                 ->get()
                 ->map(function ($novelty) {
                     $unitsCount = $novelty->chapter ? $novelty->chapter->units()->count() : 0;
-                    
-                    return [
+                      return [
                         'id' => $novelty->id,
                         'chapter_id' => $novelty->chapter_id,
-                        'date_publication' => Carbon::parse($novelty->date_publication)->format('Y-m-d'),
+                        'date_publication' => Carbon::parse($novelty->publication_date)->format('Y-m-d'),
                         'bonus_initial' => $novelty->bonus_initial,
                         'is_accessible' => $novelty->isAccessible(),
-                        'is_bonus_eligible' => $novelty->isEligibleForBonus(),                        'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
+                        'is_bonus_eligible' => $novelty->isEligibleForBonus(),
+                        'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
                         'chapter' => $novelty->chapter ? [
                             'id' => $novelty->chapter->id,
                             'title' => $novelty->chapter->title,
@@ -129,7 +129,7 @@ class NoveltyController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Cette nouveauté n\'est pas encore accessible',
-                    'available_at' => Carbon::parse($novelty->date_publication)->format('Y-m-d')
+                    'available_at' => Carbon::parse($novelty->publication_date)->format('Y-m-d')
                 ], 403);
             }
             
@@ -139,7 +139,7 @@ class NoveltyController extends Controller
             $data = [
                 'id' => $novelty->id,
                 'chapter_id' => $novelty->chapter_id,
-                'date_publication' => Carbon::parse($novelty->date_publication)->format('Y-m-d'),
+                'date_publication' => Carbon::parse($novelty->publication_date)->format('Y-m-d'),
                 'bonus_initial' => $novelty->bonus_initial,
                 'is_accessible' => $novelty->isAccessible(),
                 'is_bonus_eligible' => $novelty->isEligibleForBonus(),                'remaining_bonus_days' => $novelty->getRemainingBonusDays(),
@@ -199,12 +199,10 @@ class NoveltyController extends Controller
                     'success' => false,
                     'errors' => $validator->errors()
                 ], 422);
-            }
-
-            $novelty = Novelty::create([
+            }            $novelty = Novelty::create([
                 'chapter_id' => $request->chapter_id,
-                'date_publication' => $request->date_publication,
-                'bonus_initial' => $request->bonus_initial ?? false
+                'publication_date' => $request->date_publication,
+                'initial_bonus' => $request->bonus_initial ?? false
             ]);
             
             return response()->json([
@@ -260,12 +258,10 @@ class NoveltyController extends Controller
                     'success' => false,
                     'errors' => $validator->errors()
                 ], 422);
-            }
-
-            $updateData = array_filter([
+            }            $updateData = array_filter([
                 'chapter_id' => $request->chapter_id,
-                'date_publication' => $request->date_publication,
-                'bonus_initial' => $request->bonus_initial
+                'publication_date' => $request->date_publication,
+                'initial_bonus' => $request->bonus_initial
             ], function($value) {
                 return $value !== null;
             });

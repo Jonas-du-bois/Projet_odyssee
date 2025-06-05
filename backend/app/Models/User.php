@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     public $timestamps = false;
     
@@ -100,10 +102,68 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship with notifications
+     * Relationship with user quiz scores
      */
-    public function notifications()
+    public function userQuizScores()
     {
-        return $this->hasMany(Notification::class, 'user_id');
+        return $this->hasManyThrough(UserQuizScore::class, QuizInstance::class, 'user_id', 'quiz_instance_id');
+    }
+
+    /**
+     * Relationship with user score (single record)
+     */
+    public function userScore()
+    {
+        return $this->hasOne(Score::class, 'user_id');
+    }
+
+    /**
+     * Calculer le total des points de l'utilisateur (scores + bonus)
+     */
+    public function getTotalPoints()
+    {
+        return $this->scores()->sum(DB::raw('total_points + bonus_points'));
+    }
+
+    /**
+     * Calculer le total des points depuis les quiz scores (fallback)
+     */
+    public function getTotalQuizPoints()
+    {
+        return \App\Models\UserQuizScore::whereHas('quizInstance', function($query) {
+            $query->where('user_id', $this->id);
+        })->sum('total_points');
+    }
+
+    /**
+     * Obtenir le total des points avec fallback automatique
+     */
+    public function getTotalPointsWithFallback()
+    {
+        $scoresTotal = $this->getTotalPoints();
+        return $scoresTotal > 0 ? $scoresTotal : $this->getTotalQuizPoints();
+    }
+
+    /**
+     * Mettre à jour le rang de l'utilisateur basé sur ses points totaux
+     */
+    public function updateRank()
+    {
+        $totalPoints = $this->getTotalPoints();
+        
+        $newRank = \App\Models\Rank::where('min_points', '<=', $totalPoints)
+            ->where(function($query) use ($totalPoints) {
+                $query->where('max_points', '>=', $totalPoints)
+                      ->orWhereNull('max_points');
+            })
+            ->orderBy('min_points', 'desc')
+            ->first();
+
+        if ($newRank && $this->rank_id !== $newRank->id) {
+            $this->update(['rank_id' => $newRank->id]);
+            return $newRank;
+        }
+
+        return $this->rank;
     }
 }

@@ -17,8 +17,7 @@ class ChapterController extends Controller
      * Lister tous les chapitres
      * 
      * Récupère la liste complète des chapitres avec leurs unités associées.
-     * 
-     * @response 200 {
+     *     * @response 200 {
      *   "success": true,
      *   "data": [
      *     {
@@ -26,21 +25,23 @@ class ChapterController extends Controller
      *       "title": "Introduction à Breitling",
      *       "description": "Découverte de l'histoire et des valeurs de Breitling",
      *       "order": 1,
-     *       "unit": {
-     *         "id": 1,
-     *         "name": "Histoire de la marque",
-     *         "content": "Contenu de formation..."
-     *       }
+     *       "units": [
+     *         {
+     *           "id": 1,
+     *           "name": "Histoire de la marque",
+     *           "content": "Contenu de formation...",
+     *           "chapter_id": 1
+     *         }
+     *       ]
      *     }
      *   ]
      * }
      * 
      * @return JsonResponse
-     */
-    public function index(): JsonResponse
+     */    public function index(): JsonResponse
     {
         try {
-            $chapters = Chapter::with('unit')->get();
+            $chapters = Chapter::with('units')->get();
             
             return response()->json([
                 'success' => true,
@@ -53,25 +54,27 @@ class ChapterController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
+    }/**
      * Afficher un chapitre spécifique
      * 
      * Récupère les détails d'un chapitre particulier avec ses unités.
      * 
      * @urlParam id int required L'identifiant du chapitre. Example: 1
-     * 
-     * @response 200 {
+     *     * @response 200 {
      *   "success": true,
      *   "data": {
      *     "id": 1,
      *     "title": "Introduction à Breitling",
      *     "description": "Découverte de l'histoire et des valeurs de Breitling",
      *     "order": 1,
-     *     "unit": {
-     *       "id": 1,
-     *       "name": "Histoire de la marque",
-     *       "content": "Contenu de formation..."
-     *     }
+     *     "units": [
+     *       {
+     *         "id": 1,
+     *         "name": "Histoire de la marque",
+     *         "content": "Contenu de formation...",
+     *         "chapter_id": 1
+     *       }
+     *     ]
      *   }
      * }
      * 
@@ -82,11 +85,10 @@ class ChapterController extends Controller
      * 
      * @param int $id Identifiant du chapitre
      * @return JsonResponse
-     */
-    public function show($id): JsonResponse
+     */    public function show($id): JsonResponse
     {
         try {
-            $chapter = Chapter::with('unit')->findOrFail($id);
+            $chapter = Chapter::with('units')->findOrFail($id);
             
             return response()->json([
                 'success' => true,

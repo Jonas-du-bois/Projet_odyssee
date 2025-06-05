@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\QuizCompleted;
 
 class UserQuizScore extends Model
 {
@@ -33,6 +34,18 @@ class UserQuizScore extends Model
         'ticket_obtained' => 'boolean',
         'bonus_obtained' => 'integer',
     ];
+
+    /**
+     * The "booted" method of the model.
+     * Déclenche l'événement QuizCompleted après la création d'un score
+     */
+    protected static function booted(): void
+    {
+        static::created(function (UserQuizScore $userQuizScore) {
+            // Déclencher l'événement pour synchroniser les scores
+            event(new QuizCompleted($userQuizScore));
+        });
+    }
 
     /**
      * Relationship with quiz instance
