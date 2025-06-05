@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             ReminderSeeder::class,
             WeeklySeeder::class,
             LotteryTicketSeeder::class,
+            EventUnitSeeder::class,
         ]);
     }
 }

@@ -16,16 +16,36 @@ class ChapterSeeder extends Seeder
         // Alternative: Create multiple chapters at once
         $chapters = [
             [
-                'title' => '[Standard] Breitling et l\'aviation',
+                'title' => '[discovery] Breitling et l\'aviation',
                 'description' => 'L\'héritage aéronautique de la marque'
             ],
             [
-                'title' => '[Discovery] Collections emblématiques',
+                'title' => '[discovery] Collections emblématiques',
                 'description' => 'Navitimer, Superocean et autres collections phares'
             ],
             [
-                'title' => '[Novelty] Innovations technologiques',
+                'title' => '[novelties] Innovations technologiques',
                 'description' => 'Les dernières avancées horlogères de Breitling'
+            ],
+            [
+                'title' => '[Reminder] Histoire de Breitling',
+                'description' => 'De 1884 à aujourd\'hui, 140 ans d\'excellence horlogère'
+            ],
+            [
+                'title' => '[weekly] Savoir-faire horloger',
+                'description' => 'Les métiers d\'art et techniques de fabrication'
+            ],
+            [
+                'title' => '[discovery] Salon de Genève 2025',
+                'description' => 'Présentation des nouveautés au salon international'
+            ],
+            [
+                'title' => '[discovery] Calibres manufacturés',
+                'description' => 'Découverte des mouvements internes Breitling'
+            ],
+            [
+                'title' => '[novelties] Montres connectées',
+                'description' => 'L\'avenir numérique de l\'horlogerie traditionnelle'
             ]
         ];
 
