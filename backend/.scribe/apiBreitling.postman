@@ -1,0 +1,1894 @@
+{
+  "variable": [
+    {
+      "id": "baseUrl",
+      "key": "baseUrl",
+      "type": "string",
+      "name": "string",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "info": {
+    "name": "Breitling League API",
+    "_postman_id": "5111f695-6a6e-4046-a0a0-cc552c61ebd9",
+    "description": "Documentation de l’API REST pour l’application Breitling League (MVP)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chapitres",
+      "description": "\nAPI pour gérer les chapitres et leurs unités de formation",
+      "item": [
+        {
+          "name": "Lister tous les chapitres",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/chapters",
+              "query": [],
+              "raw": "{{baseUrl}}/api/chapters"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Récupère la liste complète des chapitres avec leurs unités associées.\n    * @response 200 {\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Introduction à Breitling\",\n      \"description\": \"Découverte de l'histoire et des valeurs de Breitling\",\n      \"order\": 1,\n      \"units\": [\n        {\n          \"id\": 1,\n          \"name\": \"Histoire de la marque\",\n          \"content\": \"Contenu de formation...\",\n          \"chapter_id\": 1\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher un chapitre spécifique",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/chapters/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/chapters/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "L'identifiant du chapitre."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Récupère les détails d'un chapitre particulier avec ses unités."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 404,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Chapitre non trouvé\"\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Discoveries",
+      "description": "\nAPI pour gérer les explorations de chapitres (théorie + quiz)",
+      "item": [
+        {
+          "name": "Lister les explorations de chapitres disponibles",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/discoveries",
+              "query": [],
+              "raw": "{{baseUrl}}/api/discoveries"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"chapter_id\": 1,\n      \"date_disponible\": \"2025-06-01\",\n      \"chapter\": {\n        \"id\": 1,\n        \"titre\": \"Introduction\",\n        \"description\": \"Chapitre d'introduction\"\n      },\n      \"units_count\": 5,\n      \"is_available\": true\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher une exploration de chapitre spécifique avec ses unités",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/discoveries/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/discoveries/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "L'ID de l'exploration."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"chapter_id\": 1,\n    \"date_disponible\": \"2025-06-01\",\n    \"chapter\": {\n      \"id\": 1,\n      \"titre\": \"Introduction\",\n      \"description\": \"Chapitre d'introduction\"\n    },\n    \"units\": [\n      {\n        \"id\": 1,\n        \"titre\": \"Unité 1\",\n        \"description\": \"Description de l'unité\",\n        \"theorie_html\": \"\u003Cp\u003EContenu HTML de la théorie\u003C/p\u003E\"\n      }\n    ],\n    \"is_available\": true\n  }\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 404,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Exploration non trouvée\"\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Endpoints",
+      "description": "",
+      "item": [
+        {
+          "name": "Inscription d'un nouvel utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/register",
+              "query": [],
+              "raw": "{{baseUrl}}/api/register"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Connexion d'un utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/login",
+              "query": [],
+              "raw": "{{baseUrl}}/api/login"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"gbailey@example.net\",\"password\":\"architecto\"}"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Route pour gérer les requêtes OPTIONS (pre-flight) nécessaires pour CORS",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/:any",
+              "query": [],
+              "raw": "{{baseUrl}}/api/:any",
+              "variable": [
+                {
+                  "id": "any",
+                  "key": "any",
+                  "value": "%7C%7B%2B-0p",
+                  "description": ""
+                }
+              ]
+            },
+            "method": "OPTIONS",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Récupérer les données de l'utilisateur connecté",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/me",
+              "query": [],
+              "raw": "{{baseUrl}}/api/me"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Déconnexion d'un utilisateur (révocation du token actuel)",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/logout",
+              "query": [],
+              "raw": "{{baseUrl}}/api/logout"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Déconnexion de tous les appareils (révocation de tous les tokens)",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/logout-all",
+              "query": [],
+              "raw": "{{baseUrl}}/api/logout-all"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "description": "\nAPI pour gérer les événements spéciaux Breitling League\nLes événements sont des modules spéciaux liés à plusieurs unités via la table event_units.\nChaque unité contient sa propre théorie HTML et questions associées.\nUn événement peut inclure des unités de plusieurs chapitres différents.",
+      "item": [
+        {
+          "name": "Lister tous les événements",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/events",
+              "query": [],
+              "raw": "{{baseUrl}}/api/events"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Récupère tous les événements avec leur statut et informations sur les unités associées"
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"theme\": \"Horlogerie Suisse Excellence\",\n      \"date_debut\": \"2025-06-01\",\n      \"date_fin\": \"2025-06-30\",\n      \"is_active\": true,\n      \"is_upcoming\": false,\n      \"is_finished\": false,\n      \"remaining_days\": 26,\n      \"is_ending_soon\": false,\n      \"units_count\": 5,\n      \"total_questions\": 50\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Récupérer les unités d'un événement",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/events/:id/units",
+              "query": [],
+              "raw": "{{baseUrl}}/api/events/:id/units",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "architecto",
+                  "description": "The ID of the event."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne toutes les unités associées à l'événement avec leur théorie HTML et questions"
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"titre\": \"Introduction aux mouvements\",\n      \"description\": \"Découverte des différents types de mouvements horlogers\",\n      \"theorie_html\": \"\u003Ch2\u003ELes mouvements horlogers\u003C/h2\u003E\u003Cp\u003EUn mouvement horloger...\u003C/p\u003E\",\n      \"chapter\": {\n        \"id\": 1,\n        \"titre\": \"Horlogerie de base\",\n        \"description\": \"Les fondamentaux de l'horlogerie\"\n      },\n      \"questions_count\": 5,\n      \"questions\": [\n        {\n          \"id\": 1,\n          \"enonce\": \"Qu'est-ce qu'un mouvement mécanique ?\",\n          \"type\": \"multiple_choice\",\n          \"timer_secondes\": 30,\n          \"choices\": [\n            {\n              \"id\": 1,\n              \"texte\": \"Un mouvement actionné par un ressort\",\n              \"est_correct\": true\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 404,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Événement non trouvé\"\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lottery Tickets",
+      "description": "\nAPI pour gérer les tickets de loterie et les bonus de séries",
+      "item": [
+        {
+          "name": "Lister tous les tickets de l'utilisateur connecté",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/tickets",
+              "query": [],
+              "raw": "{{baseUrl}}/api/tickets"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"weekly_id\": 5,\n      \"tickets_earned\": 3,\n      \"claimed_at\": \"2024-01-15T10:00:00.000000Z\",\n      \"weekly\": {\n        \"id\": 5,\n        \"title\": \"Défi de la semaine 5\",\n        \"start_date\": \"2024-01-15\",\n        \"end_date\": \"2024-01-21\"\n      }\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Réclamer un bonus pour série de 5 tickets consécutifs",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/tickets/bonus",
+              "query": [],
+              "raw": "{{baseUrl}}/api/tickets/bonus"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Bonus réclamé avec succès\",\n  \"data\": {\n    \"bonus_tickets\": 10,\n    \"series_completed\": 1,\n    \"total_tickets\": 35\n  }\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 400,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Aucune série complète disponible ou bonus déjà réclamé\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Obtenir des statistiques sur les tickets",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/tickets/stats",
+              "query": [],
+              "raw": "{{baseUrl}}/api/tickets/stats"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "description": "\nAPI pour gérer les notifications utilisateur",
+      "item": [
+        {
+          "name": "Lister les notifications de l'utilisateur connecté\n    * @response 200 {\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"title\": \"Nouveau quiz disponible\",\n      \"message\": \"Un nouveau quiz sur l'aviation est maintenant disponible !\",\n      \"type\": \"quiz\",\n      \"read\": false,\n      \"created_at\": \"2024-01-15T14:30:00.000000Z\",\n      \"updated_at\": \"2024-01-15T14:30:00.000000Z\"\n    }\n  ]\n}",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/notifications",
+              "query": [],
+              "raw": "{{baseUrl}}/api/notifications"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Marquer une notification comme lue",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/notifications/:id/read",
+              "query": [],
+              "raw": "{{baseUrl}}/api/notifications/:id/read",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "L'ID de la notification à marquer comme lue."
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Notification marquée comme lue\"\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 404,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Notification non trouvée\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Compter les notifications non lues",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/notifications/unread-count",
+              "query": [],
+              "raw": "{{baseUrl}}/api/notifications/unread-count"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Novelties",
+      "description": "\nAPI pour gérer les nouveautés de chapitres Breitling League\nLes nouveautés sont similaires aux découvertes mais offrent un bonus si réalisées dans les 7 jours suivant leur publication.",
+      "item": [
+        {
+          "name": "Lister toutes les nouveautés accessibles",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/novelties",
+              "query": [],
+              "raw": "{{baseUrl}}/api/novelties"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Récupère les nouveautés disponibles avec informations sur les bonus et chapitres associés"
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"chapter_id\": 1,\n      \"date_publication\": \"2025-06-01\",\n      \"bonus_initial\": true,\n      \"is_accessible\": true,\n      \"is_bonus_eligible\": true,\n      \"remaining_bonus_days\": 4,\n      \"chapter\": {\n        \"id\": 1,\n        \"titre\": \"Introduction aux montres Breitling\",\n        \"description\": \"Découvrez l'histoire et les valeurs de Breitling\"\n      },\n      \"units_count\": 5\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher une nouveauté spécifique avec le contenu du chapitre",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/novelties/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/novelties/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "ID de la nouveauté."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"chapter_id\": 1,\n    \"date_publication\": \"2025-06-01\",\n    \"bonus_initial\": true,\n    \"is_accessible\": true,\n    \"is_bonus_eligible\": true,\n    \"remaining_bonus_days\": 4,\n    \"chapter\": {\n      \"id\": 1,\n      \"titre\": \"Introduction aux montres Breitling\",\n      \"description\": \"Découvrez l'histoire et les valeurs de Breitling\"\n    },\n    \"units\": [\n      {\n        \"id\": 1,\n        \"chapter_id\": 1,\n        \"titre\": \"Histoire de Breitling\",\n        \"description\": \"Les origines de la manufacture\",\n        \"theorie_html\": \"\u003Ch2\u003EHistoire de Breitling\u003C/h2\u003E\u003Cp\u003EContenu théorique...\u003C/p\u003E\"\n      }\n    ]\n  }\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Progress Tracking",
+      "description": "\nAPI pour suivre la progression et les statistiques des utilisateurs",
+      "item": [
+        {
+          "name": "Récupérer la progression globale de l'utilisateur connecté",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/progress",
+              "query": [],
+              "raw": "{{baseUrl}}/api/progress"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user_id\": 1,\n    \"completed_chapters\": 15,\n    \"completed_quizzes\": 42,\n    \"total_points\": 3250,\n    \"current_rank\": {\n      \"id\": 3,\n      \"name\": \"Expert\",\n      \"min_points\": 3000,\n      \"max_points\": 5000\n    },\n    \"next_rank\": {\n      \"id\": 4,\n      \"name\": \"Master\",\n      \"min_points\": 5000,\n      \"max_points\": 10000\n    },\n    \"progress_to_next_rank\": 45,\n    \"last_activity\": \"2024-01-15T14:30:00.000000Z\"\n  }\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Récupérer le rang de l'utilisateur et ses statistiques",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/progress/rank",
+              "query": [],
+              "raw": "{{baseUrl}}/api/progress/rank"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Récupérer l'historique des quiz de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/progress/history",
+              "query": [],
+              "raw": "{{baseUrl}}/api/progress/history"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Récupérer les données de bilan (wrap) de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/progress/wrap",
+              "query": [],
+              "raw": "{{baseUrl}}/api/progress/wrap"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher le classement général de tous les joueurs",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/leaderboard",
+              "query": [],
+              "raw": "{{baseUrl}}/api/leaderboard"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"John Doe\",\n        \"rank\": {\"name\": \"Bronze\", \"level\": 1}\n      },\n      \"total_points\": 1250,\n      \"position\": 1\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quiz",
+      "description": "\nAPI pour la gestion des sessions de quiz et des réponses",
+      "item": [
+        {
+          "name": "Démarrer une nouvelle session de quiz",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/start",
+              "query": [],
+              "raw": "{{baseUrl}}/api/quiz/start"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Soumettre les réponses d'un quiz",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/submit",
+              "query": [],
+              "raw": "{{baseUrl}}/api/quiz/submit"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Obtenir le résultat d'un quiz",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/:id/result",
+              "query": [],
+              "raw": "{{baseUrl}}/api/quiz/:id/result",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "architecto",
+                  "description": "The ID of the quiz."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rangs",
+      "description": "\nGestion des rangs et progression des utilisateurs.",
+      "item": [
+        {
+          "name": "Liste de tous les rangs",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne tous les rangs triés par niveau croissant."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Novice\",\n      \"level\": 1,\n      \"minimum_points\": 0\n    }\n  ],\n  \"message\": \"Ranks retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Détails d’un rang",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "16",
+                  "description": "Requis. ID du rang."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne les informations pour un rang donné par son identifiant."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Novice\",\n    \"level\": 1,\n    \"minimum_points\": 0\n  },\n  \"message\": \"Rank retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Rang précédent et suivant d’un utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/adjacent/user",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/adjacent/user"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne les rangs adjacent au rang actuel de l'utilisateur connecté."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"current_rank\": {...},\n    \"previous_rank\": {...},\n    \"next_rank\": {...}\n  },\n  \"message\": \"Adjacent ranks retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Seuils de points par rang",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/minimum-points",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/minimum-points"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne les points minimum requis pour chaque rang."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Novice\",\n      \"level\": 1,\n      \"minimum_points\": 0,\n      \"formatted_points\": \"0\"\n    }\n  ],\n  \"message\": \"Minimum points structure retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Progression de l’utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/user/progression",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/user/progression"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Calcule le rang actuel de l'utilisateur et la progression vers le suivant."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user_points\": 320,\n    \"current_rank\": {...},\n    \"previous_rank\": {...},\n    \"next_rank\": {...},\n    \"points_needed_for_next\": 80,\n    \"progress_percentage\": 80.0\n  },\n  \"message\": \"User progression retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Statistiques globales par rang",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/statistics",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/statistics"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne le nombre d'utilisateurs par rang ainsi que leur proportion."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Novice\",\n      \"level\": 1,\n      \"minimum_points\": 0,\n      \"users_count\": 5,\n      \"percentage\": 16.67\n    }\n  ],\n  \"message\": \"Rank statistics retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reminders",
+      "description": "\nAPI pour gérer les reminders de quiz de révision Breitling League\nLes reminders sont des quiz de révision générés automatiquement à partir de questions précédemment vues.\nIls sont liés à un chapitre et doivent être faits avant une date limite.",
+      "item": [
+        {
+          "name": "Lister tous les reminders actifs",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/reminders",
+              "query": [],
+              "raw": "{{baseUrl}}/api/reminders"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Récupère les reminders non expirés avec informations sur les chapitres associés et statut"
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"chapter_id\": 1,\n      \"nb_questions\": 10,\n      \"date_limite\": \"2025-06-10\",\n      \"is_active\": true,\n      \"is_expired\": false,\n      \"remaining_days\": 6,\n      \"is_ending_soon\": false,\n      \"chapter\": {\n        \"id\": 1,\n        \"nom\": \"Introduction à l'horlogerie\",\n        \"description\": \"Découverte des bases de l'horlogerie\"\n      },\n      \"questions_available\": 15\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher un reminder spécifique",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/reminders/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/reminders/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "architecto",
+                  "description": "The ID of the reminder."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"chapter_id\": 1,\n    \"nb_questions\": 10,\n    \"date_limite\": \"2025-06-10\",\n    \"is_active\": true,\n    \"is_expired\": false,\n    \"remaining_days\": 6,\n    \"chapter\": {\n      \"id\": 1,\n      \"nom\": \"Introduction à l'horlogerie\",\n      \"description\": \"Découverte des bases de l'horlogerie\"\n    },\n    \"questions\": [\n      {\n        \"id\": 1,\n        \"unit_id\": 1,\n        \"texte\": \"Quelle est la fonction principale d'un ressort de barillet ?\",\n        \"type\": \"multiple_choice\"\n      }\n    ]\n  }\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 404,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Reminder non trouvé\"\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "description": "\nAPI pour gérer le profil utilisateur",
+      "item": [
+        {
+          "name": "Afficher le profil de l'utilisateur connecté\n    * @response 200 {\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"email_verified_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n  }\n}",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/profile",
+              "query": [],
+              "raw": "{{baseUrl}}/api/profile"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "cache-control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-max-age",
+                  "value": "86400"
+                }
+              ],
+              "code": 401,
+              "body": "{\"message\":\"Unauthenticated.\"}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Mettre à jour le profil de l'utilisateur connecté",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/profile",
+              "query": [],
+              "raw": "{{baseUrl}}/api/profile"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"John Doe\",\"email\":\"john.doe@example.com\",\"password\":\"newpassword123\",\"password_confirmation\":\"newpassword123\"}"
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Profil mis à jour avec succès\",\n  \"data\": {     *     \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"email_verified_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-15T14:30:00.000000Z\"\n  }\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 422,
+              "body": "{\n  \"success\": false,\n  \"errors\": {\n    \"email\": [\"L'email est déjà utilisé par un autre utilisateur.\"],\n    \"password\": [\"Les mots de passe ne correspondent pas.\"]\n  }\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Afficher le profil public d'un autre utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/users/:id/profile",
+              "query": [],
+              "raw": "{{baseUrl}}/api/users/:id/profile",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "L'ID de l'utilisateur."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"rank\": {\"name\": \"Silver\", \"level\": 2},\n    \"total_points\": 1500,\n    \"registration_date\": \"2024-01-15\",\n    \"quiz_count\": 25\n  }\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Weekly Challenges",
+      "description": "\nAPI pour gérer les défis hebdomadaires et les tickets de loterie",
+      "item": [
+        {
+          "name": "Lister les défis hebdomadaires disponibles pour l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/weekly",
+              "query": [],
+              "raw": "{{baseUrl}}/api/weekly"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"chapter_id\": 1,\n      \"semaine\": \"2025-06-02\",\n      \"nb_questions\": 10,\n      \"chapter\": {\n        \"id\": 1,\n        \"titre\": \"Introduction\",\n        \"description\": \"Chapitre d'introduction\"\n      },\n      \"user_has_ticket\": false\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Réclamer un ticket après avoir réussi un défi hebdomadaire",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/weekly/:id/claim",
+              "query": [],
+              "raw": "{{baseUrl}}/api/weekly/:id/claim",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "1",
+                  "description": "L'ID du défi hebdomadaire."
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Ticket réclamé avec succès\",\n  \"data\": {\n    \"ticket\": {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"weekly_id\": 1,\n      \"date_obtenue\": \"2025-06-04\",\n      \"bonus\": false\n    },\n    \"bonus_ticket\": null,\n    \"series_count\": 3\n  }\n}",
+              "name": ""
+            },
+            {
+              "header": [],
+              "code": 400,
+              "body": "{\n  \"success\": false,\n  \"message\": \"Ticket déjà réclamé pour ce défi\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Obtenir les informations sur la série de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/weekly/series",
+              "query": [],
+              "raw": "{{baseUrl}}/api/weekly/series"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"count\": 3,\n    \"bonus_tickets\": 0,\n    \"derniere_participation\": \"2025-06-04\"\n  }\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Obtenir les tickets de loterie de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/weekly/tickets",
+              "query": [],
+              "raw": "{{baseUrl}}/api/weekly/tickets"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"tickets\": [\n      {\n        \"id\": 1,\n        \"weekly_id\": 1,\n        \"date_obtenue\": \"2025-06-04\",\n        \"bonus\": false,\n        \"weekly\": {\n          \"id\": 1,\n          \"chapter\": {\n            \"titre\": \"Introduction\"\n          }\n        }\n      }\n    ],\n    \"total_tickets\": 5,\n    \"bonus_tickets\": 1\n  }\n}",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "Authorization",
+        "type": "string"
+      }
+    ]
+  }
+}

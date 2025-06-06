@@ -149,12 +149,8 @@ class User extends Authenticatable
     {
         $totalPoints = $this->getTotalPoints();
         
-        $newRank = \App\Models\Rank::where('min_points', '<=', $totalPoints)
-            ->where(function($query) use ($totalPoints) {
-                $query->where('max_points', '>=', $totalPoints)
-                      ->orWhereNull('max_points');
-            })
-            ->orderBy('min_points', 'desc')
+        $newRank = \App\Models\Rank::where('minimum_points', '<=', $totalPoints)
+            ->orderBy('minimum_points', 'desc')
             ->first();
 
         if ($newRank && $this->rank_id !== $newRank->id) {

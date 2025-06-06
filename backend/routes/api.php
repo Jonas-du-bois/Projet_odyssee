@@ -8,6 +8,7 @@ use App\Http\Controllers\NoveltyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -66,13 +67,19 @@ Route::middleware('cors')->group(function () {
         Route::get('/weekly', [WeeklyController::class, 'index']);
         Route::post('/weekly/{id}/claim', [WeeklyController::class, 'claimTicket']);
         Route::get('/weekly/series', [WeeklyController::class, 'getSeries']);
-        Route::get('/weekly/tickets', [WeeklyController::class, 'getTickets']);
-          // Routes ProgressController
+        Route::get('/weekly/tickets', [WeeklyController::class, 'getTickets']);          // Routes ProgressController
         Route::get('/progress', [ProgressController::class, 'getProgress']);
         Route::get('/progress/rank', [ProgressController::class, 'getRang']);
         Route::get('/progress/history', [ProgressController::class, 'getUserQuizHistory']);
         Route::get('/progress/wrap', [ProgressController::class, 'getWrapData']);
         Route::get('/leaderboard', [ProgressController::class, 'getLeaderboard']);
+          // Routes RankController - Documentation et informations sur les rangs
+        Route::get('/ranks', [RankController::class, 'index']);
+        Route::get('/ranks/adjacent/user', [RankController::class, 'getAdjacentRanks']);
+        Route::get('/ranks/minimum-points', [RankController::class, 'getMinimumPoints']);
+        Route::get('/ranks/user/progression', [RankController::class, 'getUserProgression']);
+        Route::get('/ranks/statistics', [RankController::class, 'getStatistics']);
+        Route::get('/ranks/{id}', [RankController::class, 'show']);
         
         // Routes TicketController
         Route::get('/tickets', [TicketController::class, 'listTickets']);

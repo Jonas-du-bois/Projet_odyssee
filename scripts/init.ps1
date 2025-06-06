@@ -47,6 +47,15 @@ php artisan migrate --force
 Write-Host "[SEED] Execution des seeders..." -ForegroundColor Yellow
 php artisan db:seed --force
 
+# Configuration du système de rangs automatiques
+Write-Host "[RANKS] Configuration du systeme de rangs automatiques..." -ForegroundColor Yellow
+
+# Mettre à jour les rangs de tous les utilisateurs basé sur leurs points
+Write-Host "[RANKS] Mise a jour des rangs utilisateurs selon leurs points..." -ForegroundColor Cyan
+php artisan ranks:update --force
+
+Write-Host "[OK] Systeme de rangs automatiques configure" -ForegroundColor Green
+
 # Configuration du système de files d'attente
 Write-Host "[QUEUE] Configuration du systeme de files d'attente..." -ForegroundColor Yellow
 php artisan queue:table 2>$null
@@ -121,9 +130,16 @@ Write-Host "[CHECK] Verification des listeners d'evenements..." -ForegroundColor
 $eventCheck = php artisan event:list 2>$null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "[OK] Systeme d'evenements operationnel" -ForegroundColor Green
+    Write-Host "[INFO] Events configures:" -ForegroundColor Cyan
+    Write-Host "   • QuizCompleted -> SynchronizeUserScore (points + rangs)" -ForegroundColor White
+    Write-Host "   • RankUpdated -> Notification automatique de progression" -ForegroundColor White
 } else {
     Write-Host "[INFO] Configurez les listeners dans EventServiceProvider" -ForegroundColor Yellow
 }
+
+# Vérifier la distribution des rangs après initialisation
+Write-Host "[CHECK] Verification de la distribution des rangs..." -ForegroundColor Cyan
+$rankDistribution = php artisan tinker --execute="`$distribution = \App\Models\User::join('ranks', 'users.rank_id', '=', 'ranks.id')->selectRaw('ranks.name, ranks.level, COUNT(*) as count')->groupBy('ranks.id', 'ranks.name', 'ranks.level')->orderBy('ranks.level')->get(); if (`$distribution->isNotEmpty()) { echo \"Distribution actuelle des rangs:\\n\"; foreach (`$distribution as `$rank) { echo \"  • {`$rank->name} (Niv. {`$rank->level}): {`$rank->count} utilisateurs\\n\"; } } else { echo \"Aucune distribution de rang trouvee\\n\"; }" 2>$null
 
 # Créer les répertoires de logs si nécessaire
 $logDir = "storage\logs"
@@ -161,6 +177,7 @@ Write-Host "   ✅ Fichiers d'environnement configures" -ForegroundColor Green
 Write-Host "   ✅ Cles d'application generees" -ForegroundColor Green
 Write-Host "   ✅ Base de donnees creee et migree" -ForegroundColor Green
 Write-Host "   ✅ Seeders executes" -ForegroundColor Green
+Write-Host "   ✅ Systeme de rangs automatiques configure" -ForegroundColor Green
 Write-Host "   ✅ Systeme de files d'attente configure" -ForegroundColor Green
 Write-Host "   ✅ Systeme de synchronisation verifie" -ForegroundColor Green
 
@@ -174,5 +191,6 @@ Write-Host "     cd backend && php artisan queue:work" -ForegroundColor Gray
 Write-Host "`n[TIPS] Commandes utiles:" -ForegroundColor Cyan
 Write-Host "   • .\scripts\start.ps1         - Demarrer les serveurs" -ForegroundColor White
 Write-Host "   • php artisan queue:work      - Demarrer le worker de synchronisation" -ForegroundColor White
+Write-Host "   • php artisan ranks:update    - Mettre a jour les rangs manuellement" -ForegroundColor White
 Write-Host "   • php artisan sync:all-scores - Synchroniser manuellement les scores" -ForegroundColor White
 Write-Host "   • php artisan about           - Verifier l'etat du systeme" -ForegroundColor White

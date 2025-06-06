@@ -35,7 +35,7 @@ class Rank extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class, 'rang_id');
+        return $this->hasMany(User::class, 'rank_id');
     }
 
     /**

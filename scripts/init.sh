@@ -50,6 +50,15 @@ php artisan migrate --force
 echo -e "\033[33m[SEED] Exécution des seeders...\033[0m"
 php artisan db:seed --force
 
+# Configuration du système de rangs automatiques
+echo -e "\033[33m[RANKS] Configuration du système de rangs automatiques...\033[0m"
+
+# Mettre à jour les rangs de tous les utilisateurs basé sur leurs points
+echo -e "\033[36m[RANKS] Mise à jour des rangs utilisateurs selon leurs points...\033[0m"
+php artisan ranks:update --force
+
+echo -e "\033[32m[OK] Système de rangs automatiques configuré\033[0m"
+
 # Configuration du système de files d'attente
 echo -e "\033[33m[QUEUE] Configuration du système de files d'attente...\033[0m"
 php artisan queue:table 2>/dev/null && php artisan migrate --force
@@ -113,9 +122,31 @@ cd "$PROJECT_ROOT/backend"
 echo -e "\033[36m[CHECK] Vérification des listeners d'événements...\033[0m"
 if php artisan event:list &>/dev/null; then
     echo -e "\033[32m[OK] Système d'événements opérationnel\033[0m"
+    echo -e "\033[36m[INFO] Events configurés:\033[0m"
+    echo -e "   • QuizCompleted -> SynchronizeUserScore (points + rangs)"
+    echo -e "   • RankUpdated -> Notification automatique de progression"
 else
     echo -e "\033[33m[INFO] Configurez les listeners dans EventServiceProvider\033[0m"
 fi
+
+# Vérifier la distribution des rangs après initialisation
+echo -e "\033[36m[CHECK] Vérification de la distribution des rangs...\033[0m"
+php artisan tinker --execute="
+\$distribution = \App\Models\User::join('ranks', 'users.rank_id', '=', 'ranks.id')
+    ->selectRaw('ranks.name, ranks.level, COUNT(*) as count')
+    ->groupBy('ranks.id', 'ranks.name', 'ranks.level')
+    ->orderBy('ranks.level')
+    ->get();
+    
+if (\$distribution->isNotEmpty()) {
+    echo \"Distribution actuelle des rangs:\\n\";
+    foreach (\$distribution as \$rank) {
+        echo \"  • {\$rank->name} (Niv. {\$rank->level}): {\$rank->count} utilisateurs\\n\";
+    }
+} else {
+    echo \"Aucune distribution de rang trouvée\\n\";
+}
+"
 
 # Créer les répertoires de logs si nécessaire
 if [[ ! -d "storage/logs" ]]; then
@@ -147,6 +178,7 @@ echo -e "   ✅ Fichiers d'environnement configurés"
 echo -e "   ✅ Clés d'application générées"
 echo -e "   ✅ Base de données créée et migrée"
 echo -e "   ✅ Seeders exécutés"
+echo -e "   ✅ Système de rangs automatiques configuré"
 echo -e "   ✅ Système de files d'attente configuré"
 echo -e "   ✅ Système de synchronisation vérifié"
 
@@ -161,5 +193,6 @@ echo -e "\n\033[36m[TIPS] Commandes utiles:\033[0m"
 echo -e "   • ./scripts/start.sh              - Démarrer les serveurs"
 echo -e "   • ./scripts/start-with-sync.sh    - Démarrer avec synchronisation"
 echo -e "   • php artisan queue:work          - Démarrer le worker de synchronisation"
+echo -e "   • php artisan ranks:update        - Mettre à jour les rangs manuellement"
 echo -e "   • php artisan sync:all-scores     - Synchroniser manuellement les scores"
 echo -e "   • php artisan about               - Vérifier l'état du système"

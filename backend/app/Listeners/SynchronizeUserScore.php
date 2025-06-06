@@ -56,9 +56,7 @@ class SynchronizeUserScore implements ShouldQueue
     {
         $user = \App\Models\User::find($userId);
         return $user ? $user->rank : null;
-    }
-
-    /**
+    }    /**
      * Mettre à jour le rang d'un utilisateur en fonction de ses points totaux
      */
     private function updateUserRank($userId): void
@@ -67,19 +65,26 @@ class SynchronizeUserScore implements ShouldQueue
         $totalPoints = Score::where('user_id', $userId)
             ->sum(DB::raw('total_points + bonus_points'));
 
-        // Trouver le rang approprié
-        $newRank = Rank::where('min_points', '<=', $totalPoints)
-            ->where(function($query) use ($totalPoints) {
-                $query->where('max_points', '>=', $totalPoints)
-                      ->orWhereNull('max_points');
-            })
-            ->orderBy('min_points', 'desc')
+        // Trouver le rang approprié - le rang le plus élevé dont les points minimum sont atteints
+        $newRank = Rank::where('minimum_points', '<=', $totalPoints)
+            ->orderBy('minimum_points', 'desc')
             ->first();
 
-        if ($newRank) {
-            // Mettre à jour le rang de l'utilisateur
-            \App\Models\User::where('id', $userId)
-                ->update(['rank_id' => $newRank->id]);
+        // Si aucun rang trouvé, prendre le rang de niveau 1 (minimum)
+        if (!$newRank) {
+            $newRank = Rank::orderBy('level', 'asc')->first();
+        }        if ($newRank) {
+            // Récupérer l'utilisateur et son rang actuel
+            $user = \App\Models\User::find($userId);
+            $oldRankId = $user->rank_id;
+
+            // Mettre à jour le rang de l'utilisateur seulement si il a changé
+            if ($oldRankId !== $newRank->id) {
+                $user->update(['rank_id' => $newRank->id]);
+
+                // Déclencher un event de mise à jour de rang
+                event(new \App\Events\RankUpdated($user, $oldRankId, $newRank->id, $totalPoints));
+            }
 
             // Mettre à jour le rang dans le score le plus récent
             $latestScore = Score::where('user_id', $userId)
