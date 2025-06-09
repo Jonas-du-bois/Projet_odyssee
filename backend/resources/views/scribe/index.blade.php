@@ -222,14 +222,23 @@
                     <a href="#quiz">Quiz</a>
                 </li>
                                     <ul id="tocify-subheader-quiz" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="quiz-POSTapi-quiz-start">
+                                                    <li class="tocify-item level-2" data-unique="quiz-GETapi-quiz-types">
+                                <a href="#quiz-GETapi-quiz-types">Lister tous les types de quiz disponibles</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="quiz-GETapi-quiz-instances">
+                                <a href="#quiz-GETapi-quiz-instances">Lister les instances de quiz de l'utilisateur</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="quiz-GETapi-quiz-stats">
+                                <a href="#quiz-GETapi-quiz-stats">Obtenir les statistiques détaillées des quiz de l'utilisateur</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="quiz-POSTapi-quiz-start">
                                 <a href="#quiz-POSTapi-quiz-start">Démarrer une nouvelle session de quiz</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="quiz-POSTapi-quiz-submit">
                                 <a href="#quiz-POSTapi-quiz-submit">Soumettre les réponses d'un quiz</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="quiz-GETapi-quiz--id--result">
-                                <a href="#quiz-GETapi-quiz--id--result">Obtenir le résultat d'un quiz</a>
+                                <a href="#quiz-GETapi-quiz--id--result">Obtenir le résultat détaillé d'un quiz</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -240,9 +249,6 @@
                                     <ul id="tocify-subheader-rangs" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="rangs-GETapi-ranks">
                                 <a href="#rangs-GETapi-ranks">Liste de tous les rangs</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="rangs-GETapi-ranks--id-">
-                                <a href="#rangs-GETapi-ranks--id-">Détails d’un rang</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="rangs-GETapi-ranks-adjacent-user">
                                 <a href="#rangs-GETapi-ranks-adjacent-user">Rang précédent et suivant d’un utilisateur</a>
@@ -255,6 +261,9 @@
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="rangs-GETapi-ranks-statistics">
                                 <a href="#rangs-GETapi-ranks-statistics">Statistiques globales par rang</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="rangs-GETapi-ranks--id-">
+                                <a href="#rangs-GETapi-ranks--id-">Détails d’un rang</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -326,7 +335,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 5, 2025</li>
+        <li>Last updated: June 9, 2025</li>
     </ul>
 </div>
 
@@ -3425,28 +3434,28 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;user_id&quot;: 1,
-        &quot;completed_chapters&quot;: 15,
-        &quot;completed_quizzes&quot;: 42,
-        &quot;total_points&quot;: 3250,
-        &quot;current_rank&quot;: {
-            &quot;id&quot;: 3,
-            &quot;name&quot;: &quot;Expert&quot;,
-            &quot;min_points&quot;: 3000,
-            &quot;max_points&quot;: 5000
-        },
-        &quot;next_rank&quot;: {
-            &quot;id&quot;: 4,
-            &quot;name&quot;: &quot;Master&quot;,
-            &quot;min_points&quot;: 5000,
-            &quot;max_points&quot;: 10000
-        },
-        &quot;progress_to_next_rank&quot;: 45,
-        &quot;last_activity&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;
-    }
-}</code>
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;user_id&quot;: 1,
+    &quot;completed_chapters&quot;: 15,
+    &quot;completed_quizzes&quot;: 42,
+    &quot;total_points&quot;: 3250,
+    &quot;current_rank&quot;: {
+      &quot;id&quot;: 3,
+      &quot;name&quot;: &quot;Expert&quot;,
+      &quot;min_points&quot;: 3000,
+      &quot;max_points&quot;: 5000
+    },
+    &quot;next_rank&quot;: {
+      &quot;id&quot;: 4,
+      &quot;name&quot;: &quot;Master&quot;,
+      &quot;min_points&quot;: 5000,
+      &quot;max_points&quot;: 10000
+    },
+    &quot;progress_to_next_rank&quot;: 45,
+    &quot;last_activity&quot;: &quot;2024-01-15T14:30:00.000000Z&quot;
+  }
+}     *</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-progress" hidden>
@@ -4106,7 +4115,518 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     <p>API pour la gestion des sessions de quiz et des réponses</p>
 
-                                <h2 id="quiz-POSTapi-quiz-start">Démarrer une nouvelle session de quiz</h2>
+                                <h2 id="quiz-GETapi-quiz-types">Lister tous les types de quiz disponibles</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-quiz-types">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/quiz/types" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/quiz/types"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-quiz-types">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nom&quot;: &quot;Standard Quiz&quot;,
+            &quot;base_points&quot;: 1000,
+            &quot;speed_bonus&quot;: 5,
+            &quot;gives_ticket&quot;: false,
+            &quot;bonus_multiplier&quot;: 1,
+            &quot;instances_count&quot;: 25
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-quiz-types" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-quiz-types"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-quiz-types"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-quiz-types" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-quiz-types">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-quiz-types" data-method="GET"
+      data-path="api/quiz/types"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-quiz-types', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-quiz-types"
+                    onclick="tryItOut('GETapi-quiz-types');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-quiz-types"
+                    onclick="cancelTryOut('GETapi-quiz-types');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-quiz-types"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/quiz/types</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-quiz-types"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-quiz-types"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-quiz-types"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="quiz-GETapi-quiz-instances">Lister les instances de quiz de l&#039;utilisateur</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-quiz-instances">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/quiz/instances?status=completed&amp;quiz_type_id=1&amp;limit=20" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/quiz/instances"
+);
+
+const params = {
+    "status": "completed",
+    "quiz_type_id": "1",
+    "limit": "20",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-quiz-instances">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;instances&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;quiz_type_id&quot;: 1,
+                &quot;quizable_type&quot;: &quot;unit&quot;,
+                &quot;quizable_id&quot;: 1,
+                &quot;quiz_mode&quot;: &quot;standard&quot;,
+                &quot;launch_date&quot;: &quot;2025-01-10T10:00:00.000000Z&quot;,
+                &quot;quiz_type&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;nom&quot;: &quot;Standard Quiz&quot;,
+                    &quot;base_points&quot;: 1000,
+                    &quot;speed_bonus&quot;: 5,
+                    &quot;gives_ticket&quot;: false,
+                    &quot;bonus_multiplier&quot;: 1
+                },
+                &quot;quizable&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;title&quot;: &quot;Introduction &agrave; l&#039;horlogerie&quot;,
+                    &quot;description&quot;: &quot;Quiz sur les concepts de cette unit&eacute;&quot;,
+                    &quot;type&quot;: &quot;unit&quot;,
+                    &quot;is_available&quot;: true,
+                    &quot;is_replayable&quot;: true,
+                    &quot;quiz_mode&quot;: &quot;standard&quot;
+                },
+                &quot;module&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Introduction &agrave; l&#039;horlogerie&quot;,
+                    &quot;type&quot;: &quot;Unit&quot;
+                },
+                &quot;user_quiz_score&quot;: {
+                    &quot;total_points&quot;: 8500,
+                    &quot;total_time&quot;: 120,
+                    &quot;ticket_obtained&quot;: false,
+                    &quot;percentage&quot;: 85
+                }
+            }
+        ],
+        &quot;stats&quot;: {
+            &quot;total_instances&quot;: 15,
+            &quot;completed_instances&quot;: 12,
+            &quot;pending_instances&quot;: 3,
+            &quot;average_score&quot;: 85.5,
+            &quot;total_points&quot;: 125000
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-quiz-instances" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-quiz-instances"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-quiz-instances"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-quiz-instances" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-quiz-instances">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-quiz-instances" data-method="GET"
+      data-path="api/quiz/instances"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-quiz-instances', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-quiz-instances"
+                    onclick="tryItOut('GETapi-quiz-instances');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-quiz-instances"
+                    onclick="cancelTryOut('GETapi-quiz-instances');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-quiz-instances"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/quiz/instances</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-quiz-instances"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-quiz-instances"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-quiz-instances"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="GETapi-quiz-instances"
+               value="completed"
+               data-component="query">
+    <br>
+<p>Filtrer par statut (pending, completed, all). Example: <code>completed</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>quiz_type_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quiz_type_id"                data-endpoint="GETapi-quiz-instances"
+               value="1"
+               data-component="query">
+    <br>
+<p>Filtrer par type de quiz. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>limit</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="limit"                data-endpoint="GETapi-quiz-instances"
+               value="20"
+               data-component="query">
+    <br>
+<p>Limite de résultats (par défaut: 50). Example: <code>20</code></p>
+            </div>
+                </form>
+
+                    <h2 id="quiz-GETapi-quiz-stats">Obtenir les statistiques détaillées des quiz de l&#039;utilisateur</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-quiz-stats">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/quiz/stats" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/quiz/stats"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-quiz-stats">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;total_instances&quot;: 15,
+        &quot;completed_instances&quot;: 12,
+        &quot;pending_instances&quot;: 3,
+        &quot;average_score&quot;: 85.5,
+        &quot;total_points&quot;: 125000,
+        &quot;best_score&quot;: 98.5,
+        &quot;completion_rate&quot;: 80,
+        &quot;quiz_types_stats&quot;: [
+            {
+                &quot;quiz_type_id&quot;: 1,
+                &quot;quiz_type_name&quot;: &quot;Standard Quiz&quot;,
+                &quot;instances_count&quot;: 8,
+                &quot;average_score&quot;: 87.5,
+                &quot;best_score&quot;: 95
+            }
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-quiz-stats" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-quiz-stats"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-quiz-stats"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-quiz-stats" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-quiz-stats">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-quiz-stats" data-method="GET"
+      data-path="api/quiz/stats"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-quiz-stats', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-quiz-stats"
+                    onclick="tryItOut('GETapi-quiz-stats');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-quiz-stats"
+                    onclick="cancelTryOut('GETapi-quiz-stats');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-quiz-stats"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/quiz/stats</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-quiz-stats"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-quiz-stats"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-quiz-stats"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="quiz-POSTapi-quiz-start">Démarrer une nouvelle session de quiz</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -4123,7 +4643,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/quiz/start" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"quiz_type_id\": 1,
+    \"quizable_type\": \"unit\",
+    \"quizable_id\": 5,
+    \"quiz_mode\": \"practice\",
+    \"chapter_id\": 3
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -4137,15 +4665,66 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "quiz_type_id": 1,
+    "quizable_type": "unit",
+    "quizable_id": 5,
+    "quiz_mode": "practice",
+    "chapter_id": 3
+};
+
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-POSTapi-quiz-start">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Quiz d&eacute;marr&eacute; avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;quiz_instance_id&quot;: 123,
+        &quot;quiz_type&quot;: {
+            &quot;id&quot;: 1,
+            &quot;nom&quot;: &quot;Standard Quiz&quot;,
+            &quot;base_points&quot;: 1000,
+            &quot;speed_bonus&quot;: 5
+        },
+        &quot;quizable&quot;: {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Introduction &agrave; l&#039;horlogerie&quot;,
+            &quot;type&quot;: &quot;unit&quot;
+        },
+        &quot;questions&quot;: [
+            {
+                &quot;id&quot;: 45,
+                &quot;question_text&quot;: &quot;Quelle est la fr&eacute;quence d&#039;un mouvement m&eacute;canique standard?&quot;,
+                &quot;choices&quot;: [
+                    {
+                        &quot;id&quot;: 180,
+                        &quot;choice_text&quot;: &quot;28 800 vibrations/heure&quot;
+                    },
+                    {
+                        &quot;id&quot;: 181,
+                        &quot;choice_text&quot;: &quot;21 600 vibrations/heure&quot;
+                    }
+                ]
+            }
+        ],
+        &quot;total_questions&quot;: 10,
+        &quot;time_limit&quot;: 300
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-quiz-start" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-quiz-start"></span>:
@@ -4226,7 +4805,63 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quiz_type_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quiz_type_id"                data-endpoint="POSTapi-quiz-start"
+               value="1"
+               data-component="body">
+    <br>
+<p>L'ID du type de quiz. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quizable_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="quizable_type"                data-endpoint="POSTapi-quiz-start"
+               value="unit"
+               data-component="body">
+    <br>
+<p>optional Le type de module quiz (unit, discovery, event, weekly, novelty, reminder). Example: <code>unit</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quizable_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quizable_id"                data-endpoint="POSTapi-quiz-start"
+               value="5"
+               data-component="body">
+    <br>
+<p>optional L'ID du module associé. Example: <code>5</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quiz_mode</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="quiz_mode"                data-endpoint="POSTapi-quiz-start"
+               value="practice"
+               data-component="body">
+    <br>
+<p>optional Mode de quiz personnalisé. Example: <code>practice</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>chapter_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="chapter_id"                data-endpoint="POSTapi-quiz-start"
+               value="3"
+               data-component="body">
+    <br>
+<p>optional L'ID du chapitre (pour backward compatibility). Example: <code>3</code></p>
+        </div>
+        </form>
 
                     <h2 id="quiz-POSTapi-quiz-submit">Soumettre les réponses d&#039;un quiz</h2>
 
@@ -4245,7 +4880,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://127.0.0.1:8000/api/quiz/submit" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"quiz_instance_id\": 123,
+    \"answers\": [
+        \"architecto\"
+    ],
+    \"total_time\": 245
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -4259,15 +4902,51 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "quiz_instance_id": 123,
+    "answers": [
+        "architecto"
+    ],
+    "total_time": 245
+};
+
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-POSTapi-quiz-submit">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;R&eacute;ponses soumises avec succ&egrave;s&quot;,
+    &quot;data&quot;: {
+        &quot;score&quot;: 8,
+        &quot;total_questions&quot;: 10,
+        &quot;percentage&quot;: 80,
+        &quot;total_points&quot;: 8500,
+        &quot;speed_bonus&quot;: 500,
+        &quot;time_bonus&quot;: 200,
+        &quot;ticket_obtained&quot;: false,
+        &quot;quiz_instance_id&quot;: 123,
+        &quot;detailed_results&quot;: [
+            {
+                &quot;question_id&quot;: 45,
+                &quot;is_correct&quot;: true,
+                &quot;points_earned&quot;: 1000
+            }
+        ]
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-quiz-submit" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-quiz-submit"></span>:
@@ -4348,9 +5027,87 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quiz_instance_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quiz_instance_id"                data-endpoint="POSTapi-quiz-submit"
+               value="123"
+               data-component="body">
+    <br>
+<p>L'ID de l'instance de quiz. Example: <code>123</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>answers</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+<br>
+<p>Les réponses du quiz.</p>
+            </summary>
+                                                <div style=" margin-left: 14px; clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>*</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+<i>optional</i> &nbsp;
+<br>
 
-                    <h2 id="quiz-GETapi-quiz--id--result">Obtenir le résultat d&#039;un quiz</h2>
+            </summary>
+                                                <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>question_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="answers.*.question_id"                data-endpoint="POSTapi-quiz-submit"
+               value="45"
+               data-component="body">
+    <br>
+<p>L'ID de la question. Example: <code>45</code></p>
+                    </div>
+                                                                <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>choice_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="answers.*.choice_id"                data-endpoint="POSTapi-quiz-submit"
+               value="180"
+               data-component="body">
+    <br>
+<p>L'ID du choix sélectionné. Example: <code>180</code></p>
+                    </div>
+                                                                <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>time_taken</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="answers.*.time_taken"                data-endpoint="POSTapi-quiz-submit"
+               value="15"
+               data-component="body">
+    <br>
+<p>optional Temps pris pour répondre en secondes. Example: <code>15</code></p>
+                    </div>
+                                    </details>
+        </div>
+                                        </details>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>total_time</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="total_time"                data-endpoint="POSTapi-quiz-submit"
+               value="245"
+               data-component="body">
+    <br>
+<p>optional Temps total du quiz en secondes. Example: <code>245</code></p>
+        </div>
+        </form>
+
+                    <h2 id="quiz-GETapi-quiz--id--result">Obtenir le résultat détaillé d&#039;un quiz</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -4364,7 +5121,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/quiz/architecto/result" \
+    --get "http://127.0.0.1:8000/api/quiz/123/result" \
     --header "Authorization: Bearer {votre-token}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4372,7 +5129,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/quiz/architecto/result"
+    "http://127.0.0.1:8000/api/quiz/123/result"
 );
 
 const headers = {
@@ -4390,23 +5147,48 @@ fetch(url, {
 
 <span id="example-responses-GETapi-quiz--id--result">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
-access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
-access-control-max-age: 86400
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;quiz_instance&quot;: {
+            &quot;id&quot;: 123,
+            &quot;status&quot;: &quot;completed&quot;,
+            &quot;launch_date&quot;: &quot;2025-01-10T10:00:00.000000Z&quot;,
+            &quot;completed_at&quot;: &quot;2025-01-10T10:05:00.000000Z&quot;,
+            &quot;total_time&quot;: 245,
+            &quot;quiz_type&quot;: {
+                &quot;id&quot;: 1,
+                &quot;nom&quot;: &quot;Standard Quiz&quot;
+            }
+        },
+        &quot;score&quot;: {
+            &quot;score&quot;: 8,
+            &quot;total_questions&quot;: 10,
+            &quot;percentage&quot;: 80,
+            &quot;total_points&quot;: 8500,
+            &quot;speed_bonus&quot;: 500,
+            &quot;time_bonus&quot;: 200,
+            &quot;ticket_obtained&quot;: false
+        },
+        &quot;answers&quot;: [
+            {
+                &quot;question_id&quot;: 45,
+                &quot;choice_id&quot;: 180,
+                &quot;is_correct&quot;: true,
+                &quot;time_taken&quot;: 15,
+                &quot;question&quot;: {
+                    &quot;question_text&quot;: &quot;Quelle est la fr&eacute;quence d&#039;un mouvement m&eacute;canique standard?&quot;
+                },
+                &quot;choice&quot;: {
+                    &quot;choice_text&quot;: &quot;28 800 vibrations/heure&quot;
+                }
+            }
+        ]
+    }
 }</code>
  </pre>
     </span>
@@ -4493,14 +5275,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="GETapi-quiz--id--result"
-               value="architecto"
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-quiz--id--result"
+               value="123"
                data-component="url">
     <br>
-<p>The ID of the quiz. Example: <code>architecto</code></p>
+<p>L'ID de l'instance de quiz. Example: <code>123</code></p>
             </div>
                     </form>
 
@@ -4647,156 +5429,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                         </form>
-
-                    <h2 id="rangs-GETapi-ranks--id-">Détails d’un rang</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-<p>Retourne les informations pour un rang donné par son identifiant.</p>
-
-<span id="example-requests-GETapi-ranks--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/ranks/16" \
-    --header "Authorization: Bearer {votre-token}" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/ranks/16"
-);
-
-const headers = {
-    "Authorization": "Bearer {votre-token}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-ranks--id-">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Novice&quot;,
-        &quot;level&quot;: 1,
-        &quot;minimum_points&quot;: 0
-    },
-    &quot;message&quot;: &quot;Rank retrieved successfully&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-ranks--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-ranks--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-ranks--id-"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-ranks--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-ranks--id-">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-ranks--id-" data-method="GET"
-      data-path="api/ranks/{id}"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-ranks--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-ranks--id-"
-                    onclick="tryItOut('GETapi-ranks--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-ranks--id-"
-                    onclick="cancelTryOut('GETapi-ranks--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-ranks--id-"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/ranks/{id}</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="GETapi-ranks--id-"
-               value="Bearer {votre-token}"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer {votre-token}</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-ranks--id-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-ranks--id-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="id"                data-endpoint="GETapi-ranks--id-"
-               value="16"
-               data-component="url">
-    <br>
-<p>Requis. ID du rang. Example: <code>16</code></p>
-            </div>
-                    </form>
 
                     <h2 id="rangs-GETapi-ranks-adjacent-user">Rang précédent et suivant d’un utilisateur</h2>
 
@@ -5357,6 +5989,156 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                         </form>
+
+                    <h2 id="rangs-GETapi-ranks--id-">Détails d’un rang</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Retourne les informations pour un rang donné par son identifiant.</p>
+
+<span id="example-requests-GETapi-ranks--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/ranks/16" \
+    --header "Authorization: Bearer {votre-token}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/ranks/16"
+);
+
+const headers = {
+    "Authorization": "Bearer {votre-token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-ranks--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Novice&quot;,
+        &quot;level&quot;: 1,
+        &quot;minimum_points&quot;: 0
+    },
+    &quot;message&quot;: &quot;Rank retrieved successfully&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-ranks--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-ranks--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-ranks--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-ranks--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-ranks--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-ranks--id-" data-method="GET"
+      data-path="api/ranks/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-ranks--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-ranks--id-"
+                    onclick="tryItOut('GETapi-ranks--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-ranks--id-"
+                    onclick="cancelTryOut('GETapi-ranks--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-ranks--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/ranks/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-ranks--id-"
+               value="Bearer {votre-token}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {votre-token}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-ranks--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-ranks--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="GETapi-ranks--id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>Requis. ID du rang. Example: <code>16</code></p>
+            </div>
+                    </form>
 
                 <h1 id="reminders">Reminders</h1>
 

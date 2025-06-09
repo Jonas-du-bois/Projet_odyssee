@@ -17,7 +17,7 @@ class QuizType extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'nom',
+        'name',
         'base_points',
         'speed_bonus',
         'gives_ticket',
@@ -80,6 +80,6 @@ class QuizType extends Model
      */
     public function scopeByName($query, $name)
     {
-        return $query->where('nom', $name);
+        return $query->where('name', $name);
     }
 }

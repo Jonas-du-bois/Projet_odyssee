@@ -58,8 +58,10 @@ Route::middleware('cors')->group(function () {
         // Routes ChapterController
         Route::get('/chapters', [ChapterController::class, 'index']);
         Route::get('/chapters/{id}', [ChapterController::class, 'show']);
-        
-        // Routes QuizController
+          // Routes QuizController
+        Route::get('/quiz/types', [QuizController::class, 'getQuizTypes']);
+        Route::get('/quiz/instances', [QuizController::class, 'getUserQuizInstances']);
+        Route::get('/quiz/stats', [QuizController::class, 'getUserStats']);
         Route::post('/quiz/start', [QuizController::class, 'start']);
         Route::post('/quiz/submit', [QuizController::class, 'submitAnswers']);
         Route::get('/quiz/{id}/result', [QuizController::class, 'getResult']);

@@ -17,6 +17,8 @@ class Chapter extends Model
     protected $fillable = [
         'title',
         'description',
+        'theory_content',
+        'is_active',
     ];
 
     /**

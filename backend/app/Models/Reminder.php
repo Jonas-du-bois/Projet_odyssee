@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Contracts\Quizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
 
-class Reminder extends Model
+class Reminder extends Model implements Quizable
 {
     use HasFactory;
     
@@ -119,5 +121,80 @@ class Reminder extends Model
         
         // Shuffle and limit to the number of questions specified for this reminder
         return $questions->shuffle()->take($this->number_questions);
+    }
+
+    /**
+     * Relation polymorphique avec les instances de quiz
+     */
+    public function quizInstances()
+    {
+        return $this->morphMany(QuizInstance::class, 'quizable');
+    }
+
+    // Implémentation de l'interface Quizable
+
+    /**
+     * Obtenir les questions pour ce rappel
+     */
+    public function getQuestions(array $options = []): Collection
+    {
+        if (!$this->chapter) {
+            return collect([]);
+        }
+
+        $questions = collect([]);
+        
+        // Récupérer toutes les questions de toutes les unités du chapitre
+        foreach ($this->chapter->units as $unit) {
+            $questions = $questions->merge($unit->questions);
+        }
+        
+        // Utiliser le nombre de questions défini ou la limite des options
+        $limit = $options['limit'] ?? $this->number_questions ?? 5;
+        return $questions->shuffle()->take($limit);
+    }
+
+    /**
+     * Obtenir le titre du quiz Reminder
+     */
+    public function getQuizTitle(): string
+    {
+        return $this->chapter 
+            ? "Rappel : {$this->chapter->title}" 
+            : 'Quiz de Rappel';
+    }
+
+    /**
+     * Obtenir la description du quiz Reminder
+     */
+    public function getQuizDescription(): string
+    {
+        return $this->chapter
+            ? "Quiz de rappel sur le chapitre : {$this->chapter->title}"
+            : 'Quiz de révision et rappel des concepts';
+    }
+
+    /**
+     * Vérifier si ce rappel est disponible pour un utilisateur
+     */
+    public function isAvailable(User $user): bool
+    {
+        return $this->isActive();
+    }
+
+    /**
+     * Obtenir le mode de quiz par défaut
+     */
+    public function getDefaultQuizMode(): string
+    {
+        return 'reminder';
+    }
+
+    /**
+     * Vérifier si ce quiz peut être rejoué
+     */
+    public function isReplayable(): bool
+    {
+        return $this->isActive(); // Peut être rejoué tant qu'il est actif
     }
 }

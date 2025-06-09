@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Instance de quiz pour un utilisateur
+ * Applique le principe DRY : une seule classe pour tous les types de quiz
+ */
 class QuizInstance extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-    
-    protected $table = 'quiz_instances'; // Match your database table name
+    protected $table = 'quiz_instances';
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +26,9 @@ class QuizInstance extends Model
     protected $fillable = [
         'user_id',
         'quiz_type_id',
-        'module_type',
-        'module_id',
+        'quizable_type',
+        'quizable_id',
+        'quiz_mode',
         'launch_date',
     ];
 
@@ -29,82 +37,127 @@ class QuizInstance extends Model
      */
     protected $casts = [
         'launch_date' => 'datetime',
-        'module_id' => 'integer',
     ];
 
     /**
-     * Relationship with user
+     * Relation polymorphe vers le module quizable
+     * Clean Code : utilise les conventions Laravel
      */
-    public function user()
+    public function quizable(): MorphTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->morphTo();
     }
 
     /**
-     * Relationship with quiz type
+     * Relation avec l'utilisateur
      */
-    public function quizType()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(QuizType::class, 'quiz_type_id');
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Relationship with user quiz score
+     * Relation avec le type de quiz
      */
-    public function userQuizScore()
+    public function quizType(): BelongsTo
+    {
+        return $this->belongsTo(QuizType::class);
+    }
+
+    /**
+     * Relation avec le score du quiz
+     */
+    public function userQuizScore(): HasOne
     {
         return $this->hasOne(UserQuizScore::class, 'quiz_instance_id');
     }
 
     /**
-     * Relationship with user answers
+     * Relation avec les réponses utilisateur
      */
-    public function userAnswers()
+    public function userAnswers(): HasMany
     {
         return $this->hasMany(UserAnswer::class, 'quiz_instance_id');
     }
 
     /**
-     * Polymorphic relationship to get the module (Unit, Discovery, Event, Weekly, etc.)
+     * Obtenir les questions pour cette instance de quiz
+     * KISS : méthode simple et directe
      */
-    public function module()
+    public function getQuestions(array $options = []): Collection
     {
-        return $this->morphTo('module', 'module_type', 'module_id');
-    }
-
-    /**
-     * Get the related module based on module_type
-     */
-    public function getModuleAttribute()
-    {
-        switch ($this->module_type) {
-            case 'Unit':
-                return Unit::find($this->module_id);
-            case 'Discovery':
-                return Discovery::find($this->module_id);
-            case 'Event':
-                return Event::find($this->module_id);
-            case 'Weekly':
-                return Weekly::find($this->module_id);
-            case 'Novelty':
-                return Novelty::find($this->module_id);
-            case 'Reminder':
-                return Reminder::find($this->module_id);
-            default:
-                return null;
+        if (!$this->quizable) {
+            return collect();
         }
+
+        $options['quiz_mode'] = $this->quiz_mode;
+        $options['user'] = $this->user;
+
+        return $this->quizable->getQuestions($options);
     }
 
     /**
-     * Scope for quiz instances by module type
+     * Vérifier si le quiz est terminé
      */
-    public function scopeByModuleType($query, $moduleType)
+    public function isCompleted(): bool
     {
-        return $query->where('module_type', $moduleType);
+        return $this->userQuizScore()->exists();
     }
 
     /**
-     * Scope for completed quiz instances (with scores)
+     * Vérifier si le quiz peut être rejoué
+     */
+    public function canReplay(): bool
+    {
+        return $this->quizable && $this->quizable->isReplayable();
+    }
+
+    /**
+     * Obtenir le titre du quiz
+     */
+    public function getTitle(): string
+    {
+        return $this->quizable ? $this->quizable->getQuizTitle() : 'Quiz';
+    }
+
+    /**
+     * Obtenir la description du quiz
+     */
+    public function getDescription(): string
+    {
+        return $this->quizable ? $this->quizable->getQuizDescription() : '';
+    }
+
+    /**
+     * Scopes pour filtrer par type de module
+     */
+    public function scopeForDiscoveries($query)
+    {
+        return $query->where('quizable_type', Discovery::class);
+    }
+
+    public function scopeForEvents($query)
+    {
+        return $query->where('quizable_type', Event::class);
+    }
+
+    public function scopeForWeeklies($query)
+    {
+        return $query->where('quizable_type', Weekly::class);
+    }
+
+    public function scopeForNovelties($query)
+    {
+        return $query->where('quizable_type', Novelty::class);
+    }
+
+    public function scopeForReminders($query)
+    {
+        return $query->where('quizable_type', Reminder::class);
+    }
+
+    /**
+     * Scope pour les quiz complétés
      */
     public function scopeCompleted($query)
     {
@@ -112,7 +165,7 @@ class QuizInstance extends Model
     }
 
     /**
-     * Scope for pending quiz instances (without scores)
+     * Scope pour les quiz en cours
      */
     public function scopePending($query)
     {

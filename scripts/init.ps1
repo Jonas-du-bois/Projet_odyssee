@@ -127,15 +127,44 @@ Set-Location "$projectRoot\backend"
 
 # Vérifier que les listeners sont bien enregistrés
 Write-Host "[CHECK] Verification des listeners d'evenements..." -ForegroundColor Cyan
-$eventCheck = php artisan event:list 2>$null
-if ($LASTEXITCODE -eq 0) {
+try {
+    php artisan event:list | Out-Null
     Write-Host "[OK] Systeme d'evenements operationnel" -ForegroundColor Green
     Write-Host "[INFO] Events configures:" -ForegroundColor Cyan
-    Write-Host "   • QuizCompleted -> SynchronizeUserScore (points + rangs)" -ForegroundColor White
-    Write-Host "   • RankUpdated -> Notification automatique de progression" -ForegroundColor White
-} else {
+    Write-Host "   • QuizCompleted -> SynchronizeUserScore (points + rangs)"
+    Write-Host "   • RankUpdated -> Notification automatique de progression"
+} catch {
     Write-Host "[INFO] Configurez les listeners dans EventServiceProvider" -ForegroundColor Yellow
 }
+
+# Vérifier le système polymorphique des quiz
+Write-Host "[CHECK] Verification du systeme polymorphique des quiz..." -ForegroundColor Cyan
+$polymorphicCheck = @"
+`$polymorphicCount = \App\Models\Quiz::whereNotNull('quizable_type')->count();
+`$totalQuiz = \App\Models\Quiz::count();
+`$percentage = `$totalQuiz > 0 ? round((`$polymorphicCount / `$totalQuiz) * 100, 1) : 0;
+
+echo "Systeme polymorphique des quiz:\n";
+echo "  • Quiz avec relations polymorphiques: `$polymorphicCount\n";
+echo "  • Total des quiz: `$totalQuiz\n";
+echo "  • Migration polymorphique: `$percentage%\n";
+
+if (`$percentage >= 90) {
+    echo "  ✅ Migration polymorphique reussie\n";
+} else {
+    echo "  ⚠️  Migration polymorphique en cours...\n";
+}
+
+`$quizTypes = \App\Models\QuizType::all();
+if (`$quizTypes->isNotEmpty()) {
+    echo "\nTypes de quiz disponibles:\n";
+    foreach (`$quizTypes as `$type) {
+        echo "  • {`$type->name} (morph: {`$type->morph_type})\n";
+    }
+}
+"@
+
+php artisan tinker --execute="$polymorphicCheck"
 
 # Vérifier la distribution des rangs après initialisation
 Write-Host "[CHECK] Verification de la distribution des rangs..." -ForegroundColor Cyan

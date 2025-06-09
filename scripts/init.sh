@@ -129,6 +129,33 @@ else
     echo -e "\033[33m[INFO] Configurez les listeners dans EventServiceProvider\033[0m"
 fi
 
+# Vérifier le système polymorphique des quiz
+echo -e "\033[36m[CHECK] Vérification du système polymorphique des quiz...\033[0m"
+php artisan tinker --execute="
+\$polymorphicCount = \App\Models\Quiz::whereNotNull('quizable_type')->count();
+\$totalQuiz = \App\Models\Quiz::count();
+\$percentage = \$totalQuiz > 0 ? round((\$polymorphicCount / \$totalQuiz) * 100, 1) : 0;
+
+echo \"Système polymorphique des quiz:\\n\";
+echo \"  • Quiz avec relations polymorphiques: \$polymorphicCount\\n\";
+echo \"  • Total des quiz: \$totalQuiz\\n\";
+echo \"  • Migration polymorphique: \$percentage%\\n\";
+
+if (\$percentage >= 90) {
+    echo \"  ✅ Migration polymorphique réussie\\n\";
+} else {
+    echo \"  ⚠️  Migration polymorphique en cours...\\n\";
+}
+
+\$quizTypes = \App\Models\QuizType::all();
+if (\$quizTypes->isNotEmpty()) {
+    echo \"\\nTypes de quiz disponibles:\\n\";
+    foreach (\$quizTypes as \$type) {
+        echo \"  • {\$type->name} (morph: {\$type->morph_type})\\n\";
+    }
+}
+"
+
 # Vérifier la distribution des rangs après initialisation
 echo -e "\033[36m[CHECK] Vérification de la distribution des rangs...\033[0m"
 php artisan tinker --execute="

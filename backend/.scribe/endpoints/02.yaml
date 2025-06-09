@@ -5,6 +5,250 @@ description: |-
 endpoints:
   -
     httpMethods:
+      - GET
+    uri: api/quiz/types
+    metadata:
+      groupName: Quiz
+      groupDescription: |-
+
+        API pour la gestion des sessions de quiz et des réponses
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Lister tous les types de quiz disponibles'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": [
+              {
+                "id": 1,
+                "nom": "Standard Quiz",
+                "base_points": 1000,
+                "speed_bonus": 5,
+                "gives_ticket": false,
+                "bonus_multiplier": 1,
+                "instances_count": 25
+              }
+            ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/quiz/instances
+    metadata:
+      groupName: Quiz
+      groupDescription: |-
+
+        API pour la gestion des sessions de quiz et des réponses
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Lister les instances de quiz de l'utilisateur"
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      status:
+        name: status
+        description: 'Filtrer par statut (pending, completed, all).'
+        required: false
+        example: completed
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      quiz_type_id:
+        name: quiz_type_id
+        description: 'Filtrer par type de quiz.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      limit:
+        name: limit
+        description: 'Limite de résultats (par défaut: 50).'
+        required: false
+        example: 20
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanQueryParameters:
+      status: completed
+      quiz_type_id: 1
+      limit: 20
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "instances": [
+                {
+                  "id": 1,
+                  "quiz_type_id": 1,
+                  "quizable_type": "unit",
+                  "quizable_id": 1,
+                  "quiz_mode": "standard",
+                  "launch_date": "2025-01-10T10:00:00.000000Z",
+                  "quiz_type": {
+                    "id": 1,
+                    "nom": "Standard Quiz",
+                    "base_points": 1000,
+                    "speed_bonus": 5,
+                    "gives_ticket": false,
+                    "bonus_multiplier": 1
+                  },
+                  "quizable": {
+                    "id": 1,
+                    "title": "Introduction à l'horlogerie",
+                    "description": "Quiz sur les concepts de cette unité",
+                    "type": "unit",
+                    "is_available": true,
+                    "is_replayable": true,
+                    "quiz_mode": "standard"
+                  },
+                  "module": {
+                    "id": 1,
+                    "name": "Introduction à l'horlogerie",
+                    "type": "Unit"
+                  },
+                  "user_quiz_score": {
+                    "total_points": 8500,
+                    "total_time": 120,
+                    "ticket_obtained": false,
+                    "percentage": 85.0
+                  }
+                }
+              ],
+              "stats": {
+                "total_instances": 15,
+                "completed_instances": 12,
+                "pending_instances": 3,
+                "average_score": 85.5,
+                "total_points": 125000
+              }
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/quiz/stats
+    metadata:
+      groupName: Quiz
+      groupDescription: |-
+
+        API pour la gestion des sessions de quiz et des réponses
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Obtenir les statistiques détaillées des quiz de l'utilisateur"
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "total_instances": 15,
+              "completed_instances": 12,
+              "pending_instances": 3,
+              "average_score": 85.5,
+              "total_points": 125000,
+              "best_score": 98.5,
+              "completion_rate": 80,
+              "quiz_types_stats": [
+                {
+                  "quiz_type_id": 1,
+                  "quiz_type_name": "Standard Quiz",
+                  "instances_count": 8,
+                  "average_score": 87.5,
+                  "best_score": 95
+                }
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - POST
     uri: api/quiz/start
     metadata:
@@ -26,10 +270,107 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      quiz_type_id:
+        name: quiz_type_id
+        description: "L'ID du type de quiz."
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      quizable_type:
+        name: quizable_type
+        description: 'optional Le type de module quiz (unit, discovery, event, weekly, novelty, reminder).'
+        required: false
+        example: unit
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      quizable_id:
+        name: quizable_id
+        description: "optional L'ID du module associé."
+        required: false
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      quiz_mode:
+        name: quiz_mode
+        description: 'optional Mode de quiz personnalisé.'
+        required: false
+        example: practice
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      chapter_id:
+        name: chapter_id
+        description: "optional L'ID du chapitre (pour backward compatibility)."
+        required: false
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      quiz_type_id: 1
+      quizable_type: unit
+      quizable_id: 5
+      quiz_mode: practice
+      chapter_id: 3
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Quiz démarré avec succès",
+            "data": {
+              "quiz_instance_id": 123,
+              "quiz_type": {
+                "id": 1,
+                "nom": "Standard Quiz",
+                "base_points": 1000,
+                "speed_bonus": 5
+              },
+              "quizable": {
+                "id": 5,
+                "title": "Introduction à l'horlogerie",
+                "type": "unit"
+              },
+              "questions": [
+                {
+                  "id": 45,
+                  "question_text": "Quelle est la fréquence d'un mouvement mécanique standard?",
+                  "choices": [
+                    {
+                      "id": 180,
+                      "choice_text": "28 800 vibrations/heure"
+                    },
+                    {
+                      "id": 181,
+                      "choice_text": "21 600 vibrations/heure"
+                    }
+                  ]
+                }
+              ],
+              "total_questions": 10,
+              "time_limit": 300
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers
@@ -62,10 +403,102 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      quiz_instance_id:
+        name: quiz_instance_id
+        description: "L'ID de l'instance de quiz."
+        required: true
+        example: 123
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      answers:
+        name: answers
+        description: 'Les réponses du quiz.'
+        required: true
+        example:
+          - architecto
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      'answers.*.question_id':
+        name: 'answers.*.question_id'
+        description: "L'ID de la question."
+        required: true
+        example: 45
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'answers.*.choice_id':
+        name: 'answers.*.choice_id'
+        description: "L'ID du choix sélectionné."
+        required: true
+        example: 180
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      'answers.*.time_taken':
+        name: 'answers.*.time_taken'
+        description: 'optional Temps pris pour répondre en secondes.'
+        required: false
+        example: 15
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      total_time:
+        name: total_time
+        description: 'optional Temps total du quiz en secondes.'
+        required: false
+        example: 245
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      quiz_instance_id: 123
+      answers:
+        - architecto
+      total_time: 245
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Réponses soumises avec succès",
+            "data": {
+              "score": 8,
+              "total_questions": 10,
+              "percentage": 80,
+              "total_points": 8500,
+              "speed_bonus": 500,
+              "time_bonus": 200,
+              "ticket_obtained": false,
+              "quiz_instance_id": 123,
+              "detailed_results": [
+                {
+                  "question_id": 45,
+                  "is_correct": true,
+                  "points_earned": 1000
+                }
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth:
       - headers
@@ -86,7 +519,7 @@ endpoints:
         API pour la gestion des sessions de quiz et des réponses
       subgroup: ''
       subgroupDescription: ''
-      title: "Obtenir le résultat d'un quiz"
+      title: "Obtenir le résultat détaillé d'un quiz"
       description: ''
       authenticated: true
       custom: []
@@ -97,16 +530,16 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the quiz.'
+        description: "L'ID de l'instance de quiz."
         required: true
-        example: architecto
-        type: string
+        example: 123
+        type: integer
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
     cleanUrlParameters:
-      id: architecto
+      id: 123
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -114,17 +547,49 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin'
-          access-control-allow-credentials: 'true'
-          access-control-max-age: '86400'
-        description: null
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "quiz_instance": {
+                "id": 123,
+                "status": "completed",
+                "launch_date": "2025-01-10T10:00:00.000000Z",
+                "completed_at": "2025-01-10T10:05:00.000000Z",
+                "total_time": 245,
+                "quiz_type": {
+                  "id": 1,
+                  "nom": "Standard Quiz"
+                }
+              },
+              "score": {
+                "score": 8,
+                "total_questions": 10,
+                "percentage": 80,
+                "total_points": 8500,
+                "speed_bonus": 500,
+                "time_bonus": 200,
+                "ticket_obtained": false
+              },
+              "answers": [
+                {
+                  "question_id": 45,
+                  "choice_id": 180,
+                  "is_correct": true,
+                  "time_taken": 15,
+                  "question": {
+                    "question_text": "Quelle est la fréquence d'un mouvement mécanique standard?"
+                  },
+                  "choice": {
+                    "choice_text": "28 800 vibrations/heure"
+                  }
+                }
+              ]
+            }
+          }
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth:

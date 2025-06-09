@@ -60,69 +60,6 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/ranks/{id}'
-    metadata:
-      groupName: Rangs
-      groupDescription: |-
-
-        Gestion des rangs et progression des utilisateurs.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Détails d’un rang'
-      description: 'Retourne les informations pour un rang donné par son identifiant.'
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {votre-token}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'Requis. ID du rang.'
-        required: false
-        example: 16
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 16
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "success": true,
-            "data": {
-              "id": 1,
-              "name": "Novice",
-              "level": 1,
-              "minimum_points": 0
-            },
-            "message": "Rank retrieved successfully"
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
     uri: api/ranks/adjacent/user
     metadata:
       groupName: Rangs
@@ -323,6 +260,69 @@ endpoints:
               }
             ],
             "message": "Rank statistics retrieved successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/ranks/{id}'
+    metadata:
+      groupName: Rangs
+      groupDescription: |-
+
+        Gestion des rangs et progression des utilisateurs.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Détails d’un rang'
+      description: 'Retourne les informations pour un rang donné par son identifiant.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'Requis. ID du rang.'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 1,
+              "name": "Novice",
+              "level": 1,
+              "minimum_points": 0
+            },
+            "message": "Rank retrieved successfully"
           }
         headers: []
         description: ''

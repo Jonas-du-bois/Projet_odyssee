@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use App\Contracts\Quizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use App\Models\User;
 
-class Unit extends Model
+class Unit extends Model implements Quizable
 {
     use HasFactory;
     
-    protected $table = 'units'; // Match your database table name
+    protected $table = 'units';
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'chapter_id',
         'title',
@@ -90,5 +90,69 @@ class Unit extends Model
     public function scopeByChapter($query, $chapterId)
     {
         return $query->where('chapter_id', $chapterId);
+    }
+
+    /**
+     * Relation polymorphique avec les instances de quiz
+     */
+    public function quizInstances()
+    {
+        return $this->morphMany(QuizInstance::class, 'quizable');
+    }
+
+    // Implémentation de l'interface Quizable
+
+    /**
+     * Obtenir les questions pour cette unité
+     */
+    public function getQuestions(array $options = []): Collection
+    {
+        $query = $this->questions();
+        
+        if (isset($options['limit'])) {
+            $query = $query->limit($options['limit']);
+        }
+        
+        return $query->get();
+    }
+
+    /**
+     * Obtenir le titre du quiz Unit
+     */
+    public function getQuizTitle(): string
+    {
+        return $this->title ?: 'Quiz Unité';
+    }
+
+    /**
+     * Obtenir la description du quiz Unit
+     */
+    public function getQuizDescription(): string
+    {
+        return $this->description ?: 'Quiz sur les concepts de cette unité';
+    }
+
+    /**
+     * Vérifier si cette unité est disponible pour un utilisateur
+     */
+    public function isAvailable(User $user): bool
+    {
+        return true;
+    }
+
+    /**
+     * Obtenir le mode de quiz par défaut
+     */
+    public function getDefaultQuizMode(): string
+    {
+        return 'unit';
+    }
+
+    /**
+     * Vérifier si ce quiz peut être rejoué
+     */
+    public function isReplayable(): bool
+    {
+        return true;
     }
 }

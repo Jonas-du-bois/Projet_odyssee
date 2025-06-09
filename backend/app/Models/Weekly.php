@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Contracts\Quizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
 
-class Weekly extends Model
+class Weekly extends Model implements Quizable
 {
     use HasFactory;
 
@@ -137,5 +139,93 @@ class Weekly extends Model
     {
         $weekStart = Carbon::parse($date)->startOfWeek();
         return static::where('week_start', $weekStart->format('Y-m-d'))->first();
+    }
+
+    /**
+     * Relation polymorphique avec les instances de quiz
+     */
+    public function quizInstances()
+    {
+        return $this->morphMany(QuizInstance::class, 'quizable');
+    }
+
+    // Implémentation de l'interface Quizable
+
+    /**
+     * Obtenir les questions pour ce quiz hebdomadaire
+     */
+    public function getQuestions(array $options = []): Collection
+    {
+        if (!$this->chapter) {
+            return new Collection([]);
+        }
+
+        // Commencer avec une collection Eloquent vide
+        $questions = new Collection([]);
+        
+        // Récupérer toutes les questions de toutes les unités du chapitre
+        foreach ($this->chapter->units as $unit) {
+            $questions = $questions->merge($unit->questions);
+        }
+        
+        // Utiliser le nombre de questions défini ou la limite des options
+        $limit = $options['limit'] ?? $this->number_questions ?? 7;
+        return $questions->shuffle()->take($limit);
+    }
+
+    /**
+     * Obtenir le titre du quiz Weekly
+     */
+    public function getQuizTitle(): string
+    {
+        $weekFormat = Carbon::parse($this->week_start)->format('W/Y');
+        return $this->chapter 
+            ? "Quiz Hebdomadaire S{$weekFormat} : {$this->chapter->title}" 
+            : "Quiz Hebdomadaire S{$weekFormat}";
+    }
+
+    /**
+     * Obtenir la description du quiz Weekly
+     */
+    public function getQuizDescription(): string
+    {
+        return $this->chapter
+            ? "Quiz hebdomadaire sur le chapitre : {$this->chapter->title}"
+            : 'Quiz hebdomadaire de révision';
+    }
+
+    /**
+     * Check if weekly quiz is for past week
+     */
+    public function isPastWeek($date = null)
+    {
+        $checkDate = $date ? Carbon::parse($date) : Carbon::now();
+        $weekEnd = Carbon::parse($this->week_start)->endOfWeek();
+        
+        return $weekEnd->lt($checkDate->startOfDay());
+    }
+
+    /**
+     * Vérifier si ce Weekly est disponible pour un utilisateur
+     */
+    public function isAvailable(User $user): bool
+    {
+        return $this->isCurrentWeek() || $this->isPastWeek();
+    }
+
+    /**
+     * Obtenir le mode de quiz par défaut
+     */
+    public function getDefaultQuizMode(): string
+    {
+        return 'weekly';
+    }
+
+    /**
+     * Vérifier si ce quiz peut être rejoué
+     */
+    public function isReplayable(): bool
+    {
+        return $this->isCurrentWeek(); // Peut être rejoué seulement pendant la semaine courante
     }
 }

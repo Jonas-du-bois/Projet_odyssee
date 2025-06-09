@@ -10,7 +10,7 @@
   ],
   "info": {
     "name": "Breitling League API",
-    "_postman_id": "5111f695-6a6e-4046-a0a0-cc552c61ebd9",
+    "_postman_id": "4512cf08-1958-4750-9a68-26b8041ed919",
     "description": "Documentation de l’API REST pour l’application Breitling League (MVP)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -948,7 +948,7 @@
             {
               "header": [],
               "code": 200,
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user_id\": 1,\n    \"completed_chapters\": 15,\n    \"completed_quizzes\": 42,\n    \"total_points\": 3250,\n    \"current_rank\": {\n      \"id\": 3,\n      \"name\": \"Expert\",\n      \"min_points\": 3000,\n      \"max_points\": 5000\n    },\n    \"next_rank\": {\n      \"id\": 4,\n      \"name\": \"Master\",\n      \"min_points\": 5000,\n      \"max_points\": 10000\n    },\n    \"progress_to_next_rank\": 45,\n    \"last_activity\": \"2024-01-15T14:30:00.000000Z\"\n  }\n}",
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user_id\": 1,\n    \"completed_chapters\": 15,\n    \"completed_quizzes\": 42,\n    \"total_points\": 3250,\n    \"current_rank\": {\n      \"id\": 3,\n      \"name\": \"Expert\",\n      \"min_points\": 3000,\n      \"max_points\": 5000\n    },\n    \"next_rank\": {\n      \"id\": 4,\n      \"name\": \"Master\",\n      \"min_points\": 5000,\n      \"max_points\": 10000\n    },\n    \"progress_to_next_rank\": 45,\n    \"last_activity\": \"2024-01-15T14:30:00.000000Z\"\n  }\n}     *",
               "name": ""
             }
           ]
@@ -1175,6 +1175,121 @@
       "description": "\nAPI pour la gestion des sessions de quiz et des réponses",
       "item": [
         {
+          "name": "Lister tous les types de quiz disponibles",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/types",
+              "query": [],
+              "raw": "{{baseUrl}}/api/quiz/types"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"nom\": \"Standard Quiz\",\n      \"base_points\": 1000,\n      \"speed_bonus\": 5,\n      \"gives_ticket\": false,\n      \"bonus_multiplier\": 1,\n      \"instances_count\": 25\n    }\n  ]\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Lister les instances de quiz de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/instances",
+              "query": [
+                {
+                  "key": "status",
+                  "value": "completed",
+                  "description": "Filtrer par statut (pending, completed, all).",
+                  "disabled": false
+                },
+                {
+                  "key": "quiz_type_id",
+                  "value": "1",
+                  "description": "Filtrer par type de quiz.",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Limite de résultats (par défaut: 50).",
+                  "disabled": false
+                }
+              ],
+              "raw": "{{baseUrl}}/api/quiz/instances?status=completed&quiz_type_id=1&limit=20"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"instances\": [\n      {\n        \"id\": 1,\n        \"quiz_type_id\": 1,\n        \"module_type\": \"Unit\",\n        \"module_id\": 1,\n        \"launch_date\": \"2025-01-10T10:00:00.000000Z\",\n        \"status\": \"completed\",\n        \"quiz_type\": {\n          \"id\": 1,\n          \"nom\": \"Standard Quiz\",\n          \"base_points\": 1000,\n          \"speed_bonus\": 5,\n          \"gives_ticket\": false,\n          \"bonus_multiplier\": 1\n        },\n        \"module\": {\n          \"id\": 1,\n          \"name\": \"Introduction à l'horlogerie\",\n          \"type\": \"Unit\"\n        },\n        \"score\": {\n          \"total_points\": 8500,\n          \"total_time\": 120,\n          \"ticket_obtained\": false,\n          \"bonus_obtained\": 500\n        }\n      }\n    ],\n    \"stats\": {\n      \"total_instances\": 15,\n      \"completed_instances\": 12,\n      \"pending_instances\": 3,\n      \"average_score\": 85.5,\n      \"total_points\": 125000\n    }\n  }\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Obtenir les statistiques détaillées des quiz de l'utilisateur",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/quiz/stats",
+              "query": [],
+              "raw": "{{baseUrl}}/api/quiz/stats"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"total_instances\": 15,\n    \"completed_instances\": 12,\n    \"pending_instances\": 3,\n    \"average_score\": 85.5,\n    \"total_points\": 125000,\n    \"best_score\": 98.5,\n    \"completion_rate\": 80,\n    \"quiz_types_stats\": [\n      {\n        \"quiz_type_id\": 1,\n        \"quiz_type_name\": \"Standard Quiz\",\n        \"instances_count\": 8,\n        \"average_score\": 87.5,\n        \"best_score\": 95\n      }\n    ]\n  }\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
           "name": "Démarrer une nouvelle session de quiz",
           "request": {
             "url": {
@@ -1194,10 +1309,20 @@
                 "value": "application/json"
               }
             ],
-            "body": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\"quiz_type_id\":1,\"module_type\":\"Unit\",\"module_id\":5,\"chapter_id\":3}"
+            },
             "description": ""
           },
-          "response": []
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Quiz démarré avec succès\",\n  \"data\": {\n    \"quiz_instance_id\": 123,\n    \"quiz_type\": {\n      \"id\": 1,\n      \"nom\": \"Standard Quiz\",\n      \"base_points\": 1000,\n      \"speed_bonus\": 5\n    },\n    \"questions\": [\n      {\n        \"id\": 45,\n        \"question_text\": \"Quelle est la fréquence d'un mouvement mécanique standard?\",\n        \"choices\": [\n          {\n            \"id\": 180,\n            \"choice_text\": \"28 800 vibrations/heure\"\n          },\n          {\n            \"id\": 181,\n            \"choice_text\": \"21 600 vibrations/heure\"\n          }\n        ]\n      }\n    ],\n    \"total_questions\": 10,\n    \"time_limit\": 300\n  }\n}",
+              "name": ""
+            }
+          ]
         },
         {
           "name": "Soumettre les réponses d'un quiz",
@@ -1219,13 +1344,23 @@
                 "value": "application/json"
               }
             ],
-            "body": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\"quiz_instance_id\":123,\"answers\":[\"architecto\"],\"total_time\":245}"
+            },
             "description": ""
           },
-          "response": []
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"message\": \"Réponses soumises avec succès\",\n  \"data\": {\n    \"score\": 8,\n    \"total_questions\": 10,\n    \"percentage\": 80,\n    \"total_points\": 8500,\n    \"speed_bonus\": 500,\n    \"time_bonus\": 200,\n    \"ticket_obtained\": false,\n    \"quiz_instance_id\": 123,\n    \"detailed_results\": [\n      {\n        \"question_id\": 45,\n        \"is_correct\": true,\n        \"points_earned\": 1000\n      }\n    ]\n  }\n}",
+              "name": ""
+            }
+          ]
         },
         {
-          "name": "Obtenir le résultat d'un quiz",
+          "name": "Obtenir le résultat détaillé d'un quiz",
           "request": {
             "url": {
               "host": "{{baseUrl}}",
@@ -1236,8 +1371,8 @@
                 {
                   "id": "id",
                   "key": "id",
-                  "value": "architecto",
-                  "description": "The ID of the quiz."
+                  "value": "123",
+                  "description": "L'ID de l'instance de quiz."
                 }
               ]
             },
@@ -1257,38 +1392,9 @@
           },
           "response": [
             {
-              "header": [
-                {
-                  "key": "cache-control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "content-type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "access-control-allow-origin",
-                  "value": "*"
-                },
-                {
-                  "key": "access-control-allow-methods",
-                  "value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-                },
-                {
-                  "key": "access-control-allow-headers",
-                  "value": "X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin"
-                },
-                {
-                  "key": "access-control-allow-credentials",
-                  "value": "true"
-                },
-                {
-                  "key": "access-control-max-age",
-                  "value": "86400"
-                }
-              ],
-              "code": 401,
-              "body": "{\"message\":\"Unauthenticated.\"}",
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"quiz_instance\": {\n      \"id\": 123,\n      \"status\": \"completed\",\n      \"launch_date\": \"2025-01-10T10:00:00.000000Z\",\n      \"completed_at\": \"2025-01-10T10:05:00.000000Z\",\n      \"total_time\": 245,\n      \"quiz_type\": {\n        \"id\": 1,\n        \"nom\": \"Standard Quiz\"\n      }\n    },\n    \"score\": {\n      \"score\": 8,\n      \"total_questions\": 10,\n      \"percentage\": 80,\n      \"total_points\": 8500,\n      \"speed_bonus\": 500,\n      \"time_bonus\": 200,\n      \"ticket_obtained\": false\n    },\n    \"answers\": [\n      {\n        \"question_id\": 45,\n        \"choice_id\": 180,\n        \"is_correct\": true,\n        \"time_taken\": 15,\n        \"question\": {\n          \"question_text\": \"Quelle est la fréquence d'un mouvement mécanique standard?\"\n        },\n        \"choice\": {\n          \"choice_text\": \"28 800 vibrations/heure\"\n        }\n      }\n    ]\n  }\n}",
               "name": ""
             }
           ]
@@ -1327,46 +1433,6 @@
               "header": [],
               "code": 200,
               "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Novice\",\n      \"level\": 1,\n      \"minimum_points\": 0\n    }\n  ],\n  \"message\": \"Ranks retrieved successfully\"\n}",
-              "name": ""
-            }
-          ]
-        },
-        {
-          "name": "Détails d’un rang",
-          "request": {
-            "url": {
-              "host": "{{baseUrl}}",
-              "path": "api/ranks/:id",
-              "query": [],
-              "raw": "{{baseUrl}}/api/ranks/:id",
-              "variable": [
-                {
-                  "id": "id",
-                  "key": "id",
-                  "value": "16",
-                  "description": "Requis. ID du rang."
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "body": null,
-            "description": "Retourne les informations pour un rang donné par son identifiant."
-          },
-          "response": [
-            {
-              "header": [],
-              "code": 200,
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Novice\",\n    \"level\": 1,\n    \"minimum_points\": 0\n  },\n  \"message\": \"Rank retrieved successfully\"\n}",
               "name": ""
             }
           ]
@@ -1495,6 +1561,46 @@
               "header": [],
               "code": 200,
               "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Novice\",\n      \"level\": 1,\n      \"minimum_points\": 0,\n      \"users_count\": 5,\n      \"percentage\": 16.67\n    }\n  ],\n  \"message\": \"Rank statistics retrieved successfully\"\n}",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "name": "Détails d’un rang",
+          "request": {
+            "url": {
+              "host": "{{baseUrl}}",
+              "path": "api/ranks/:id",
+              "query": [],
+              "raw": "{{baseUrl}}/api/ranks/:id",
+              "variable": [
+                {
+                  "id": "id",
+                  "key": "id",
+                  "value": "16",
+                  "description": "Requis. ID du rang."
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": null,
+            "description": "Retourne les informations pour un rang donné par son identifiant."
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Novice\",\n    \"level\": 1,\n    \"minimum_points\": 0\n  },\n  \"message\": \"Rank retrieved successfully\"\n}",
               "name": ""
             }
           ]

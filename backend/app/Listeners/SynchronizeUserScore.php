@@ -75,11 +75,11 @@ class SynchronizeUserScore implements ShouldQueue
             $newRank = Rank::orderBy('level', 'asc')->first();
         }        if ($newRank) {
             // Récupérer l'utilisateur et son rang actuel
-            $user = \App\Models\User::find($userId);
-            $oldRankId = $user->rank_id;
+            $user = \App\Models\User::where('id', $userId)->first();
+            $oldRankId = $user ? $user->rank_id : null;
 
             // Mettre à jour le rang de l'utilisateur seulement si il a changé
-            if ($oldRankId !== $newRank->id) {
+            if ($user && $oldRankId !== $newRank->id) {
                 $user->update(['rank_id' => $newRank->id]);
 
                 // Déclencher un event de mise à jour de rang

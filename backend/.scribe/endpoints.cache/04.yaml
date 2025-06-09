@@ -57,7 +57,7 @@ endpoints:
               "progress_to_next_rank": 45,
               "last_activity": "2024-01-15T14:30:00.000000Z"
             }
-          }
+          }     *
         headers: []
         description: ''
         custom: []

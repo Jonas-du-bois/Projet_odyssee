@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Contracts\Quizable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
 
-class Event extends Model
+class Event extends Model implements Quizable
 {
     
     protected $table = 'events'; // Match your database table name
@@ -206,5 +208,73 @@ class Event extends Model
         
         return $query->where('end_date', '>=', $today->format('Y-m-d'))
                     ->where('end_date', '<=', $limitDate->format('Y-m-d'));
+    }
+
+    /**
+     * Relation polymorphique avec les instances de quiz
+     */
+    public function quizInstances()
+    {
+        return $this->morphMany(QuizInstance::class, 'quizable');
+    }
+
+    // Implémentation de l'interface Quizable
+
+    /**
+     * Obtenir les questions pour cet événement
+     */
+    public function getQuestions(array $options = []): Collection
+    {
+        // Commencer avec une collection Eloquent vide
+        $questions = new Collection([]);
+        
+        // Récupérer toutes les questions de toutes les unités liées à cet événement
+        foreach ($this->units as $unit) {
+            $questions = $questions->merge($unit->questions);
+        }
+        
+        // Mélanger et limiter selon les options
+        $limit = $options['limit'] ?? 10; // Event par défaut : 10 questions
+        return $questions->shuffle()->take($limit);
+    }
+
+    /**
+     * Obtenir le titre du quiz Event
+     */
+    public function getQuizTitle(): string
+    {
+        return "Événement : {$this->theme}";
+    }
+
+    /**
+     * Obtenir la description du quiz Event
+     */
+    public function getQuizDescription(): string
+    {
+        return "Quiz événementiel sur le thème : {$this->theme}";
+    }
+
+    /**
+     * Vérifier si cet événement est disponible pour un utilisateur
+     */
+    public function isAvailable(User $user): bool
+    {
+        return $this->isActive();
+    }
+
+    /**
+     * Obtenir le mode de quiz par défaut
+     */
+    public function getDefaultQuizMode(): string
+    {
+        return 'event';
+    }
+
+    /**
+     * Vérifier si ce quiz peut être rejoué
+     */
+    public function isReplayable(): bool
+    {
+        return $this->isActive(); // Peut être rejoué tant que l'événement est actif
     }
 }
