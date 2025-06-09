@@ -48,19 +48,19 @@ Route::middleware('cors')->group(function () {
 
     /**
      * Routes protégées - nécessitent une authentification via Sanctum
-     */
-    Route::middleware('auth:sanctum')->group(function () {
+     */    Route::middleware('auth:sanctum')->group(function () {
         // Routes AuthController
         Route::get('/me', [AuthController::class, 'me']);
+        Route::get('/user', [AuthController::class, 'me']); // Alias pour /user
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/logout-all', [AuthController::class, 'logoutAll']);
         
         // Routes ChapterController
         Route::get('/chapters', [ChapterController::class, 'index']);
-        Route::get('/chapters/{id}', [ChapterController::class, 'show']);
-          // Routes QuizController
+        Route::get('/chapters/{id}', [ChapterController::class, 'show']);          // Routes QuizController
         Route::get('/quiz/types', [QuizController::class, 'getQuizTypes']);
         Route::get('/quiz/instances', [QuizController::class, 'getUserQuizInstances']);
+        Route::get('/quiz/instance/{id}', [QuizController::class, 'getInstance']);
         Route::get('/quiz/stats', [QuizController::class, 'getUserStats']);
         Route::post('/quiz/start', [QuizController::class, 'start']);
         Route::post('/quiz/submit', [QuizController::class, 'submitAnswers']);

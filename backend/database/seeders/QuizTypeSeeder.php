@@ -15,13 +15,6 @@ class QuizTypeSeeder extends Seeder
         // Create multiple quiz types at once
         $quizTypes = [
             [
-                'name' => 'Standard Quiz',
-                'base_points' => 1000,
-                'speed_bonus' => 5,
-                'gives_ticket' => 0,
-                'bonus_multiplier' => 1
-            ],
-            [
                 'name' => 'Discovery Quiz',
                 'base_points' => 1000,
                 'speed_bonus' => 7,

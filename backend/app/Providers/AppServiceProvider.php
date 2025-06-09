@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Configuration des relations polymorphes pour éviter les problèmes d'autoload
         Relation::enforceMorphMap([
+            'user' => 'App\Models\User',
             'discovery' => 'App\Models\Discovery',
             'event' => 'App\Models\Event',
             'weekly' => 'App\Models\Weekly',

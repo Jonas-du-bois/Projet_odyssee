@@ -20,6 +20,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 /**
@@ -122,11 +123,10 @@ class QuizController extends Controller
      * }
      */
     public function getUserQuizInstances(Request $request): JsonResponse
-    {
-        try {
-            $validator = Validator::make($request->all(), [
-                'status' => 'nullable|in:pending,completed,all',
+    {        try {            $validator = Validator::make($request->all(), [
+                'status' => 'nullable|in:pending,completed,all,started,in_progress',
                 'quiz_type_id' => 'nullable|exists:quiz_types,id',
+                'module_type' => 'nullable|string',
                 'limit' => 'nullable|integer|min:1|max:100'
             ]);
 
@@ -141,17 +141,19 @@ class QuizController extends Controller
             $limit = $request->get('limit', 50);
               // Base query avec chargement des relations polymorphiques
             $query = QuizInstance::where('user_id', $userId)
-                ->with(['quizType', 'userQuizScore', 'quizable']);
-
-            // Apply filters
+                ->with(['quizType', 'userQuizScore', 'quizable']);            // Apply filters
             if ($request->status === 'completed') {
                 $query->completed();
             } elseif ($request->status === 'pending') {
                 $query->pending();
+            } elseif ($request->status === 'started' || $request->status === 'in_progress') {
+                $query->where('status', 'started');
+            }            if ($request->quiz_type_id) {
+                $query->where('quiz_type_id', $request->quiz_type_id);
             }
 
-            if ($request->quiz_type_id) {
-                $query->where('quiz_type_id', $request->quiz_type_id);
+            if ($request->module_type) {
+                $query->where('module_type', $request->module_type);
             }
 
             // Get instances with pagination
@@ -219,15 +221,133 @@ class QuizController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $stats
-            ]);
-        } catch (\Exception $e) {
+            ]);        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Erreur lors de la récupération des statistiques',
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
+    }
+
+    /**
+     * Récupérer une instance de quiz spécifique
+     *
+     * @param int $id - ID de l'instance de quiz
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "id": 24,
+     *     "quiz_type_id": 1,
+     *     "user_id": 1,
+     *     "status": "started",
+     *     "launch_date": "2025-06-09T14:30:00",
+     *     "questions": [...],
+     *     "quiz_type": {...},
+     *     "module": {...}
+     *   }
+     * }
+     */
+    public function getInstance($id): JsonResponse
+    {
+        try {
+            $userId = Auth::id();
+            
+            // Récupérer l'instance avec toutes les relations nécessaires
+            $instance = QuizInstance::where('id', $id)
+                ->where('user_id', $userId)
+                ->with(['quizType', 'userQuizScore', 'quizable'])
+                ->first();
+
+            if (!$instance) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Instance de quiz non trouvée ou accès non autorisé'
+                ], 404);
+            }            // Préparer les données de base de l'instance
+            $responseData = [
+                'id' => $instance->id,
+                'quiz_type_id' => $instance->quiz_type_id,
+                'user_id' => $instance->user_id,
+                'status' => $instance->status,
+                'launch_date' => $instance->launch_date,
+                'quiz_type' => [
+                    'id' => $instance->quizType->id,
+                    'name' => $instance->quizType->name,
+                    'base_points' => $instance->quizType->base_points,
+                    'speed_bonus' => $instance->quizType->speed_bonus,
+                    'gives_ticket' => $instance->quizType->gives_ticket,
+                    'bonus_multiplier' => $instance->quizType->bonus_multiplier
+                ]
+            ];
+
+            // Ajouter les informations du module si présent
+            if ($instance->quizable) {
+                $responseData['quizable'] = [
+                    'id' => $instance->quizable->id,
+                    'title' => $instance->quizable->getQuizTitle(),
+                    'description' => $instance->quizable->getQuizDescription(),
+                    'type' => $instance->quizable_type
+                ];
+            }
+
+            // Ajouter les questions si le quiz est commencé
+            if ($instance->status === 'started') {
+                $questions = collect();
+                
+                if ($instance->quizable) {
+                    // Questions spécifiques au module
+                    $questionOptions = [
+                        'quiz_type_id' => $instance->quiz_type_id,
+                        'quiz_mode' => $instance->quiz_mode,
+                        'user' => Auth::user()
+                    ];
+                    $questions = $instance->quizable->getQuestions($questionOptions);
+                } else {
+                    // Questions générales par type de quiz
+                    $questions = Question::where('quiz_type_id', $instance->quiz_type_id)
+                        ->with(['choices' => function($query) {
+                            $query->select('id', 'question_id', 'text');
+                        }])
+                        ->inRandomOrder()
+                        ->limit(10)
+                        ->get();
+                }
+
+                // Formatter les questions pour la réponse
+                $formattedQuestions = $questions->map(function($question) {
+                    return [
+                        'id' => $question->id,
+                        'question_text' => $question->statement,
+                        'choices' => $question->choices->map(function($choice) {
+                            return [
+                                'id' => $choice->id,
+                                'choice_text' => $choice->text
+                            ];
+                        })
+                    ];
+                });
+
+                $responseData['questions'] = $formattedQuestions;
+                $responseData['total_questions'] = $formattedQuestions->count();
+                $responseData['time_limit'] = 300; // 5 minutes par défaut
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $responseData
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération de l\'instance de quiz',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Démarrer une nouvelle session de quiz
      *
      * @bodyParam quiz_type_id integer required L'ID du type de quiz. Example: 1
@@ -312,9 +432,7 @@ class QuizController extends Controller
                         'message' => 'Ce quiz n\'est pas disponible actuellement'
                     ], 403);
                 }
-            }
-
-            // Créer une instance de quiz avec la nouvelle structure polymorphique
+            }            // Créer une instance de quiz avec la nouvelle structure polymorphique
             $quizInstance = QuizInstance::create([
                 'user_id' => Auth::id(),
                 'quiz_type_id' => $request->quiz_type_id,
@@ -322,6 +440,7 @@ class QuizController extends Controller
                 'quizable_id' => $quizable ? $request->quizable_id : null,
                 'quiz_mode' => $request->quiz_mode ?? ($quizable ? $quizable->getDefaultQuizMode() : 'standard'),
                 'launch_date' => now(),
+                'status' => 'started',
             ]);
 
             // Récupérer les questions en utilisant la nouvelle approche polymorphique
@@ -335,11 +454,10 @@ class QuizController extends Controller
                     'user' => Auth::user()
                 ];
                 $questions = $quizable->getQuestions($questionOptions);
-            } else {
-                // Fallback : questions générales par type de quiz
+            } else {                // Fallback : questions générales par type de quiz
                 $questionsQuery = Question::where('quiz_type_id', $request->quiz_type_id)
                     ->with(['choices' => function($query) {
-                        $query->select('id', 'question_id', 'choice_text');
+                        $query->select('id', 'question_id', 'text'); // Utiliser le champ text
                     }]);
 
                 // Backward compatibility pour chapter_id
@@ -350,17 +468,15 @@ class QuizController extends Controller
                 $questions = $questionsQuery->inRandomOrder()
                     ->limit(10)
                     ->get();
-            }
-
-            // Formatter les questions pour la réponse
+            }            // Formatter les questions pour la réponse
             $formattedQuestions = $questions->map(function($question) {
                 return [
                     'id' => $question->id,
-                    'question_text' => $question->question_text,
+                    'question_text' => $question->statement, // Utiliser le champ statement
                     'choices' => $question->choices->map(function($choice) {
                         return [
                             'id' => $choice->id,
-                            'choice_text' => $choice->choice_text
+                            'choice_text' => $choice->text // Utiliser le champ text
                         ];
                     })
                 ];
@@ -436,8 +552,7 @@ class QuizController extends Controller
      *     ]
      *   }
      * }
-     */
-    public function submitAnswers(Request $request): JsonResponse
+     */    public function submitAnswers(Request $request): JsonResponse
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -490,15 +605,15 @@ class QuizController extends Controller
                     
                     if ($isCorrect) {
                         $score++;
-                    }
-
-                    UserAnswer::create([
+                    }                    UserAnswer::create([
                         'user_id' => Auth::id(),
                         'quiz_instance_id' => $request->quiz_instance_id,
                         'question_id' => $answer['question_id'],
                         'choice_id' => $answer['choice_id'],
                         'is_correct' => $isCorrect,
-                        'time_taken' => $answer['time_taken'] ?? null,
+                        'response_time' => $answer['time_taken'] ?? 10, // Temps par défaut de 10 secondes
+                        'points_obtained' => $isCorrect ? $quizInstance->quizType->base_points : 0,
+                        'date' => now(),
                     ]);
 
                     $detailedResults[] = [
@@ -523,23 +638,16 @@ class QuizController extends Controller
                     'status' => 'completed',
                     'completed_at' => now(),
                     'total_time' => $totalTime
-                ]);
-
-                // Créer l'entrée de score
+                ]);                // Créer l'entrée de score
                 $userQuizScore = UserQuizScore::create([
-                    'user_id' => Auth::id(),
                     'quiz_instance_id' => $request->quiz_instance_id,
-                    'score' => $score,
-                    'total_questions' => $totalQuestions,
-                    'percentage' => ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0,
                     'total_points' => $totalPoints,
-                    'speed_bonus' => $speedBonus,
-                    'time_bonus' => $timeBonus,
                     'total_time' => $totalTime,
-                    'ticket_obtained' => $ticketObtained
-                ]);
+                    'ticket_obtained' => $ticketObtained,
+                    'bonus_obtained' => ($speedBonus > 0 || $timeBonus > 0), // true si des bonus ont été obtenus
+                ]);                DB::commit();
 
-                DB::commit();
+                $percentage = ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0;
 
                 return response()->json([
                     'success' => true,
@@ -547,7 +655,7 @@ class QuizController extends Controller
                     'data' => [
                         'score' => $score,
                         'total_questions' => $totalQuestions,
-                        'percentage' => $userQuizScore->percentage,
+                        'percentage' => $percentage,
                         'total_points' => $totalPoints,
                         'speed_bonus' => $speedBonus,
                         'time_bonus' => $timeBonus,
@@ -652,25 +760,24 @@ class QuizController extends Controller
                             'question_id' => $answer->question_id,
                             'choice_id' => $answer->choice_id,
                             'is_correct' => $answer->is_correct,
-                            'time_taken' => $answer->time_taken,
-                            'question' => [
-                                'question_text' => $answer->question->question_text
-                            ],
-                            'choice' => [
-                                'choice_text' => $answer->choice->choice_text
+                            'time_taken' => $answer->time_taken,                            'question' => [
+                                'question_text' => $answer->question->statement // Utiliser le champ statement
+                            ],                            'choice' => [
+                                'choice_text' => $answer->choice->text // Utiliser le champ text
                             ]
                         ];
                     })
                 ]
-            ]);
-        } catch (\Exception $e) {
+            ]);        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Erreur lors de la récupération des résultats',
                 'error' => $e->getMessage()
             ], 500);
         }
-    }    /**
+    }
+
+    /**
      * Enrichir une instance de quiz avec les données du module associé
      * Utilise la nouvelle architecture polymorphique
      */
@@ -722,9 +829,7 @@ class QuizController extends Controller
         }
 
         return $modelClass::find($quizableId);
-    }
-
-    /**
+    }    /**
      * Calculer les statistiques des quiz d'un utilisateur
      */
     private function calculateUserQuizStats($instances)
@@ -745,10 +850,9 @@ class QuizController extends Controller
         $quizTypesStats = $instances->groupBy('quiz_type_id')->map(function($typeInstances) {
             $completed = $typeInstances->where('status', 'completed');
             $scores = $completed->pluck('userQuizScore.percentage')->filter();
-              return [
+            return [
                 'quiz_type_id' => $typeInstances->first()->quiz_type_id,
-                'quiz_type_name' => $typeInstances->first()->quizType->name ?? 'Type inconnu',
-                'instances_count' => $typeInstances->count(),
+                'quiz_type_name' => $typeInstances->first()->quizType->name ?? 'Type inconnu',                'instances_count' => $typeInstances->count(),
                 'completed_count' => $completed->count(),
                 'average_score' => $scores->count() > 0 ? round($scores->average(), 2) : 0,
                 'best_score' => $scores->count() > 0 ? $scores->max() : 0

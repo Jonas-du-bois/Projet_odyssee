@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
             ChoiceSeeder::class,
             
             // More complex dependencies
-            QuizInstanceSeeder::class,
-            UserQuizScoreSeeder::class,
-            UserAnswerSeeder::class,
+            QuizInstanceSeeder::class, // Réactivé après migration vers structure polymorphique
+            UserQuizScoreSeeder::class, // Dépend de QuizInstanceSeeder
+            UserAnswerSeeder::class, // Dépend de QuizInstanceSeeder
             ScoreSeeder::class,
             ProgressSeeder::class,
             WeeklySeriesSeeder::class,
