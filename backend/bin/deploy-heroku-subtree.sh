@@ -44,12 +44,13 @@ fi
 
 # Vérifier la connexion Heroku
 echo "🔐 Vérification de la connexion Heroku..."
-if ! heroku auth:whoami &> /dev/null; then
+HEROKU_USER=$(heroku auth:whoami 2>/dev/null)
+if [[ $? -ne 0 ]] || [[ -z "$HEROKU_USER" ]]; then
     echo "❌ Non connecté à Heroku. Connectez-vous avec: heroku login"
     exit 1
 fi
 
-echo "✅ Connecté à Heroku comme: $(heroku auth:whoami)"
+echo "✅ Connecté à Heroku comme: $HEROKU_USER"
 
 # Créer l'app Heroku si elle n'existe pas
 echo "🏗️  Vérification/création de l'app Heroku..."
