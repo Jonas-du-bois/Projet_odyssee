@@ -9,7 +9,8 @@ class Rank extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    // Timestamps activés car la table a les colonnes created_at et updated_at
+    public $timestamps = true;
     
     protected $table = 'ranks'; // Match your database table name
 

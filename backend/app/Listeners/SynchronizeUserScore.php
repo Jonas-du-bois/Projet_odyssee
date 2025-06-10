@@ -24,7 +24,7 @@ class SynchronizeUserScore implements ShouldQueue
             $currentMonth = Carbon::now()->format('Y-m');
             
             $score = Score::where('user_id', $userId)
-                ->whereRaw("strftime('%Y-%m', created_at) = ?", [$currentMonth])
+                ->whereRaw($this->getDateFormatSQL(), [$currentMonth])
                 ->first();
 
             if ($score) {
@@ -94,6 +94,25 @@ class SynchronizeUserScore implements ShouldQueue
             if ($latestScore && $latestScore->rank_id !== $newRank->id) {
                 $latestScore->update(['rank_id' => $newRank->id]);
             }
+        }
+    }
+
+    /**
+     * Obtenir la requête SQL pour le formatage de date selon la base de données
+     */
+    private function getDateFormatSQL(): string
+    {
+        $driver = config('database.default');
+        $connection = config("database.connections.{$driver}.driver");
+        
+        switch ($connection) {
+            case 'pgsql':
+                return "TO_CHAR(created_at, 'YYYY-MM') = ?";
+            case 'mysql':
+                return "DATE_FORMAT(created_at, '%Y-%m') = ?";
+            case 'sqlite':
+            default:
+                return "strftime('%Y-%m', created_at) = ?";
         }
     }
 }

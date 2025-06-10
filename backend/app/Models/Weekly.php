@@ -12,7 +12,8 @@ class Weekly extends Model implements Quizable
 {
     use HasFactory;
 
-    public $timestamps = false;
+    // Timestamps activés car la table a les colonnes created_at et updated_at
+    public $timestamps = true;
     
     protected $table = 'weeklies'; // Match your database table name
 

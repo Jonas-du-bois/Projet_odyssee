@@ -9,7 +9,8 @@ class QuizType extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    // Timestamps activés car la table a les colonnes created_at et updated_at
+    public $timestamps = true;
     
     protected $table = 'quiz_types'; // Match your database table name
 

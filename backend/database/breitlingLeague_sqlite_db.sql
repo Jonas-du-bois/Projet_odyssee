@@ -1,221 +1,340 @@
-CREATE TABLE `User` (
-  `id` int PRIMARY KEY,
-  `nom` varchar(255),
-  `email` varchar(255),
-  `mot_de_passe` varchar(255),
-  `rang_id` int,
-  `date_inscription` date
+-- Schéma SQL mis à jour avec le système polymorphique Breitling League
+-- Généré le 10 juin 2025
+
+CREATE TABLE `ranks` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `level` int NOT NULL,
+  `minimum_points` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Rank` (
-  `id` int PRIMARY KEY,
-  `nom` varchar(255),
-  `niveau` int,
-  `points_minimum` int
+CREATE TABLE `users` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
+  `password` varchar(255) NOT NULL,
+  `rank_id` bigint UNSIGNED NULL,
+  `registration_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(100) NULL
 );
 
-CREATE TABLE `Chapter` (
-  `id` int PRIMARY KEY,
-  `titre` varchar(255),
-  `description` text
+CREATE TABLE `chapters` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text NULL,
+  `theory_content` longtext NULL,
+  `is_active` boolean NOT NULL DEFAULT true,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Unit` (
-  `id` int PRIMARY KEY,
-  `chapter_id` int,
-  `titre` varchar(255),
-  `description` text,
-  `theorie_html` text
+CREATE TABLE `units` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NULL,
+  `theory_html` text NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Question` (
-  `id` int PRIMARY KEY,
-  `unit_id` int,
-  `enonce` text,
-  `timer_secondes` int,
-  `type` varchar(255)
+-- Table Questions avec système polymorphique
+CREATE TABLE `questions` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `quizable_type` varchar(255) NULL,
+  `quizable_id` bigint UNSIGNED NULL,
+  `question_text` text NULL,
+  `options` json NULL,
+  `correct_answer` varchar(255) NULL,
+  `timer_seconds` int NULL,
+  `type` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  INDEX `questions_quizable_type_quizable_id_index` (`quizable_type`, `quizable_id`)
 );
 
-CREATE TABLE `Choice` (
-  `id` int PRIMARY KEY,
-  `question_id` int,
-  `texte` varchar(255),
-  `est_correct` boolean
+CREATE TABLE `choices` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `is_correct` boolean NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Discovery` (
-  `id` int PRIMARY KEY,
-  `chapter_id` int,
-  `date_disponible` date
+CREATE TABLE `discoveries` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `available_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Novelty` (
-  `id` int PRIMARY KEY,
-  `chapter_id` int,
-  `date_publication` date,
-  `bonus_initial` boolean
+CREATE TABLE `novelties` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `publication_date` date NOT NULL,
+  `initial_bonus` boolean NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Event` (
-  `id` int PRIMARY KEY,
-  `theme` varchar(255),
-  `date_debut` date,
-  `date_fin` date
+CREATE TABLE `events` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `theme` varchar(255) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `EventUnit` (
-  `id` int PRIMARY KEY,
-  `event_id` int,
-  `unit_id` int
+CREATE TABLE `event_units` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `event_id` bigint UNSIGNED NOT NULL,
+  `unit_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Reminder` (
-  `id` int PRIMARY KEY,
-  `chapter_id` int,
-  `nb_questions` int,
-  `date_limite` date
+CREATE TABLE `reminders` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `number_questions` int NOT NULL,
+  `deadline_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Weekly` (
-  `id` int PRIMARY KEY,
-  `chapter_id` int,
-  `semaine` date,
-  `nb_questions` int
+CREATE TABLE `weeklies` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `week_start` date NOT NULL,
+  `number_questions` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `LastChance` (
-  `id` int PRIMARY KEY,
-  `nom` varchar(255),
-  `date_debut` date,
-  `date_fin` date
+CREATE TABLE `last_chances` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `QuizType` (
-  `id` int PRIMARY KEY,
-  `nom` varchar(255),
-  `base_points` int,
-  `bonus_rapidite` boolean,
-  `donne_ticket` boolean,
-  `multiplicateur_bonus` int
+-- Table QuizTypes avec morph_type pour le système polymorphique
+CREATE TABLE `quiz_types` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `morph_type` varchar(255) NULL,
+  `base_points` int NOT NULL,
+  `speed_bonus` boolean NOT NULL,
+  `gives_ticket` boolean NOT NULL,
+  `bonus_multiplier` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `QuizInstance` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `quiz_type_id` int,
-  `module_type` varchar(255),
-  `module_id` int,
-  `date_lancement` datetime
+-- Table QuizInstances avec système polymorphique
+CREATE TABLE `quiz_instances` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `quiz_type_id` bigint UNSIGNED NOT NULL,
+  `quizable_type` varchar(255) NULL,
+  `quizable_id` bigint UNSIGNED NULL,
+  `quiz_mode` varchar(255) NOT NULL DEFAULT 'quiz',
+  `launch_date` datetime NOT NULL,
+  `speed_bonus` boolean NOT NULL DEFAULT false,
+  `status` enum('active', 'completed', 'abandoned') NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  INDEX `quiz_instances_quizable_type_quizable_id_index` (`quizable_type`, `quizable_id`)
 );
 
-CREATE TABLE `UserQuizScore` (
-  `id` int PRIMARY KEY,
-  `quiz_instance_id` int,
-  `total_points` int,
-  `temps_total` int,
-  `ticket_obtenu` boolean,
-  `bonus_obtenu` boolean
+CREATE TABLE `user_quiz_scores` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `quiz_instance_id` bigint UNSIGNED NOT NULL,
+  `total_points` int NOT NULL,
+  `total_time` int NOT NULL,
+  `ticket_obtained` boolean NOT NULL,
+  `bonus_obtained` boolean NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `UserAnswer` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `question_id` int,
-  `choix_id` int,
-  `est_correct` boolean,
-  `temps_reponse` int,
-  `points_obtenus` int,
-  `date` datetime
+-- Table UserAnswers avec quiz_instance_id
+CREATE TABLE `user_answers` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `quiz_instance_id` bigint UNSIGNED NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `choice_id` bigint UNSIGNED NULL,
+  `is_correct` boolean NOT NULL,
+  `response_time` int NOT NULL,
+  `points_obtained` int NOT NULL,
+  `date` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Score` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `points_total` int,
-  `points_bonus` int,
-  `rang_id` int
+CREATE TABLE `scores` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `total_points` int NOT NULL,
+  `bonus_points` int NOT NULL,
+  `rank_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Progress` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `chapter_id` int,
-  `unit_id` int,
-  `pourcentage` float,
-  `terminé` boolean
+CREATE TABLE `progress` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `unit_id` bigint UNSIGNED NULL,
+  `percentage` float NOT NULL,
+  `completed` boolean NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `LotteryTicket` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `weekly_id` int,
-  `date_obtenue` date,
-  `bonus` boolean
+CREATE TABLE `lottery_tickets` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `weekly_id` bigint UNSIGNED NOT NULL,
+  `obtained_date` date NOT NULL,
+  `bonus` boolean NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `WeeklySeries` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `count` int,
-  `bonus_tickets` int,
-  `derniere_participation` date
+CREATE TABLE `weekly_series` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `count` int NOT NULL,
+  `bonus_tickets` int NOT NULL,
+  `last_participation` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-CREATE TABLE `Notification` (
-  `id` int PRIMARY KEY,
-  `user_id` int,
-  `type` varchar(255),
-  `message` text,
-  `lu` boolean,
-  `date` datetime
+CREATE TABLE `notifications` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `read` boolean NOT NULL,
+  `date` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 
-ALTER TABLE `User` ADD FOREIGN KEY (`rang_id`) REFERENCES `Rank` (`id`);
+-- Tables Laravel par défaut
+CREATE TABLE `cache` (
+  `key` varchar(255) PRIMARY KEY,
+  `value` mediumtext NOT NULL,
+  `expiration` int NOT NULL
+);
 
-ALTER TABLE `Unit` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) PRIMARY KEY,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int NOT NULL
+);
 
-ALTER TABLE `Question` ADD FOREIGN KEY (`unit_id`) REFERENCES `Unit` (`id`);
+CREATE TABLE `jobs` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL,
+  INDEX `jobs_queue_index` (`queue`)
+);
 
-ALTER TABLE `Choice` ADD FOREIGN KEY (`question_id`) REFERENCES `Question` (`id`);
+CREATE TABLE `job_batches` (
+  `id` varchar(255) PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int NOT NULL,
+  `pending_jobs` int NOT NULL,
+  `failed_jobs` int NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext NULL,
+  `cancelled_at` int NULL,
+  `created_at` int NOT NULL,
+  `finished_at` int NULL
+);
 
-ALTER TABLE `Discovery` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+CREATE TABLE `failed_jobs` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `uuid` varchar(255) NOT NULL UNIQUE,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-ALTER TABLE `Novelty` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL UNIQUE,
+  `abilities` text NULL,
+  `last_used_at` timestamp NULL,
+  `expires_at` timestamp NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  INDEX `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`, `tokenable_id`)
+);
 
-ALTER TABLE `EventUnit` ADD FOREIGN KEY (`event_id`) REFERENCES `Event` (`id`);
+-- Contraintes de clés étrangères
 
-ALTER TABLE `EventUnit` ADD FOREIGN KEY (`unit_id`) REFERENCES `Unit` (`id`);
+ALTER TABLE `users` ADD FOREIGN KEY (`rank_id`) REFERENCES `ranks` (`id`) ON DELETE SET NULL;
 
-ALTER TABLE `Reminder` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+ALTER TABLE `units` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Weekly` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+ALTER TABLE `choices` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `QuizInstance` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `discoveries` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `QuizInstance` ADD FOREIGN KEY (`quiz_type_id`) REFERENCES `QuizType` (`id`);
+ALTER TABLE `novelties` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `UserQuizScore` ADD FOREIGN KEY (`quiz_instance_id`) REFERENCES `QuizInstance` (`id`);
+ALTER TABLE `event_units` ADD FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+ALTER TABLE `event_units` ADD FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `UserAnswer` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `reminders` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `UserAnswer` ADD FOREIGN KEY (`question_id`) REFERENCES `Question` (`id`);
+ALTER TABLE `weeklies` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `UserAnswer` ADD FOREIGN KEY (`choix_id`) REFERENCES `Choice` (`id`);
+ALTER TABLE `quiz_instances` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `quiz_instances` ADD FOREIGN KEY (`quiz_type_id`) REFERENCES `quiz_types` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Score` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `user_quiz_scores` ADD FOREIGN KEY (`quiz_instance_id`) REFERENCES `quiz_instances` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `Score` ADD FOREIGN KEY (`rang_id`) REFERENCES `Rank` (`id`);
+ALTER TABLE `user_answers` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `user_answers` ADD FOREIGN KEY (`quiz_instance_id`) REFERENCES `quiz_instances` (`id`) ON DELETE CASCADE;
+ALTER TABLE `user_answers` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
+ALTER TABLE `user_answers` ADD FOREIGN KEY (`choice_id`) REFERENCES `choices` (`id`) ON DELETE SET NULL;
 
-ALTER TABLE `Progress` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `scores` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `scores` ADD FOREIGN KEY (`rank_id`) REFERENCES `ranks` (`id`) ON DELETE RESTRICT;
 
-ALTER TABLE `Progress` ADD FOREIGN KEY (`chapter_id`) REFERENCES `Chapter` (`id`);
+ALTER TABLE `progress` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `progress` ADD FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
+ALTER TABLE `progress` ADD FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE SET NULL;
 
-ALTER TABLE `Progress` ADD FOREIGN KEY (`unit_id`) REFERENCES `Unit` (`id`);
+ALTER TABLE `lottery_tickets` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `lottery_tickets` ADD FOREIGN KEY (`weekly_id`) REFERENCES `weeklies` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `LotteryTicket` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `weekly_series` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `LotteryTicket` ADD FOREIGN KEY (`weekly_id`) REFERENCES `Weekly` (`id`);
-
-ALTER TABLE `WeeklySeries` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
-
-ALTER TABLE `Notification` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `notifications` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;

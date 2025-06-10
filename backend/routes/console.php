@@ -51,10 +51,9 @@ Artisan::command('test:quiz-event', function () {
             $quizInstance = \App\Models\QuizInstance::create([
                 'user_id' => $user->id,
                 'quiz_type_id' => 1,
-                'start_time' => now(),
-                'end_time' => now()->addMinutes(10),
-                'score' => 0,
-                'is_completed' => false
+                'quizable_type' => 'discovery',
+                'quizable_id' => 1,
+                'launch_date' => now(),
             ]);
         }
         $this->info("Instance de quiz : ID {$quizInstance->id}");

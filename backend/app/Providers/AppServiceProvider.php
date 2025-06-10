@@ -3,10 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use App\Events\QuizCompleted;
-use App\Listeners\SynchronizeUserScore;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,11 +30,5 @@ class AppServiceProvider extends ServiceProvider
             'reminder' => 'App\Models\Reminder',
             'unit' => 'App\Models\Unit',
         ]);
-
-        // Enregistrer l'écouteur pour l'événement QuizCompleted
-        Event::listen(
-            QuizCompleted::class,
-            SynchronizeUserScore::class,
-        );
     }
 }
