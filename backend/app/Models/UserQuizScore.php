@@ -81,6 +81,28 @@ class UserQuizScore extends Model
     }
 
     /**
+     * Calculate percentage score based on quiz type base points
+     */
+    public function getPercentageAttribute()
+    {
+        if (!$this->quizInstance || !$this->quizInstance->quizType) {
+            return 0;
+        }
+        
+        $basePoints = $this->quizInstance->quizType->base_points;
+        
+        // Si les points de base sont 0 (comme pour Weekly Quiz), 
+        // considérer que tout score > 0 vaut 100%
+        if ($basePoints <= 0) {
+            return $this->total_points > 0 ? 100 : 0;
+        }
+        
+        // Calculer le pourcentage en fonction des points de base du type de quiz
+        $percentage = ($this->total_points / $basePoints) * 100;
+        return round(min($percentage, 100), 2); // Limiter à 100%
+    }
+
+    /**
      * Check if quiz was completed successfully
      */
     public function isSuccessful()

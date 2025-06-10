@@ -72,33 +72,37 @@ class ProgressController extends Controller
             
             // Calculer les chapitres complétés selon la logique Breitling League
             $totalChapters = DB::table('chapters')->count();
-            
-            // Récupérer les chapitres complétés à partir des différents types de modules
+              // Récupérer les chapitres complétés à partir des différents types de modules
             $completedChapterIds = collect();
             
             $moduleTypes = [
-                'Discovery' => 'discoveries',
-                'Novelty' => 'novelties', 
-                'Weekly' => 'weeklies',
-                'Reminder' => 'reminders',
-                'Unit' => 'units'
+                'discovery' => 'discoveries',
+                'novelty' => 'novelties', 
+                'weekly' => 'weeklies',
+                'reminder' => 'reminders',
+                'unit' => 'units'
             ];
             
-            foreach ($moduleTypes as $moduleType => $tableName) {
+            foreach ($moduleTypes as $quizableType => $tableName) {
                 // Vérifier si la table existe avant de faire la requête
                 if (DB::getSchemaBuilder()->hasTable($tableName)) {
-                    $chapterIds = DB::table('user_quiz_scores')
-                        ->join('quiz_instances', 'user_quiz_scores.quiz_instance_id', '=', 'quiz_instances.id')
-                        ->join($tableName, function($join) use ($moduleType, $tableName) {
-                            $join->on('quiz_instances.module_id', '=', $tableName . '.id')
-                                 ->where('quiz_instances.module_type', '=', $moduleType);
-                        })
-                        ->where('quiz_instances.user_id', $userId)
-                        ->where('user_quiz_scores.total_points', '>=', 700) // Seuil de réussite (70%)
-                        ->distinct($tableName . '.chapter_id')
-                        ->pluck($tableName . '.chapter_id');
-                    
-                    $completedChapterIds = $completedChapterIds->merge($chapterIds);
+                    try {
+                        $chapterIds = DB::table('user_quiz_scores')
+                            ->join('quiz_instances', 'user_quiz_scores.quiz_instance_id', '=', 'quiz_instances.id')
+                            ->join($tableName, function($join) use ($quizableType, $tableName) {
+                                $join->on('quiz_instances.quizable_id', '=', $tableName . '.id')
+                                     ->where('quiz_instances.quizable_type', '=', $quizableType);
+                            })
+                            ->where('quiz_instances.user_id', $userId)
+                            ->where('user_quiz_scores.total_points', '>=', 700) // Seuil de réussite (70%)
+                            ->distinct($tableName . '.chapter_id')
+                            ->pluck($tableName . '.chapter_id');
+                        
+                        $completedChapterIds = $completedChapterIds->merge($chapterIds);
+                    } catch (\Exception $e) {
+                        // Log l'erreur mais continue avec les autres types
+                        Log::warning("Erreur lors du calcul des chapitres complétés pour {$quizableType}: " . $e->getMessage());
+                    }
                 }
             }
             

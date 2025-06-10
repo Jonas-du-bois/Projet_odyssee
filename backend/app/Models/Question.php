@@ -17,8 +17,11 @@ class Question extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'unit_id',
-        'statement',
+        'quizable_type',
+        'quizable_id', 
+        'question_text',
+        'options',
+        'correct_answer',
         'timer_seconds',
         'type',
     ];
@@ -28,14 +31,24 @@ class Question extends Model
      */
     protected $casts = [
         'timer_seconds' => 'integer',
+        'options' => 'array',
     ];
 
     /**
-     * Relationship with unit
+     * Polymorphic relationship with quizable models (Unit, Discovery, etc.)
+     */
+    public function quizable()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * Legacy relationship with unit (for backwards compatibility)
+     * @deprecated Use quizable() instead
      */
     public function unit()
     {
-        return $this->belongsTo(Unit::class, 'unit_id');
+        return $this->belongsTo(Unit::class, 'quizable_id')->where('quizable_type', 'App\\Models\\Unit');
     }
 
     /**

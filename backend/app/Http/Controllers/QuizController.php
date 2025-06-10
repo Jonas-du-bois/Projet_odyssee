@@ -289,10 +289,8 @@ class QuizController extends Controller
                     'description' => $instance->quizable->getQuizDescription(),
                     'type' => $instance->quizable_type
                 ];
-            }
-
-            // Ajouter les questions si le quiz est commencé
-            if ($instance->status === 'started') {
+            }            // Ajouter les questions si le quiz est commencé
+            if ($instance->status === 'started' || $instance->status === 'active') {
                 $questions = collect();
                 
                 if ($instance->quizable) {
@@ -311,20 +309,32 @@ class QuizController extends Controller
                         }])
                         ->inRandomOrder()
                         ->limit(10)
-                        ->get();
-                }
-
-                // Formatter les questions pour la réponse
+                        ->get();                }                // Formatter les questions pour la réponse
                 $formattedQuestions = $questions->map(function($question) {
+                    $choices = $question->choices->values(); // S'assurer que les indices sont consécutifs
+                    $correctAnswerIndex = 0;
+                    
+                    // Trouver l'index de la bonne réponse
+                    foreach ($choices as $index => $choice) {
+                        if ($choice->is_correct) {
+                            $correctAnswerIndex = $index;
+                            break;
+                        }
+                    }
+                    
                     return [
                         'id' => $question->id,
-                        'question_text' => $question->statement,
-                        'choices' => $question->choices->map(function($choice) {
+                        'question_text' => $question->question_text,
+                        'statement' => $question->question_text, // Alias pour compatibilité
+                        'choices' => $choices->map(function($choice) {
                             return [
                                 'id' => $choice->id,
-                                'choice_text' => $choice->text
+                                'choice_text' => $choice->text,
+                                'text' => $choice->text // Alias pour compatibilité
                             ];
-                        })
+                        }),
+                        'correct_answer' => $correctAnswerIndex,
+                        'correct_answer_index' => $correctAnswerIndex
                     ];
                 });
 
@@ -467,18 +477,32 @@ class QuizController extends Controller
 
                 $questions = $questionsQuery->inRandomOrder()
                     ->limit(10)
-                    ->get();
-            }            // Formatter les questions pour la réponse
+                    ->get();            }            // Formatter les questions pour la réponse
             $formattedQuestions = $questions->map(function($question) {
+                $choices = $question->choices->values(); // S'assurer que les indices sont consécutifs
+                $correctAnswerIndex = 0;
+                
+                // Trouver l'index de la bonne réponse
+                foreach ($choices as $index => $choice) {
+                    if ($choice->is_correct) {
+                        $correctAnswerIndex = $index;
+                        break;
+                    }
+                }
+                
                 return [
                     'id' => $question->id,
-                    'question_text' => $question->statement, // Utiliser le champ statement
-                    'choices' => $question->choices->map(function($choice) {
+                    'question_text' => $question->question_text,
+                    'statement' => $question->question_text, // Alias pour compatibilité
+                    'choices' => $choices->map(function($choice) {
                         return [
                             'id' => $choice->id,
-                            'choice_text' => $choice->text // Utiliser le champ text
+                            'choice_text' => $choice->text,
+                            'text' => $choice->text // Alias pour compatibilité
                         ];
-                    })
+                    }),
+                    'correct_answer' => $correctAnswerIndex,
+                    'correct_answer_index' => $correctAnswerIndex
                 ];
             });
 
@@ -754,14 +778,13 @@ class QuizController extends Controller
                             'speed_bonus' => $quizInstance->quizType->speed_bonus
                         ]
                     ],
-                    'score' => $quizInstance->userQuizScore,
-                    'answers' => $quizInstance->userAnswers->map(function($answer) {
+                    'score' => $quizInstance->userQuizScore,                    'answers' => $quizInstance->userAnswers->map(function($answer) {
                         return [
                             'question_id' => $answer->question_id,
                             'choice_id' => $answer->choice_id,
                             'is_correct' => $answer->is_correct,
                             'time_taken' => $answer->time_taken,                            'question' => [
-                                'question_text' => $answer->question->statement // Utiliser le champ statement
+                                'question_text' => $answer->question->question_text // Utiliser le champ question_text
                             ],                            'choice' => [
                                 'choice_text' => $answer->choice->text // Utiliser le champ text
                             ]
