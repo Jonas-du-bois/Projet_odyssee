@@ -36,6 +36,7 @@ class Cors
             'http://127.0.0.1:5173',        // Frontend Vue.js (variante)
             'http://127.0.0.1:8000',        // Documentation Scribe
             'http://localhost:8000',        // Documentation Scribe (variante)
+            'https://backend-breitling-league-e1d83468309e.herokuapp.com', // URL Heroku
             'null'                          // Pour les requêtes file://
         ];
         
@@ -52,6 +53,9 @@ class Cors
             // En production, on respecte la liste des origines autorisées
             if (in_array($origin, $allowedOrigins)) {
                 $response->headers->set('Access-Control-Allow-Origin', $origin);
+            } else if (!$origin) {
+                // Si pas d'origine (requêtes API directes), on autorise
+                $response->headers->set('Access-Control-Allow-Origin', '*');
             }
         }
         
