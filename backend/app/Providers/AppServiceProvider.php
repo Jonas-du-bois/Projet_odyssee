@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS en production (pour Heroku)
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
+
         // Configuration des relations polymorphes pour éviter les problèmes d'autoload
         Relation::enforceMorphMap([
             'user' => 'App\Models\User',
