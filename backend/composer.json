@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.10.1",
         "knuckleswtf/scribe": "^5.2",
         "ext-pdo": "*",
-        "ext-pgsql": "*"
+        "ext-pgsql": "*",
+        "ext-intl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
