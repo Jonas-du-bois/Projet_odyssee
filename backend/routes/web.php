@@ -31,6 +31,26 @@ Route::get('/docs-alt', function () {
     }
 });
 
+// Route manuelle pour forcer l'accès à la documentation Scribe si les routes automatiques ne fonctionnent pas
+Route::get('/documentation', function () {
+    try {
+        return view('scribe.index');
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Documentation unavailable',
+            'message' => $e->getMessage(),
+            'debug' => [
+                'view_exists' => file_exists(resource_path('views/scribe/index.blade.php')),
+                'scribe_config' => [
+                    'type' => config('scribe.type'),
+                    'add_routes' => config('scribe.laravel.add_routes'),
+                    'docs_url' => config('scribe.laravel.docs_url')
+                ]
+            ]
+        ], 500);
+    }
+});
+
 // Route de login pour éviter l'erreur de route manquante
 Route::get('/login', function () {
     return response()->json(['message' => 'Use API login endpoint'], 404);
