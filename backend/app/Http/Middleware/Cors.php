@@ -57,11 +57,9 @@ class Cors
             } else if (!$origin) {
                 // Si pas d'origine (requêtes API directes), on autorise sans credentials
                 $response->headers->set('Access-Control-Allow-Origin', '*');
-                $response->headers->set('Access-Control-Allow-Credentials', 'false');
             } else {
                 // Origine non autorisée, on refuse
                 $response->headers->set('Access-Control-Allow-Origin', 'null');
-                $response->headers->set('Access-Control-Allow-Credentials', 'false');
             }
         }
         
