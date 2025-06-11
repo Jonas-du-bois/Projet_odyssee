@@ -50,13 +50,23 @@ class Cors
                 $response->headers->set('Access-Control-Allow-Origin', '*');
             }
         } else {
-            // En production, on est plus permissif pour les requêtes API
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            // En production, on respecte la liste des origines autorisées
+            if (in_array($origin, $allowedOrigins)) {
+                $response->headers->set('Access-Control-Allow-Origin', $origin);
+                $response->headers->set('Access-Control-Allow-Credentials', 'true');
+            } else if (!$origin) {
+                // Si pas d'origine (requêtes API directes), on autorise sans credentials
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+                $response->headers->set('Access-Control-Allow-Credentials', 'false');
+            } else {
+                // Origine non autorisée, on refuse
+                $response->headers->set('Access-Control-Allow-Origin', 'null');
+                $response->headers->set('Access-Control-Allow-Credentials', 'false');
+            }
         }
         
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
         $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('Access-Control-Max-Age', '86400'); // 24 heures
         
         return $response;
