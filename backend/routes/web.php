@@ -18,6 +18,21 @@ Route::get('/docs-test', function () {
     ]);
 });
 
+// Route de debug pour les assets
+Route::get('/debug-assets', function () {
+    return response()->json([
+        'app_url' => config('app.url'),
+        'asset_url' => config('app.asset_url'),
+        'css_url' => asset('/vendor/scribe/css/theme-default.style.css'),
+        'js_url' => asset('/vendor/scribe/js/theme-default-5.2.1.js'),
+        'app_env' => config('app.env'),
+        'files_exist' => [
+            'css' => file_exists(public_path('vendor/scribe/css/theme-default.style.css')),
+            'js' => file_exists(public_path('vendor/scribe/js/theme-default-5.2.1.js'))
+        ]
+    ]);
+});
+
 // Route alternative pour la documentation en cas de problème
 Route::get('/docs-alt', function () {
     try {

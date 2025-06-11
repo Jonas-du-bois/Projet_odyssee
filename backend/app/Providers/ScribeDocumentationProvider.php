@@ -13,9 +13,7 @@ class ScribeDocumentationProvider extends ServiceProvider
     public function register(): void
     {
         //
-    }
-
-    /**
+    }    /**
      * Bootstrap services.
      */
     public function boot(): void
@@ -23,6 +21,11 @@ class ScribeDocumentationProvider extends ServiceProvider
         // Force l'enregistrement des routes de documentation Scribe en production
         if (config('scribe.laravel.add_routes', false)) {
             $this->registerScribeRoutes();
+        }
+
+        // S'assurer que les assets Scribe sont publiés
+        if (config('app.env') === 'production') {
+            $this->ensureScribeAssetsExist();
         }
     }
 
@@ -76,5 +79,32 @@ class ScribeDocumentationProvider extends ServiceProvider
                 return response()->json(['error' => 'OpenAPI spec not found'], 404);
             })->name('scribe.openapi');
         });
+    }
+
+    /**
+     * S'assurer que les assets Scribe existent en production
+     */
+    protected function ensureScribeAssetsExist(): void
+    {
+        $assetsPath = public_path('vendor/scribe');
+        
+        if (!is_dir($assetsPath)) {
+            // Si le dossier n'existe pas, on tente de le créer
+            mkdir($assetsPath, 0755, true);
+        }
+        
+        // Vérifier si les assets principaux existent
+        $cssPath = $assetsPath . '/css/theme-default.style.css';
+        $jsPath = $assetsPath . '/js/theme-default-5.2.1.js';
+        
+        if (!file_exists($cssPath) || !file_exists($jsPath)) {
+            // Regenerer les assets Scribe si nécessaire
+            try {
+                \Artisan::call('scribe:generate');
+            } catch (\Exception $e) {
+                // Log l'erreur mais ne pas bloquer l'application
+                \Log::warning('Could not regenerate Scribe assets: ' . $e->getMessage());
+            }
+        }
     }
 }
