@@ -30,11 +30,11 @@ class Unit extends Model implements Quizable
     }
 
     /**
-     * Relationship with questions
+     * Relationship with questions (polymorphic)
      */
     public function questions()
     {
-        return $this->hasMany(Question::class, 'unit_id');
+        return $this->morphMany(Question::class, 'quizable');
     }
 
     /**
