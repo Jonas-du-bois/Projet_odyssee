@@ -189,6 +189,72 @@ endpoints:
   -
     httpMethods:
       - GET
+    uri: 'api/quiz/instance/{id}'
+    metadata:
+      groupName: Quiz
+      groupDescription: |-
+
+        API pour la gestion des sessions de quiz et des réponses
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Récupérer une instance de quiz spécifique'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {votre-token}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the instance.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "id": 24,
+              "quiz_type_id": 1,
+              "user_id": 1,
+              "status": "started",
+              "launch_date": "2025-06-09T14:30:00",
+              "questions": [...],
+              "quiz_type": {...},
+              "module": {...}
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPzKqmaXBMlxX5yFf8JwNNdJEEHSpeum57Tb536R45e4fe14'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
     uri: api/quiz/stats
     metadata:
       groupName: Quiz

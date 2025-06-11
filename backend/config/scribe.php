@@ -73,7 +73,7 @@ return [
         'assets_directory' => null,
 
         // Middleware to attach to the docs endpoint (if `add_routes` is true).
-        'middleware' => ['cors'],
+        'middleware' => [],
     ],
 
     'external' => [
@@ -150,7 +150,7 @@ AUTH,
         'enabled' => true,
 
         // The base URL to use in the API tester. Leave as null to be the same as the displayed URL (`scribe.base_url`).
-        'base_url' => 'http://127.0.0.1:8000',
+        'base_url' => 'https://backend-breitling-league-e1d83468309e.herokuapp.com/',
 
         // [Laravel Sanctum] Fetch a CSRF token before each request, and add it as an X-XSRF-TOKEN header.
         'use_csrf' => false,
