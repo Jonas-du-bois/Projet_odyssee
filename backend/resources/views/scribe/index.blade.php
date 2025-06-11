@@ -463,7 +463,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -605,7 +604,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -1506,7 +1504,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -1648,7 +1645,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -2666,7 +2662,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -2827,7 +2822,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -3123,7 +3117,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -3739,7 +3732,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -3881,7 +3873,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -4023,7 +4014,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
@@ -6837,7 +6827,6 @@ content-type: application/json
 access-control-allow-origin: *
 access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
 access-control-allow-headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization, Accept, Origin
-access-control-allow-credentials: true
 access-control-max-age: 86400
  </code></pre></details>         <pre>
 
