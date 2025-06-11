@@ -9,12 +9,18 @@ Cette documentation complète couvre tous les aspects du projet Breitling League
 
 ### 🏗️ Architecture
 - **[ARCHITECTURE_BREITLING_LEAGUE.md](ARCHITECTURE_BREITLING_LEAGUE.md)** - Architecture générale du projet
-- **[ARCHITECTURE_IMPROVEMENTS.md](ARCHITECTURE_IMPROVEMENTS.md)** - Améliorations et optimisations récentes
 
 ### 🧩 Système de Quiz
-- **[DOCUMENTATION_QUIZ_SYSTEM.md](DOCUMENTATION_QUIZ_SYSTEM.md)** - Documentation technique du système de quiz
-- **[GUIDE_UTILISATION_QUIZ.md](GUIDE_UTILISATION_QUIZ.md)** - Guide d'utilisation du système de quiz
-- **[REFACTORISATION_QUIZ_RAPPORT_FINAL.md](REFACTORISATION_QUIZ_RAPPORT_FINAL.md)** - Rapport de refactorisation polymorphique
+- **[QUIZ_SYSTEM_COMPLETE.md](QUIZ_SYSTEM_COMPLETE.md)** - Documentation complète du système de quiz (technique + utilisation)
+
+### 🚀 Déploiement
+- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Guide de déploiement complet (Express + Step-by-Step + Production)
+
+### 📊 Migration et Base de Données
+- **[DATABASE_MIGRATION_GUIDE.md](DATABASE_MIGRATION_GUIDE.md)** - Guide complet de migration SQLite → PostgreSQL + Event Listeners
+
+### 📈 Historique du Projet
+- **[PROJECT_HISTORY.md](PROJECT_HISTORY.md)** - Historique complet des évolutions et améliorations
 
 ## 🔧 Architecture Technique
 
