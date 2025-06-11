@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Force HTTPS en production (pour Heroku)
         if (config('app.env') === 'production') {
-            \URL::forceScheme('https');
+            URL::forceScheme('https');
         }
 
         // Configuration des relations polymorphes pour éviter les problèmes d'autoload
