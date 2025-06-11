@@ -17,7 +17,9 @@ return [
 
     // The base URL displayed in the docs.
     // If you're using `laravel` type, you can set this to a dynamic string, like '{{ config("app.tenant_url") }}' to get a dynamic base URL.
-    'base_url' => 'http://127.0.0.1:8000',
+    'base_url' => env('APP_ENV') === 'production' 
+        ? env('APP_URL', 'https://backend-breitling-league-e1d83468309e.herokuapp.com')
+        : 'http://127.0.0.1:8000',
 
     // Routes to include in the docs
     'routes' => [
