@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class ScribeDocumentationProvider extends ServiceProvider
 {
@@ -100,10 +102,10 @@ class ScribeDocumentationProvider extends ServiceProvider
         if (!file_exists($cssPath) || !file_exists($jsPath)) {
             // Regenerer les assets Scribe si nécessaire
             try {
-                \Artisan::call('scribe:generate');
+                Artisan::call('scribe:generate');
             } catch (\Exception $e) {
                 // Log l'erreur mais ne pas bloquer l'application
-                \Log::warning('Could not regenerate Scribe assets: ' . $e->getMessage());
+                Log::warning('Could not regenerate Scribe assets: ' . $e->getMessage());
             }
         }
     }
