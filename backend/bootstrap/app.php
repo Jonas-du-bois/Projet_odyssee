@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
          * - Cors: Gestion des en-têtes Cross-Origin Resource Sharing
          */
         $middleware->api(prepend: [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \App\Http\Middleware\Cors::class,
         ]);
         

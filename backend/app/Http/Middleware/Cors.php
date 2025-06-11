@@ -50,13 +50,8 @@ class Cors
                 $response->headers->set('Access-Control-Allow-Origin', '*');
             }
         } else {
-            // En production, on respecte la liste des origines autorisées
-            if (in_array($origin, $allowedOrigins)) {
-                $response->headers->set('Access-Control-Allow-Origin', $origin);
-            } else if (!$origin) {
-                // Si pas d'origine (requêtes API directes), on autorise
-                $response->headers->set('Access-Control-Allow-Origin', '*');
-            }
+            // En production, on est plus permissif pour les requêtes API
+            $response->headers->set('Access-Control-Allow-Origin', '*');
         }
         
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
