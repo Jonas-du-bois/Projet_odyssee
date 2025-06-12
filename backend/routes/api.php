@@ -39,6 +39,10 @@ Route::middleware('cors')->group(function () {
     // Connexion d'un utilisateur
     Route::post('/login', [AuthController::class, 'login']);
     
+    // Routes de debug temporaires
+    Route::get('/debug/database-status', [App\Http\Controllers\DebugController::class, 'databaseStatus']);
+    Route::post('/debug/seed-questions', [App\Http\Controllers\DebugController::class, 'seedQuestions']);
+    
     /**
      * Route pour gérer les requêtes OPTIONS (pre-flight) nécessaires pour CORS
      */    Route::options('/{any}', function() {
