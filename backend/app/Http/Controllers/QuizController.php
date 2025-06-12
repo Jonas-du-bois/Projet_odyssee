@@ -835,8 +835,7 @@ class QuizController extends Controller
     /**
      * Résoudre le module quizable selon son type
      * Clean Code : utilise la morph map pour résoudre les classes
-     */
-    private function resolveQuizable(string $quizableType, int $quizableId)
+     */    private function resolveQuizable(string $quizableType, int $quizableId)
     {
         // Utiliser la morph map pour résoudre le bon modèle
         $morphMap = \Illuminate\Database\Eloquent\Relations\Relation::$morphMap ?? [];
@@ -851,8 +850,25 @@ class QuizController extends Controller
             return null;
         }
 
-        return $modelClass::find($quizableId);
-    }    /**
+        // Charger les relations nécessaires selon le type de module
+        $with = [];
+        switch ($quizableType) {
+            case 'discovery':
+                $with = ['chapter.units.questions.choices'];
+                break;
+            case 'unit':
+                $with = ['questions.choices'];
+                break;
+            case 'event':
+            case 'weekly':
+            case 'novelty':
+            case 'reminder':
+                $with = ['questions.choices'];
+                break;
+        }
+
+        return $modelClass::with($with)->find($quizableId);
+    }/**
      * Calculer les statistiques des quiz d'un utilisateur
      */
     private function calculateUserQuizStats($instances)
