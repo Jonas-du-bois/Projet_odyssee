@@ -17,8 +17,7 @@ class HerokuProductionSeeder extends Seeder
         Log::info('Début du seeding pour production Heroku');
 
         // Désactiver temporairement les événements pour éviter les conflits durant le seeding
-        $this->disableEvents();        try {
-            // Seeder les données de base dans l'ordre des dépendances
+        $this->disableEvents();        try {            // Seeder les données de base dans l'ordre des dépendances
             $this->call([
                 // Tables indépendantes en premier
                 RankSeeder::class,
@@ -28,8 +27,7 @@ class HerokuProductionSeeder extends Seeder
                 // Tables avec dépendances
                 UserSeeder::class, // Utilisateurs essentiels pour le système
                 UnitSeeder::class, // Unités de formation
-                QuestionSeeder::class, // Questions pour les quiz
-                ChoiceSeeder::class, // Choix des questions
+                QuestionChoiceSeeder::class, // Questions ET choix optimisés pour PostgreSQL
                 
                 // Données essentielles de production
                 DiscoverySeeder::class, // Découvertes disponibles
