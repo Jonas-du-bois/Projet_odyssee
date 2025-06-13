@@ -300,33 +300,31 @@ class QuizController extends Controller
                         'quiz_mode' => $instance->quiz_mode,
                         'user' => Auth::user()
                     ];
-                    $questions = $instance->quizable->getQuestions($questionOptions);                } else {
+                    $questions = $instance->quizable->getQuestions($questionOptions);
+                } else {
                     // Questions liées aux unités via le système polymorphique
-                    if ($instance->quizable_type === 'App\Models\Unit' && $instance->quizable_id) {
-                        // Questions spécifiques à l'unité
-                        $questions = Question::where('quizable_type', 'App\Models\Unit')
+                    if ($instance->quizable_type === 'App\\\\Models\\\\Unit' && $instance->quizable_id) {
+                        // Questions spécifiques à l\'unité
+                        $questions = Question::where('quizable_type', 'App\\\\Models\\\\Unit')
                             ->where('quizable_id', $instance->quizable_id)
-                            ->with(['choices' => function($query) {
-                                $query->select('id', 'question_id', 'text');
-                            }])
+                            ->with('choices') // Charger tous les attributs des choix
                             ->inRandomOrder()
                             ->limit(10)
                             ->get();
                     } else {
                         // Questions générales (toutes les questions disponibles)
-                        $questions = Question::with(['choices' => function($query) {
-                                $query->select('id', 'question_id', 'text');
-                            }])
+                        $questions = Question::with('choices') // Charger tous les attributs des choix
                             ->inRandomOrder()
                             ->limit(10)
                             ->get();
                     }
-                }// Formatter les questions pour la réponse
+                }
+                // Formatter les questions pour la réponse
                 $formattedQuestions = $questions->map(function($question) {
-                    $choices = $question->choices->values(); // S'assurer que les indices sont consécutifs
+                    $choices = $question->choices->values(); // S\'assurer que les indices sont consécutifs
                     $correctAnswerIndex = 0;
                     
-                    // Trouver l'index de la bonne réponse
+                    // Trouver l\'index de la bonne réponse
                     foreach ($choices as $index => $choice) {
                         if ($choice->is_correct) {
                             $correctAnswerIndex = $index;
@@ -417,7 +415,8 @@ class QuizController extends Controller
      */
     public function start(Request $request): JsonResponse
     {
-        try {            $validator = Validator::make($request->all(), [
+        try {
+            $validator = Validator::make($request->all(), [
                 'quiz_type_id' => 'required|exists:quiz_types,id',
                 'unit_id' => 'nullable|exists:units,id', // Support pour unit_id
                 'quizable_type' => 'nullable|string|in:unit,discovery,event,weekly,novelty,reminder',
@@ -431,112 +430,125 @@ class QuizController extends Controller
                     'success' => false,
                     'errors' => $validator->errors()
                 ], 422);
-            }            $quizType = QuizType::findOrFail($request->quiz_type_id);
+            }
+
+            $user = Auth::user();
+            $quizType = QuizType::findOrFail($request->quiz_type_id);
             
             // Résoudre le module quizable si spécifié
-            $quizable = null;
-            $quizableType = null;
-            $quizableId = null;
-            
-            // Si unit_id est fourni, convertir en format polymorphique
-            if ($request->unit_id) {
-                $quizableType = 'App\Models\Unit';
-                $quizableId = $request->unit_id;
-                $quizable = \App\Models\Unit::find($request->unit_id);
-            } else if ($request->quizable_type && $request->quizable_id) {
-                $quizable = $this->resolveQuizable($request->quizable_type, $request->quizable_id);
-                $quizableType = $request->quizable_type;
-                $quizableId = $request->quizable_id;
-            }
-            
-            if (($request->unit_id || ($request->quizable_type && $request->quizable_id)) && !$quizable) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Module quiz non trouvé'
-                ], 404);
-            }
+            $quizableEntity = null;
+            $quizableTypeString = null; // Pour stocker la chaîne de type comme 'App\\Models\\Unit'
 
-            // Vérifier la disponibilité si applicable
-            if ($quizable && method_exists($quizable, 'isAvailable') && !$quizable->isAvailable(Auth::user())) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Ce quiz n\'est pas disponible actuellement'
-                ], 403);
-            }            // Créer une instance de quiz avec la nouvelle structure polymorphique
-            $quizInstance = QuizInstance::create([
-                'user_id' => Auth::id(),
-                'quiz_type_id' => $request->quiz_type_id,
-                'quizable_type' => $quizableType,
-                'quizable_id' => $quizableId,
-                'quiz_mode' => $request->quiz_mode ?? ($quizable && method_exists($quizable, 'getDefaultQuizMode') ? $quizable->getDefaultQuizMode() : 'standard'),
-                'launch_date' => now(),
-                'status' => 'started',
-            ]);            // Récupérer les questions en utilisant la nouvelle approche polymorphique
-            $questions = collect();
-            
-            if ($quizable && method_exists($quizable, 'getQuestions')) {
-                // Questions spécifiques au module
-                $questionOptions = [
-                    'quiz_type_id' => $request->quiz_type_id,
-                    'quiz_mode' => $quizInstance->quiz_mode,
-                    'user' => Auth::user()
-                ];
-                $questions = $quizable->getQuestions($questionOptions);
-            } else {
-                // Questions liées au système polymorphique
-                if ($quizableType && $quizableId) {
-                    $questionsQuery = Question::where('quizable_type', $quizableType)
-                        ->where('quizable_id', $quizableId)
-                        ->with(['choices' => function($query) {
-                            $query->select('id', 'question_id', 'text'); // Utiliser le champ text
-                        }]);
+            if ($request->filled('unit_id')) { // Priorité à unit_id pour la compatibilité
+                $quizableEntity = Unit::find($request->unit_id);
+                if ($quizableEntity) {
+                    $quizableTypeString = 'App\\\\Models\\\\Unit';
+                }
+            } elseif ($request->filled('quizable_type') && $request->filled('quizable_id')) {
+                $quizableClass = $this->mapQuizableTypeToClass($request->quizable_type);
+                if ($quizableClass) {
+                    $quizableEntity = $quizableClass::find($request->quizable_id);
+                    if ($quizableEntity) {
+                        $quizableTypeString = $quizableClass;
+                    }
                 } else {
-                    // Fallback : toutes les questions disponibles
-                    $questionsQuery = Question::with(['choices' => function($query) {
-                            $query->select('id', 'question_id', 'text'); // Utiliser le champ text
-                        }]);
+                    return response()->json(['success' => false, 'message' => 'Type de module quizable non valide.'], 400);
                 }
+            }
 
-                // Backward compatibility pour chapter_id
-                if ($request->chapter_id) {
-                    $questionsQuery->where('chapter_id', $request->chapter_id);
+            if (($request->filled('unit_id') || ($request->filled('quizable_type') && $request->filled('quizable_id'))) && !$quizableEntity) {
+                return response()->json(['success' => false, 'message' => 'Module quiz non trouvé.'], 404);
+            }
+            
+            // Logique de compatibilité ascendante pour chapter_id si quizable_type n\'est pas fourni
+            // et qu\'aucun quizableEntity n\'a été trouvé via unit_id ou quizable_type/quizable_id
+            $questions = collect();
+
+            if (!$quizableEntity && $request->filled('chapter_id')) {
+                $chapter = Chapter::find($request->chapter_id);
+                if ($chapter) {
+                    // Récupérer des questions de toutes les unités du chapitre.
+                    $questions = Question::whereHasMorph('quizable', [Unit::class], function ($query) use ($request) {
+                        $query->where('chapter_id', $request->chapter_id);
+                    })
+                    ->with('choices') // Charger tous les attributs des choix
+                    ->inRandomOrder()
+                    ->limit(10) 
+                    ->get();
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Chapitre non trouvé.'], 404);
                 }
-
-                $questions = $questionsQuery->inRandomOrder()
+            } elseif ($quizableEntity) {
+                 // Récupérer les questions pour le quizableEntity identifié
+                if (method_exists($quizableEntity, 'getQuestions')) {
+                    $options = [
+                        'quiz_type_id' => $quizType->id,
+                        'quiz_mode' => $request->quiz_mode ?? 'standard',
+                        'user' => $user
+                    ];
+                    $questions = $quizableEntity->getQuestions($options);
+                } else { // Cas spécifique pour Unit ou autre modèle si getQuestions n\'est pas utilisé/défini
+                    $questions = Question::where('quizable_type', $quizableTypeString) // Utilise la chaîne de type correcte
+                        ->where('quizable_id', $quizableEntity->id)
+                        ->with('choices')
+                        ->inRandomOrder()
+                        ->limit(10) 
+                        ->get();
+                }
+            } else {
+                // Fallback: questions générales si aucun module spécifique n\'est trouvé ou applicable
+                $questions = Question::with('choices')
+                    ->inRandomOrder()
                     ->limit(10)
                     ->get();
-            }// Formatter les questions pour la réponse
+            }
+
+            if ($questions->isEmpty()) {
+                 return response()->json(['success' => false, 'message' => 'Aucune question trouvée pour ce module ou chapitre.'], 404);
+            }
+            
+            // Créer une instance de quiz
+            $quizInstance = QuizInstance::create([
+                'user_id' => $user->id,
+                'quiz_type_id' => $quizType->id,
+                'quizable_type' => $quizableEntity ? $quizableTypeString : null, // Stocke le type de classe complet
+                'quizable_id' => $quizableEntity ? $quizableEntity->id : null,
+                'quiz_mode' => $request->quiz_mode ?? ($quizableEntity && method_exists($quizableEntity, 'getDefaultQuizMode') ? $quizableEntity->getDefaultQuizMode() : 'standard'),
+                'launch_date' => now(),
+                'status' => 'started',
+                // Si chapter_id a été utilisé pour trouver des questions sans quizable direct, on pourrait le stocker ici aussi.
+                // 'chapter_id' => !$quizableEntity && $request->filled('chapter_id') ? $request->chapter_id : null, 
+            ]);
+
+            // Formatter les questions pour la réponse
             $formattedQuestions = $questions->map(function($question) {
-                $choices = $question->choices->values(); // S'assurer que les indices sont consécutifs
-                $correctAnswerIndex = 0;
-                
-                // Trouver l'index de la bonne réponse
-                foreach ($choices as $index => $choice) {
-                    if ($choice->is_correct) {
-                        $correctAnswerIndex = $index;
-                        break;
-                    }
-                }
-                
+                $choices = $question->choices->values();
+                $correctAnswerIndex = $choices->search(function($choice) {
+                    return $choice->is_correct;
+                });
+                 // Si aucune réponse correcte n\'est explicitement marquée (ce qui ne devrait pas arriver avec un bon seeder),
+                // on pourrait définir un comportement par défaut ou logger une erreur. Pour l\'instant, on laisse à false ou 0.
+                $correctAnswerIndex = $correctAnswerIndex === false ? 0 : $correctAnswerIndex;
+
                 return [
                     'id' => $question->id,
                     'question_text' => $question->question_text,
-                    'statement' => $question->question_text, // Alias pour compatibilité
+                    'statement' => $question->question_text,
                     'choices' => $choices->map(function($choice) {
                         return [
                             'id' => $choice->id,
                             'choice_text' => $choice->text,
-                            'text' => $choice->text // Alias pour compatibilité
+                            'text' => $choice->text
                         ];
                     }),
-                    'correct_answer' => $correctAnswerIndex,
-                    'correct_answer_index' => $correctAnswerIndex
+                    'correct_answer' => $correctAnswerIndex, // L\'index de la bonne réponse
+                    'correct_answer_index' => $correctAnswerIndex // Pour compatibilité
                 ];
             });
 
-            // Préparer la réponse
             $responseData = [
-                'quiz_instance_id' => $quizInstance->id,                'quiz_type' => [
+                'quiz_instance_id' => $quizInstance->id,
+                'quiz_type' => [
                     'id' => $quizType->id,
                     'name' => $quizType->name,
                     'base_points' => $quizType->base_points,
@@ -549,15 +561,20 @@ class QuizController extends Controller
                 'time_limit' => 300 // 5 minutes par défaut
             ];
 
-            // Ajouter les informations du module si présent
-            if ($quizable) {
+            if ($quizableEntity) {
                 $responseData['quizable'] = [
-                    'id' => $quizable->id,
-                    'title' => $quizable->getQuizTitle(),
-                    'description' => $quizable->getQuizDescription(),
-                    'type' => $request->quizable_type
+                    'id' => $quizableEntity->id,
+                    'title' => $quizableEntity->getQuizTitle(), // Assurez-vous que cette méthode existe sur vos modèles quizables
+                    'description' => $quizableEntity->getQuizDescription(), // Assurez-vous que cette méthode existe
+                    'type' => $request->quizable_type ?? ($request->unit_id ? 'unit' : null) // type court comme \'unit\', \'discovery\'
+                ];
+            } elseif ($request->filled('chapter_id') && isset($chapter)) {
+                 $responseData['chapter'] = [ // Info supplémentaire si le quiz est basé sur un chapitre
+                    'id' => $chapter->id,
+                    'title' => $chapter->title
                 ];
             }
+
 
             return response()->json([
                 'success' => true,
@@ -565,16 +582,32 @@ class QuizController extends Controller
                 'data' => $responseData
             ]);
         } catch (\Exception $e) {
+            Log::error("Erreur lors du démarrage du quiz: " . $e->getMessage() . " Stack: " . $e->getTraceAsString());
             return response()->json([
                 'success' => false,
-                'message' => 'Erreur lors du démarrage du quiz',
-                'error' => $e->getMessage()
+                'message' => 'Erreur lors du démarrage du quiz.', // Message générique pour l'utilisateur
+                'error' => $e->getMessage() // Peut être omis en production pour la sécurité
             ], 500);
         }
     }
 
+    // Helper pour mapper le type court (ex: \'unit\') à la classe complète (ex: \'App\\Models\\Unit\')
+    private function mapQuizableTypeToClass(string $type): ?string
+    {
+        $map = [
+            'unit' => Unit::class,
+            'discovery' => Discovery::class,
+            'event' => Event::class,
+            'weekly' => Weekly::class,
+            'novelty' => Novelty::class,
+            'reminder' => Reminder::class,
+            // Ajoutez d\'autres types si nécessaire
+        ];
+        return $map[strtolower($type)] ?? null;
+    }
+
     /**
-     * Soumettre les réponses d'un quiz
+     * Soumettre les réponses d\'un quiz
      *
      * @bodyParam quiz_instance_id integer required L'ID de l'instance de quiz. Example: 123
      * @bodyParam answers array required Les réponses du quiz.

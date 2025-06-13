@@ -5,17 +5,22 @@ namespace Database\Seeders;
 use App\Models\Question;
 use App\Models\Choice;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class QuestionSeeder extends Seeder
-{
-    /**
+class QuestionSeederNew extends Seeder
+{    /**
      * Run the database seeds.
      */
     public function run(): void
-    {
+    {        // Désactiver les contraintes de clé étrangère temporairement
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        
         // Vider d'abord les questions et choix existants pour éviter les doublons
         Choice::truncate();
         Question::truncate();
+        
+        // Réactiver les contraintes de clé étrangère
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         
         // Définir les questions avec leurs choix
         $questionsData = [

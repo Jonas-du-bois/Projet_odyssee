@@ -180,7 +180,14 @@ test-api:
 
 ## 🔧 Corrections et Améliorations Récentes
 
-### ✅ Endpoints Corrigés
+### ✅ Version 3.2 - Gestion Améliorée des Formats
+- **Détection intelligente** : Reconnaissance automatique des formats de questions et réponses
+- **Structures alternatives** : Support des différentes clés (`choiceText` vs. `text`, etc.)
+- **Recherche avancée** : Exploration des différentes structures de réponse de l'API
+- **Diagnostic détaillé** : Informations complètes en cas d'absence de questions
+- **Débogage enrichi** : Affichage des structures de données pour résolution de problèmes
+
+### ✅ Version 3.1 - Endpoints Corrigés
 - **Quiz Types** : Correction de `/quiz-types` → `/quiz/types` (endpoint réel)
 - **Quiz Instance** : Correction de `/quiz/{id}` → `/quiz/instance/{id}` (format correct)
 
@@ -193,13 +200,15 @@ test-api:
 - **Questions intégrées** : Les questions viennent directement de l'endpoint `/quiz/start`
 - **Pas de fallback** : Aucune création de données factices, erreurs transparentes
 - **Format réel** : Respect du format exact des réponses du backend Laravel
+- **Adaptabilité** : Détection automatique de différentes structures de données
 
 ### 🎯 Impact des Corrections
-Ces corrections garantissent que :
+Ces améliorations garantissent que :
 1. **Les tests reflètent la réalité** : Plus de données artificielles masquant les problèmes
-2. **Les erreurs sont visibles** : Identification claire des problèmes d'API
-3. **Le format est correct** : Utilisation des vrais endpoints et structures de données
-4. **L'intégration est validée** : Test authentique de l'intégration frontend-backend
+2. **Adaptabilité universelle** : Support de tous les formats de données API possibles
+3. **Diagnostic précis** : Identification claire de la source des problèmes
+4. **Compatibilité totale** : Flexibilité face aux évolutions des endpoints et formats
+5. **Débogage facilité** : Informations détaillées pour les développeurs
 
 ## 📚 Documentation Liée
 
@@ -213,7 +222,8 @@ Ces corrections garantissent que :
 - **Version 2.0** : Intégration complète des services frontend et affichage des données utilisateur
 - **Version 3.0** : Ajout de la simulation complète de quiz en 8 étapes avec gestion robuste des erreurs
 - **Version 3.1** : Corrections des endpoints réels et suppression des données factices
+- **Version 3.2** : Détection intelligente des formats et diagnostic amélioré
 
 ---
 
-*Documentation mise à jour le 11 juin 2025 - Version 3.1 avec Endpoints Corrigés et Données Authentiques*
+*Documentation mise à jour le 12 juin 2025 - Version 3.2 avec Gestion Améliorée des Formats & Robustesse*
