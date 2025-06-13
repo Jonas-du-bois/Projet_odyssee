@@ -13,30 +13,23 @@ class QuestionChoiceSeeder extends Seeder
         // Optimisé pour PostgreSQL (Heroku)
         echo "🔄 Nettoyage des tables...\n";
         
-        // Désactiver les contraintes selon le type de base de données
-        $driver = DB::getDriverName();
+        // Heroku PostgreSQL ne permet pas session_replication_role
+        // On supprime simplement les enregistrements existants
+        echo "📊 Base PostgreSQL Heroku détectée\n";
         
-        if ($driver === 'pgsql') {
-            // PostgreSQL (Heroku)
-            echo "📊 Base PostgreSQL détectée\n";
-            DB::statement('SET session_replication_role = replica;');
+        try {
             Choice::query()->delete();
             Question::query()->delete();
-            DB::statement("SELECT setval(pg_get_serial_sequence('questions', 'id'), 1, false);");
-            DB::statement("SELECT setval(pg_get_serial_sequence('choices', 'id'), 1, false);");
-            DB::statement('SET session_replication_role = DEFAULT;');
-        } else {
-            // SQLite (local) - gestion basique
-            echo "📊 Base SQLite détectée (local)\n";
+            
+            // Reset auto-increment si possible (optionnel sur Heroku)
             try {
-                DB::statement('PRAGMA foreign_keys = OFF;');
-                Choice::query()->delete();
-                Question::query()->delete();
-                DB::statement('PRAGMA foreign_keys = ON;');
+                DB::statement("SELECT setval(pg_get_serial_sequence('questions', 'id'), 1, false);");
+                DB::statement("SELECT setval(pg_get_serial_sequence('choices', 'id'), 1, false);");
             } catch (\Exception $e) {
-                echo "⚠️ Erreur SQLite (normale en local): " . $e->getMessage() . "\n";
-                return; // Arrêter ici pour SQLite
+                echo "⚠️ Reset sequence ignoré: " . $e->getMessage() . "\n";
             }
+        } catch (\Exception $e) {
+            echo "⚠️ Erreur de nettoyage: " . $e->getMessage() . "\n";
         }
         
         echo "✅ Tables nettoyées, création des questions...\n";
